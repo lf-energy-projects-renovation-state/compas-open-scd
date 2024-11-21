@@ -19,7 +19,7 @@
     "./dist/**"
   ],
   "dependencies": {
-    "lit": "^2.2.7",
+    "lit": "^3.0.0",
     "@openscd/core": "*"
   },
   "//": {
