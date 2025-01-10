@@ -16,9 +16,9 @@
   },
   "license": "Apache-2.0",
   "devDependencies": {
-    "nx": "18.3.4"
+    "nx": "18.3.5"
   },
   "optionalDependencies": {
-    "@nx/nx-linux-x64-gnu": "18.3.4"
+    "@nx/nx-linux-x64-gnu": "18.3.5"
   }
 }
