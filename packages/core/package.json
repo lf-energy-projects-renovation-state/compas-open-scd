@@ -4,7 +4,7 @@
   "description": "The core editor component of open-scd, without any extensions pre-installed.",
   "author": "Open-SCD",
   "license": "Apache-2.0",
-  "packageManager": "npm@8.12.2",
+  "packageManager": "npm@10.9.2",
   "type": "module",
   "browser": "./dist/foundation.js",
   "main": "./dist/foundation.js",
