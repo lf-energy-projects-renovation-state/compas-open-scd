@@ -57,7 +57,7 @@
     "concurrently": "^7.3.0",
     "es-dev-server": "^2.1.0",
     "eslint": "^8.20.0",
-    "eslint-config-prettier": "^8.5.0",
+    "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-tsdoc": "^0.2.16",
     "fast-check": "^3.1.1",
     "gh-pages": "^4.0.0",
