@@ -75,8 +75,8 @@
     "start": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && snowpack dev"
   },
   "devDependencies": {
-    "@commitlint/cli": "^13.1.0",
-    "@commitlint/config-conventional": "^13.1.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0",
     "@open-wc/eslint-config": "^4.3.0",
     "@open-wc/semantic-dom-diff": "^0.19.5",
     "@open-wc/testing": "^2.5.33",
