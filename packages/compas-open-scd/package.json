@@ -19,7 +19,7 @@
   "type": "module",
   "dependencies": {
     "@material/mwc-dialog": "0.22.1",
-    "@material/mwc-drawer": "0.22.1",
+    "@material/mwc-drawer": "0.27.0",
     "@material/mwc-fab": "0.22.1",
     "@material/mwc-formfield": "0.22.1",
     "@material/mwc-icon": "0.22.1",
