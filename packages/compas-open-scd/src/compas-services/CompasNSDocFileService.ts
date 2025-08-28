@@ -6,95 +6,236 @@ interface NsDocFile {
   name: string;
 }
 
-// Temporary solution to map to the old logic
-const nsDocfiles: NsDocFile[] = [
-  {
-    filename: 'IEC_61850-7-2_2007B3-en.nsdoc',
-    name: 'IEC 61850-7-2',
-    id: '87e5bed8-2f27-4006-8673-f9d00b0a5426',
-  },
-  {
-    filename: 'IEC_61850-7-3_2007B3-en.nsdoc',
-    name: 'IEC_61850-7-3',
-    id: '315b02ac-c4aa-4495-9b4f-f7175a75c315',
-  },
-  {
-    filename: 'IEC_61850-7-4_2007B3-en.nsdoc',
-    name: 'IEC 61850-7-4',
-    id: 'da1b2ca0-1263-4b10-9b16-2f148ae3a1f1',
-  },
-  {
-    filename: 'IEC_61850-8-1_2003A2-en.nsdoc',
-    name: 'IEC 61850-8-1',
-    id: '0c052ea7-a010-4ca8-b2c7-caa665cabc46',
-  },
-];
+interface NsDocFileInfo {
+  id: string;
+  version: string;
+  revision: string;
+  release: string;
+  filename: string;
+  fullVersion: string;
+}
 
-const createElement = (
-  name: string,
-  textContent: string,
-  document: XMLDocument
-): Element => {
-  const element: Element = document.createElement(name);
-  element.textContent = textContent;
+interface NsDocFileResponse {
+  id: string;
+  nsdocId: string;
+  filename: string;
+  checksum: string;
+}
 
-  return element;
-};
+interface NsDocListResponse {
+  files: NsDocFileResponse[];
+}
 
-/** TODO: Make this return JSON  */
-export function CompasNSDocFileService() {
+interface NsdocContentResponse {
+  content: string;
+}
+
+function generateIdFromName(name: string): string {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) {
+    const char = name.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  
+  const hashStr = Math.abs(hash).toString(16).padStart(8, '0');
+  return `${hashStr.slice(0, 8)}-${hashStr.slice(0, 4)}-4${hashStr.slice(1, 4)}-${hashStr.slice(0, 4)}-${hashStr}${hashStr.slice(0, 4)}`;
+}
+
+function parseVersionNumber(version: string, revision: string, release: string): number {
+  const versionNum = parseInt(version) || 0;
+  const revisionNum = revision.charCodeAt(0) - 65;
+  const releaseNum = parseInt(release) || 0;
+  
+  return versionNum * 1000000 + revisionNum * 1000 + releaseNum;
+}
+
+function parseNsDocFilename(filename: string): NsDocFileInfo | null {
+  const match = filename.match(/^IEC_61850-([0-9]+-[0-9]+)_(\d{4})([A-Z])(\d+)-en\.nsdoc$/);
+  if (match) {
+    const [, standardPart, version, revision, release] = match;
+    const id = `IEC 61850-${standardPart}`;
+    const fullVersion = `${version}${revision}${release}`;
+    
+    return {
+      id,
+      version,
+      revision,
+      release,
+      filename,
+      fullVersion
+    };
+  }
+  return null;
+}
+
+async function isValidNsDocFile(filename: string): Promise<boolean> {
+  try {
+    const response = await fetch(`/public/nsdoc/${filename}`);
+    if (!response.ok) {
+      return false;
+    }
+    
+    const content = await response.text();
+    const doc = new DOMParser().parseFromString(content, 'text/xml');
+    const nsElement = doc.querySelector('NSDoc');
+    const xmlns = nsElement?.getAttribute('xmlns');
+    
+    return xmlns === 'http://www.iec.ch/61850/2016/NSD';
+  } catch (error) {
+    return false;
+  }
+}
+
+
+// Get NSDOC files from manifest.json
+async function getNsDocFilesFromManifest(): Promise<string[]> {
+  try {
+    const manifestResponse = await fetch('/public/nsdoc/manifest.json');
+    if (!manifestResponse.ok) {
+      return [];
+    }
+    
+    const manifest = await manifestResponse.json();
+    if (!Array.isArray(manifest)) {
+      return [];
+    }
+    
+    const nsdocFiles = manifest.filter((filename: unknown) => 
+      typeof filename === 'string' && filename.endsWith('-en.nsdoc')
+    ) as string[];
+    
+    return nsdocFiles;
+    
+  } catch (error) {
+    return [];
+  }
+}
+
+// Discover NSDOC files using pattern-based approach (fallback)
+async function getNsDocFilesByPattern(): Promise<string[]> {  
+  const standards = ['7-2', '7-3', '7-4', '8-1'];
+  const versions = ['2003A2', '2007B3', '2007B4', '2007B5'];
+  
+  const potentialFiles: string[] = [];
+  for (const standard of standards) {
+    for (const version of versions) {
+      potentialFiles.push(`IEC_61850-${standard}_${version}-en.nsdoc`);
+    }
+  }
+  
+  const testPromises = potentialFiles.map(async (filename) => {
+    try {
+      const response = await fetch(`/public/nsdoc/${filename}`);
+      return response.ok ? filename : null;
+    } catch (e) {
+      return null;
+    }
+  });
+  
+  const existingFiles = await Promise.all(testPromises);
+  const discoveredFiles = existingFiles.filter((filename): filename is string => filename !== null);
+  
+  return discoveredFiles;
+}
+
+async function parseAndValidateNsDocFiles(filenames: string[]): Promise<NsDocFileInfo[]> {
+  const parsedFiles: NsDocFileInfo[] = [];
+  
+  for (const filename of filenames) {
+    const fileInfo = parseNsDocFilename(filename);
+    if (fileInfo) {
+      const isValid = await isValidNsDocFile(filename);
+      if (isValid) {
+        parsedFiles.push(fileInfo);
+      } else {
+        console.warn(`Skipping invalid NSDOC file: ${filename} (missing or incorrect schema)`);
+      }
+    }
+  }
+  
+  return parsedFiles;
+}
+
+function selectLatestVersions(parsedFiles: NsDocFileInfo[]): NsDocFile[] {
+  const standardsMap = new Map<string, NsDocFileInfo>();
+  
+  for (const fileInfo of parsedFiles) {
+    const currentFileInMap = standardsMap.get(fileInfo.id);
+    
+    if (!currentFileInMap) {
+      standardsMap.set(fileInfo.id, fileInfo);
+    } else {
+      const currentVersionNum = parseVersionNumber(currentFileInMap.version, currentFileInMap.revision, currentFileInMap.release);
+      const newVersionNum = parseVersionNumber(fileInfo.version, fileInfo.revision, fileInfo.release);
+      
+      if (newVersionNum > currentVersionNum) {
+        standardsMap.set(fileInfo.id, fileInfo);
+      }
+    }
+  }
+  
+  return Array.from(standardsMap.values()).map(fileInfo => ({
+    filename: fileInfo.filename,
+    name: fileInfo.id,
+    id: generateIdFromName(fileInfo.id + fileInfo.fullVersion)
+  }));
+}
+
+async function getNsDocFiles(): Promise<NsDocFile[]> {
+  try {
+    let nsdocFiles = await getNsDocFilesFromManifest();
+    if (nsdocFiles.length === 0) {
+      nsdocFiles = await getNsDocFilesByPattern();
+    }
+    
+    if (nsdocFiles.length === 0) {
+      console.warn('No NSDOC files found using either manifest or pattern-based discovery');
+      return [];
+    }
+    
+    const parsedFiles = await parseAndValidateNsDocFiles(nsdocFiles);
+
+    return selectLatestVersions(parsedFiles);
+  } catch (error) {
+    console.error('Failed to load NSDOC files:', error);
+    return [];
+  }
+}
+
+export function CompasNSDocFileService(): {
+  listNsdocFiles(): Promise<NsDocListResponse>;
+  getNsdocFile(id: string): Promise<NsdocContentResponse>;
+} {
   return {
-    listNsdocFiles(): Promise<Document> {
-      const document: XMLDocument = new DOMParser().parseFromString(
-        '<NsdocListResponse></NsdocListResponse>',
-        'text/xml'
-      );
-
-      nsDocfiles.forEach(nsDocFile => {
-        const nsDocFileElement: Element = document.createElement('NsdocFile');
-
-        nsDocFileElement.appendChild(
-          createElement('Id', nsDocFile.id, document)
-        );
-        nsDocFileElement.appendChild(
-          createElement('NsdocId', nsDocFile.name, document)
-        );
-        nsDocFileElement.appendChild(
-          createElement('Checksum', nsDocFile.id, document)
-        );
-        nsDocFileElement.appendChild(
-          createElement('Filename', nsDocFile.filename, document)
-        );
-
-        document
-          .querySelector('NsdocListResponse')!
-          .appendChild(nsDocFileElement);
-      });
-
-      return Promise.resolve(document);
+    async listNsdocFiles(): Promise<NsDocListResponse> {
+      const nsDocFiles = await getNsDocFiles();
+      
+      return {
+        files: nsDocFiles.map((nsDocFile: NsDocFile) => ({
+          id: nsDocFile.id,
+          nsdocId: nsDocFile.name,
+          filename: nsDocFile.filename,
+          checksum: nsDocFile.id
+        }))
+      };
     },
 
-    getNsdocFile(id: string): Promise<Document> {
-      const nsDocFile: NsDocFile = nsDocfiles.find(f => f.id === id)!;
+    async getNsdocFile(id: string): Promise<NsdocContentResponse> {
+      const nsDocFiles = await getNsDocFiles();
+      const nsDocFile: NsDocFile | undefined = nsDocFiles.find((f: NsDocFile) => f.id === id);
 
       if (!nsDocFile) {
         return Promise.reject(`Unable to find nsDoc file with id ${id}`);
       }
-      return fetch(`./public/nsdoc/${nsDocFile.filename}`)
+      
+      const content = await fetch(`/public/nsdoc/${nsDocFile.filename}`)
         .catch(handleError)
-        .then(handleResponse)
-        .then(res => {
-          const document: XMLDocument = new DOMParser().parseFromString(
-            '<NsdocResponse></NsdocResponse>',
-            'text/xml'
-          );
-
-          document
-            .querySelector('NsdocResponse')!
-            .appendChild(createElement('NsdocFile', res, document));
-
-          return document;
-        });
+        .then(handleResponse);
+      
+      return {
+        content
+      };
     },
   };
 }
