@@ -122,29 +122,36 @@ async function getNsDocFilesFromManifest(): Promise<string[]> {
 
 // Discover NSDOC files using pattern-based approach (fallback)
 async function getNsDocFilesByPattern(): Promise<string[]> {
-  const standards = ['7-2', '7-3', '7-4', '8-1'];
-  const versions = ['2003A2', '2007B3', '2007B4', '2007B5'];
+  const discoveredFiles: string[] = [];
 
-  const potentialFiles: string[] = [];
-  for (const standard of standards) {
-    for (const version of versions) {
-      potentialFiles.push(`IEC_61850-${standard}_${version}-en.nsdoc`);
+  const standards2007 = ['7-2', '7-3', '7-4'];
+  for (const standard of standards2007) {
+    for (let release = 5; release <= 9; release++) {
+      const filename = `IEC_61850-${standard}_2007B${release}-en.nsdoc`;
+      try {
+        const response = await fetch(`/public/nsdoc/${filename}`);
+        if (response.ok) {
+          discoveredFiles.push(filename);
+          break;
+        }
+      } catch (e) {
+        // Continue to next version
+      }
     }
   }
 
-  const testPromises = potentialFiles.map(async filename => {
+  for (let release = 2; release <= 9; release++) {
+    const filename = `IEC_61850-8-1_2003A${release}-en.nsdoc`;
     try {
       const response = await fetch(`/public/nsdoc/${filename}`);
-      return response.ok ? filename : null;
+      if (response.ok) {
+        discoveredFiles.push(filename);
+        break;
+      }
     } catch (e) {
-      return null;
+      // Continue to next version
     }
-  });
-
-  const existingFiles = await Promise.all(testPromises);
-  const discoveredFiles = existingFiles.filter(
-    (filename): filename is string => filename !== null
-  );
+  }
 
   return discoveredFiles;
 }
