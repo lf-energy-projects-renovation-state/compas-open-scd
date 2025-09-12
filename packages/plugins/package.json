@@ -35,7 +35,7 @@
     "@openscd/xml": "*",
     "lit": "^2.2.7",
     "lit-translate": "^1.2.1",
-    "marked": "^4.0.10",
+    "marked": "^15.0.0",
     "panzoom": "^9.4.2"
   },
   "scripts": {
