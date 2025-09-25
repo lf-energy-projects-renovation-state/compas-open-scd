@@ -34,6 +34,7 @@ import { ActionDetail } from '@material/mwc-list';
 
 import { officialPlugins as builtinPlugins } from '../public/js/plugins.js';
 import type { PluginSet, Plugin as CorePlugin } from '@openscd/core';
+import { OscdApi } from '@openscd/core';
 import { classMap } from 'lit-html/directives/class-map.js';
 import {
   newConfigurePluginEvent,
@@ -471,6 +472,7 @@ export class OpenSCD extends LitElement {
             .nsdoc=${this.nsdoc}
             .docs=${this.docs}
             .locale=${this.locale}
+            .oscdApi=${new OscdApi(tag)}
             .compasApi=${this.compasApi}
             class="${classMap({
               plugin: true,
