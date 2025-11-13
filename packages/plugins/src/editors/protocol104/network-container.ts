@@ -7,7 +7,7 @@ import {
   newWizardEvent,
 } from '@openscd/open-scd/src/foundation.js';
 
-import { createElement } from '@openscd/xml';
+import { createElement } from '@compas-oscd/xml';
 
 import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
 import { createSubNetworkWizard } from './wizards/subnetwork.js';
