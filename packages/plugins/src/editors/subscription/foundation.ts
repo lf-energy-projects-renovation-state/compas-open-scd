@@ -10,7 +10,7 @@ import {
 import {
   cloneElement,
   createElement,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import { Create, Delete } from '@openscd/core/foundation/deprecated/editor.js';
 import { getFcdaReferences } from '@openscd/open-scd/src/foundation/ied.js';

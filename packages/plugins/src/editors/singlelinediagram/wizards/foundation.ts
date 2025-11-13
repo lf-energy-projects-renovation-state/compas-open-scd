@@ -9,7 +9,7 @@ import {
 
 import {
   cloneElement
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import { EditorAction } from '@openscd/core/foundation/deprecated/editor.js';
 import { SCL_COORDINATES_NAMESPACE } from '../foundation.js';

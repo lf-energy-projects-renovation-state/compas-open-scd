@@ -11,7 +11,7 @@ import {
 
 import {
   createElement,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import { FinderList } from '@openscd/open-scd/src/finder-list.js';
 import {

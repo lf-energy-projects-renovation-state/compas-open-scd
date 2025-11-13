@@ -2,7 +2,7 @@ import { LitElement } from 'lit-element';
 import { get } from 'lit-translate';
 import { getVersion } from '@openscd/open-scd/src/foundation.js';
 
-import { createElement } from '@compas-oscd/xml';
+import { createElement } from '@openscd/xml';
 
 import {
   newActionEvent,

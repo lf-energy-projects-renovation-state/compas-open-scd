@@ -19,7 +19,7 @@ import {
 import {
   cloneElement,
   createElement,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import { EditorAction, newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
 import { getValAction, wizardContent } from './abstractda.js';

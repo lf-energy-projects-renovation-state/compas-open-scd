@@ -8,12 +8,9 @@ import {
   WizardInputElement,
 } from '@openscd/open-scd/src/foundation.js';
 
-import { cloneElement } from '@compas-oscd/xml';
+import { cloneElement } from '@openscd/xml';
 
-import {
-  ComplexAction,
-  EditorAction,
-} from '@openscd/core/foundation/deprecated/editor.js';
+import { ComplexAction, EditorAction } from "@openscd/core/foundation/deprecated/editor.js";
 
 import '../compas/CompasLabelsField.js';
 

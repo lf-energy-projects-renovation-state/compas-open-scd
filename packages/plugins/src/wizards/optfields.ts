@@ -15,7 +15,7 @@ import {
 
 import {
   cloneElement,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 interface ContentOptions {
   seqNum: string | null;

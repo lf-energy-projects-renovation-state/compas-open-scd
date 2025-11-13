@@ -37,7 +37,7 @@ import {
 
 import {
   getChildElementsByTagName,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
 import { voltageLevelIcon } from '@openscd/open-scd/src/icons/icons.js';

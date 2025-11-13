@@ -19,13 +19,10 @@ import { IconButton } from '@material/mwc-icon-button';
 
 import { isPublic } from '@openscd/open-scd/src/foundation.js';
 import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
-import { createElement } from '@compas-oscd/xml';
+import { createElement } from '@openscd/xml';
 import { newLogEvent } from '@openscd/core/foundation/deprecated/history.js';
 
-import {
-  ComplexAction,
-  SimpleAction,
-} from '@openscd/core/foundation/deprecated/editor.js';
+import { ComplexAction, SimpleAction } from "@openscd/core/foundation/deprecated/editor.js";
 
 import '@openscd/open-scd/src/action-pane.js';
 import '@openscd/open-scd/src/action-icon.js';

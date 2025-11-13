@@ -22,7 +22,7 @@ import { IconButton } from '@material/mwc-icon-button';
 import { List } from '@material/mwc-list';
 import { Menu } from '@material/mwc-menu';
 
-import { formatXml } from '@compas-oscd/xml';
+import { formatXml } from '@openscd/xml';
 
 import 'ace-custom-element';
 import './wizard-checkbox.js';
@@ -296,17 +296,18 @@ export class WizardDialog extends LitElement {
   renderPage(page: WizardPage, index: number): TemplateResult {
     const isProMode = localStorage.getItem('mode') === 'pro';
     const hasPageElement = Boolean(page.element);
-    const showCodeToggleButton = hasPageElement && isProMode;
+    const showCodeToggleButton = hasPageElement && isProMode
 
     let extraWidth = 0;
 
-    if (showCodeToggleButton && page.menuActions) {
+    if(showCodeToggleButton && page.menuActions){
       extraWidth = 96;
-    } else if (showCodeToggleButton || page.menuActions) {
+    }else if(showCodeToggleButton || page.menuActions){
       extraWidth = 48;
-    } else {
+    }else{
       extraWidth = 0;
     }
+
 
     return html`<mwc-dialog
       defaultAction="next"

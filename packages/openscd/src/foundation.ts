@@ -6,7 +6,7 @@ import { Select } from '@material/mwc-select';
 import { TextField } from '@material/mwc-textfield';
 import AceEditor from 'ace-custom-element';
 
-import { getChildElementsByTagName } from '@compas-oscd/xml';
+import { getChildElementsByTagName } from '@openscd/xml';
 
 import { WizardTextField } from './wizard-textfield.js';
 import { WizardSelect } from './wizard-select.js';
@@ -360,9 +360,7 @@ function lNodeSelector(tagName: SCLTag, identity: string): string {
     return crossProduct(
       parentSelectors,
       ['>'],
-      [
-        `${tagName}[iedName="None"][lnClass="${lnClass}"][lnType="${lnType}"][lnInst="${lnInst}"]`,
-      ]
+      [`${tagName}[iedName="None"][lnClass="${lnClass}"][lnType="${lnType}"][lnInst="${lnInst}"]`]
     )
       .map(strings => strings.join(''))
       .join(',');

@@ -16,7 +16,7 @@ import {
 
 import {
   createElement,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import {
   ComplexAction,

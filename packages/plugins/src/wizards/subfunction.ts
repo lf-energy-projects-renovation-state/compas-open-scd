@@ -4,7 +4,7 @@ import {
   cloneElement,
   createElement,
   getChildElementsByTagName,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import {
   getValue,

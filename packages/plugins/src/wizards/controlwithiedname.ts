@@ -16,7 +16,7 @@ import {
   WizardInputElement,
 } from '@openscd/open-scd/src/foundation.js';
 
-import { createElement } from '@compas-oscd/xml';
+import { createElement } from '@openscd/xml';
 
 import { EditorAction } from '@openscd/core/foundation/deprecated/editor.js';
 import { inputIcon } from '@openscd/open-scd/src/icons/icons.js';

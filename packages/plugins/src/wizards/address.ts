@@ -8,7 +8,7 @@ import '@material/mwc-formfield';
 import '@openscd/open-scd/src/wizard-textfield.js';
 import {
   createElement,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 import { Create, Delete } from '@openscd/core/foundation/deprecated/editor.js';
 import { typeNullable, typePattern } from './foundation/p-types.js';
 

@@ -32,7 +32,7 @@ import {
 
 import {
   getChildElementsByTagName,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import { newActionEvent } from '@openscd/core/foundation/deprecated/editor.js';
 import { startMove, styles } from './foundation.js';

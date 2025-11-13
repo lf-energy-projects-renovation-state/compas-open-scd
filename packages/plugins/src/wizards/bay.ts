@@ -11,7 +11,7 @@ import {
 
 import {
   createElement,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import { EditorAction } from '@openscd/core/foundation/deprecated/editor.js';
 import { replaceNamingAttributeWithReferencesAction } from './foundation/actions.js';

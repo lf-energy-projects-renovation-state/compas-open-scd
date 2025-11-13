@@ -18,7 +18,7 @@ import {
   WizardInputElement,
 } from '@openscd/open-scd/src/foundation.js';
 
-import { cloneElement } from '@compas-oscd/xml';
+import { cloneElement } from '@openscd/xml';
 
 interface addDescItem {
   desc: string;

@@ -31,7 +31,7 @@ import {
   cloneElement,
   createElement,
   getUniqueElementName,
-} from '@compas-oscd/xml';
+} from '@openscd/xml';
 
 import {
   EditorAction,
