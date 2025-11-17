@@ -7,9 +7,9 @@ import { Dialog } from '@material/mwc-dialog';
 
 import {
   newLogEvent,
-} from '@openscd/core/foundation/deprecated/history.js';
-import { newOpenDocEvent } from "@openscd/core/foundation/deprecated/open-event.js";
-import { newPendingStateEvent } from '@openscd/core/foundation/deprecated/waiter.js';
+} from '@compas-oscd/core/foundation/deprecated/history.js';
+import { newOpenDocEvent } from "@compas-oscd/core/foundation/deprecated/open-event.js";
+import { newPendingStateEvent } from '@compas-oscd/core/foundation/deprecated/waiter.js';
 
 import CompasOpenElement, { DocRetrievedEvent } from '../compas/CompasOpen.js';
 import { updateDocumentInOpenSCD } from '../compas/foundation.js';

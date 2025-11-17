@@ -2,7 +2,7 @@ import {css, customElement, html, LitElement, property, TemplateResult} from 'li
 import {get, translate} from "lit-translate";
 
 import { patterns } from "@openscd/open-scd/src/foundation.js";
-import { ComplexAction } from "@openscd/core/foundation/deprecated/editor.js";
+import { ComplexAction } from "@compas-oscd/core/foundation/deprecated/editor.js";
 import {
   checkValidity,
   Wizard,

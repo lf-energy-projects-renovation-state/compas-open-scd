@@ -11,7 +11,7 @@ import {
   isDelete,
   isReplace,
   Replace,
-} from "@openscd/core/foundation/deprecated/editor.js";
+} from "@compas-oscd/core/foundation/deprecated/editor.js";
 
 import {
   Wizard,

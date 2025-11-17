@@ -16,7 +16,17 @@
     "sourceMap": true,
     "inlineSources": true,
     "resolveJsonModule": true,
-    "rootDir": "./"
+    "rootDir": "./",
+    "paths": {
+      "@compas-oscd/core": [
+        "../../node_modules/@compas-oscd/core/dist/foundation.d.ts"
+      ],
+      "@compas-oscd/core/*": ["../../node_modules/@compas-oscd/core/dist/*"],
+      "@openscd/core": [
+        "../../node_modules/@compas-oscd/core/dist/foundation.d.ts"
+      ],
+      "@openscd/core/*": ["../../node_modules/@compas-oscd/core/dist/*"]
+    }
   },
   "include": ["**/*.ts"]
 }

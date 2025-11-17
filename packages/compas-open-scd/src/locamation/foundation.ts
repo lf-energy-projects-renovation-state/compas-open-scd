@@ -8,7 +8,7 @@ import {
   WizardInputElement
 } from "@openscd/open-scd/src/foundation.js";
 import { cloneElement } from '@compas-oscd/xml';
-import { SimpleAction } from "@openscd/core/foundation/deprecated/editor.js";
+import { SimpleAction } from "@compas-oscd/core/foundation/deprecated/editor.js";
 
 
 

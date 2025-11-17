@@ -17,7 +17,7 @@ import '@openscd/open-scd/src/filtered-list.js';
 
 import {
   IssueDetail,
-} from '@openscd/core/foundation/deprecated/history.js';
+} from '@compas-oscd/core/foundation/deprecated/history.js';
 
 import { HistoryUIDetail, OscdHistory } from '@openscd/open-scd/src/addons/History.js';
 import { wizards } from '@openscd/plugins/src/wizards/wizard-library';

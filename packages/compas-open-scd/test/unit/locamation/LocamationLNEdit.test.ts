@@ -5,7 +5,7 @@ import {fetchDoc, setWizardTextFieldValue} from "@openscd/plugins/test/unit/wiza
 import {initializeNsdoc, Nsdoc} from "@openscd/open-scd/src/foundation/nsdoc.js";
 import {WizardTextField} from "@openscd/open-scd/src/wizard-textfield.js";
 import {WizardAction} from "@openscd/open-scd/src/foundation.js";
-import {ComplexAction, isSimple, isReplace, Replace} from "@openscd/core/foundation/deprecated/editor.js";
+import {ComplexAction, isSimple, isReplace, Replace} from "@compas-oscd/core/foundation/deprecated/editor.js";
 
 import "@openscd/open-scd/test/mock-wizard-editor.js";
 import { newWizardEvent } from '@openscd/open-scd/src/foundation.js';

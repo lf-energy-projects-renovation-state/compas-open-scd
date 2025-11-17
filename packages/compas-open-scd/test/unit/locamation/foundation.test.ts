@@ -1,6 +1,6 @@
 import {expect} from "@open-wc/testing";
 
-import {Create, isCreate, isReplace, Replace} from "@openscd/core/foundation/deprecated/editor.js";
+import {Create, isCreate, isReplace, Replace} from "@compas-oscd/core/foundation/deprecated/editor.js";
 import {initializeNsdoc} from "@openscd/open-scd/src/foundation/nsdoc.js";
 
 import {

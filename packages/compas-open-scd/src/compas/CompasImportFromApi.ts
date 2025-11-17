@@ -5,8 +5,8 @@ import '@material/mwc-list/mwc-list-item';
 import {
   newWizardEvent,
 } from '@openscd/open-scd/src/foundation.js';
-import { newOpenDocEvent } from '@openscd/core/foundation/deprecated/open-event.js';
-import { newPendingStateEvent } from '@openscd/core/foundation/deprecated/waiter.js';
+import { newOpenDocEvent } from '@compas-oscd/core/foundation/deprecated/open-event.js';
+import { newPendingStateEvent } from '@compas-oscd/core/foundation/deprecated/waiter.js';
 
 import '@openscd/open-scd/src/filtered-list.js';
 
