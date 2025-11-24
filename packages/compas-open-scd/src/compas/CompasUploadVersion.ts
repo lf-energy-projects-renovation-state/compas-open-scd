@@ -10,8 +10,8 @@ import {
   Wizard,
   WizardInputElement,
 } from '@openscd/open-scd/src/foundation.js';
-import { newLogEvent } from '@compas-oscd/core/foundation/deprecated/history.js';
-import { newPendingStateEvent } from '@compas-oscd/core/foundation/deprecated/waiter.js';
+import { newLogEvent } from '@compas-oscd/core';
+import { newPendingStateEvent } from '@compas-oscd/core';
 
 import '@openscd/open-scd/src/wizard-textfield.js';
 

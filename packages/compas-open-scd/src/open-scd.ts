@@ -7,8 +7,8 @@ import {
   TemplateResult,
 } from 'lit-element';
 
-import { newOpenDocEvent } from '@compas-oscd/core/foundation/deprecated/open-event.js';
-import { newPendingStateEvent } from '@compas-oscd/core/foundation/deprecated/waiter.js';
+import { newOpenDocEvent } from '@compas-oscd/core';
+import { newPendingStateEvent } from '@compas-oscd/core';
 
 import './addons/CompasSession.js';
 import './addons/CompasHistory.js';
@@ -40,7 +40,7 @@ import {
   newConfigurePluginEvent,
   ConfigurePluginEvent,
 } from '@openscd/open-scd/src/plugin.events.js';
-import { newLogEvent } from '@compas-oscd/core/foundation/deprecated/history.js';
+import { newLogEvent } from '@compas-oscd/core';
 import { pluginTag } from '@openscd/open-scd/src/plugin-tag.js';
 import packageJson from '../package.json';
 import { CompasSclDataService } from './compas-services/CompasSclDataService.js';
@@ -159,7 +159,11 @@ export class OpenSCD extends LitElement {
 
   private async loadLNodeLibrary(): Promise<Document | null> {
     try {
-      const doc = await CompasSclDataService().getSclDocument(this, 'SSD', LNODE_LIB_DOC_ID);
+      const doc = await CompasSclDataService().getSclDocument(
+        this,
+        'SSD',
+        LNODE_LIB_DOC_ID
+      );
       if (doc instanceof Document) {
         this._lNodeLibrary = doc;
         return doc;
@@ -576,7 +580,6 @@ export function newSetPluginsEvent(selectedPlugins: Plugin[]): SetPluginsEvent {
     detail: { selectedPlugins },
   });
 }
-
 
 export interface CompasApi {
   lNodeLibrary: {
