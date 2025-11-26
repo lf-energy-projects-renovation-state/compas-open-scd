@@ -17,10 +17,6 @@ import './addons/CompasLayout.js';
 import '@openscd/open-scd/src/addons/Waiter.js';
 import '@openscd/open-scd/src/addons/Settings.js';
 import {
-  HistoryState,
-  historyStateEvent,
-} from '@openscd/open-scd/src/addons/History.js';
-import {
   initializeNsdoc,
   Nsdoc,
 } from '@openscd/open-scd/src/foundation/nsdoc.js';
@@ -63,17 +59,14 @@ export class OpenSCD extends LitElement {
           .languageConfig=${this.languageConfig}
         >
           <oscd-wizards .host=${this}>
-            <compas-history
-              .host=${this}
-              .editCount=${this.historyState.editCount}
-            >
+            <compas-history .host=${this} .editor=${this.editor}>
               <oscd-editor
                 .doc=${this.doc}
                 .docName=${this.docName}
                 .docId=${this.docId}
                 .host=${this}
-                .editCount=${this.historyState.editCount}
-                .compasApi=${this.compasApi}
+                .editCount=${this.editCount}
+                .editor=${this.editor}
               >
                 <compas-layout
                   @add-external-plugin=${this.handleAddExternalPlugin}
@@ -83,9 +76,9 @@ export class OpenSCD extends LitElement {
                   .host=${this}
                   .doc=${this.doc}
                   .docName=${this.docName}
-                  .editCount=${this.historyState.editCount}
-                  .historyState=${this.historyState}
+                  .editCount=${this.editCount}
                   .plugins=${this.storedPlugins}
+                  .editor=${this.editor}
                   .compasApi=${this.compasApi}
                 >
                 </compas-layout>
@@ -104,12 +97,7 @@ export class OpenSCD extends LitElement {
   /** The UUID of the current [[`doc`]] */
   @property({ type: String }) docId = '';
 
-  @state()
-  historyState: HistoryState = {
-    editCount: -1,
-    canRedo: false,
-    canUndo: false,
-  };
+  editor = new XMLEditor();
 
   /** Object containing all *.nsdoc files and a function extracting element's label form them*/
   @property({ attribute: false })
@@ -127,6 +115,10 @@ export class OpenSCD extends LitElement {
   }
 
   @state() private storedPlugins: Plugin[] = [];
+
+  @state() private editCount = -1;
+
+  private unsubscribers: (() => any)[] = [];
 
   /** Loads and parses an `XMLDocument` after [[`src`]] has changed. */
   private async loadDoc(src: string): Promise<void> {
@@ -220,12 +212,17 @@ export class OpenSCD extends LitElement {
     this.checkAppVersion();
     this.loadPlugins();
 
+    this.unsubscribers.push(
+      this.editor.subscribe(e => this.editCount++),
+      this.editor.subscribeUndoRedo(e => this.editCount++)
+    );
+
     // TODO: let Lit handle the event listeners, move to render()
     this.addEventListener('reset-plugins', this.resetPlugins);
-    this.addEventListener(historyStateEvent, (e: CustomEvent<HistoryState>) => {
-      this.historyState = e.detail;
-      this.requestUpdate();
-    });
+  }
+
+  disconnectedCallback(): void {
+    this.unsubscribers.forEach(u => u());
   }
 
   /**
@@ -469,7 +466,7 @@ export class OpenSCD extends LitElement {
         return staticTagHtml`<${tag}
             .doc=${this.doc}
             .docName=${this.docName}
-            .editCount=${this.historyState.editCount}
+            .editCount=${this.editCount}
             .plugins=${this.storedPlugins}
             .docId=${this.docId}
             .pluginId=${plugin.src}
@@ -477,6 +474,7 @@ export class OpenSCD extends LitElement {
             .docs=${this.docs}
             .locale=${this.locale}
             .oscdApi=${new OscdApi(tag)}
+            .editor=${this.editor}
             .compasApi=${this.compasApi}
             class="${classMap({
               plugin: true,
