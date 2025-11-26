@@ -30,7 +30,7 @@ import { ActionDetail } from '@material/mwc-list';
 
 import { officialPlugins as builtinPlugins } from '../public/js/plugins.js';
 import type { PluginSet, Plugin as CorePlugin } from '@compas-oscd/core';
-import { OscdApi } from '@compas-oscd/core';
+import { OscdApi, XMLEditor } from '@compas-oscd/core';
 import { classMap } from 'lit-html/directives/class-map.js';
 import {
   newConfigurePluginEvent,
@@ -44,6 +44,18 @@ import { createLogEvent } from './compas-services/foundation.js';
 import { languages, loader } from './translations/loader.js';
 
 const LNODE_LIB_DOC_ID = 'fc55c46d-c109-4ccd-bf66-9f1d0e135689';
+
+interface MenuPluginConfig
+  extends Omit<Plugin, 'position' | 'kind' | 'active'> {
+  position?: MenuPosition | number;
+  active?: boolean;
+}
+
+interface EditorPluginConfig
+  extends Omit<Plugin, 'position' | 'kind' | 'active'> {
+  position?: undefined;
+  active?: boolean;
+}
 
 /** The `<open-scd>` custom element is the main entry point of the
  * Open Substation Configuration Designer. */
@@ -302,22 +314,26 @@ export class OpenSCD extends LitElement {
   @property({ type: Object }) plugins: PluginSet = { menu: [], editor: [] };
 
   get parsedPlugins(): Plugin[] {
-    const menuPlugins: Plugin[] = this.plugins.menu.map(plugin => {
-      let newPosition: MenuPosition | undefined =
-        plugin.position as MenuPosition;
-      if (typeof plugin.position === 'number') {
-        newPosition = undefined;
+    const menuPlugins: Plugin[] = (this.plugins.menu as MenuPluginConfig[]).map(
+      (plugin: MenuPluginConfig): Plugin => {
+        let newPosition: MenuPosition | undefined =
+          plugin.position as MenuPosition;
+        if (typeof plugin.position === 'number') {
+          newPosition = undefined;
+        }
+
+        return {
+          ...plugin,
+          position: newPosition,
+          kind: 'menu' as PluginKind,
+          active: plugin.active ?? false,
+        };
       }
+    );
 
-      return {
-        ...plugin,
-        position: newPosition,
-        kind: 'menu' as PluginKind,
-        active: plugin.active ?? false,
-      };
-    });
-
-    const editorPlugins: Plugin[] = this.plugins.editor.map(plugin => {
+    const editorPlugins: Plugin[] = (
+      this.plugins.editor as EditorPluginConfig[]
+    ).map((plugin: EditorPluginConfig): Plugin => {
       const editorPlugin: Plugin = {
         ...plugin,
         position: undefined,
