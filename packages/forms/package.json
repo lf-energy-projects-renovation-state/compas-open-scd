@@ -22,7 +22,7 @@
   },
   "devDependencies": {
     "typescript": "^4.7.4",
-    "@open-wc/testing": "^2.5.33",
+    "@open-wc/testing": "^4.0.0",
     "@web/dev-server-esbuild": "^0.2.16",
     "@web/test-runner": "^0.13.22",
     "sinon": "^17.0.1",
