@@ -14,8 +14,8 @@ import './addons/CompasSession.js';
 import './addons/CompasHistory.js';
 import './addons/CompasLayout.js';
 
-import '@openscd/open-scd/src/addons/Waiter.js';
-import '@openscd/open-scd/src/addons/Settings.js';
+import '@compas-oscd/openscd/addons/Waiter.js';
+import '@compas-oscd/openscd/addons/Settings.js';
 import {
   initializeNsdoc,
   Nsdoc,
