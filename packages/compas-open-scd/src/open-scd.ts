@@ -470,8 +470,10 @@ export class OpenSCD extends LitElement {
 
   private addContent(plugin: Omit<Plugin, 'content'>): Plugin {
     const tag = this.pluginTag(plugin.src);
+    console.log(`Adding content for plugin: ${plugin.name} - ${tag}`)
 
     if (!this.loadedPlugins.has(tag)) {
+      console.log(`Loading source and webcomponent: ${plugin.name}`)
       this.loadedPlugins.add(tag);
       import(plugin.src).then(mod => {
         customElements.define(tag, mod.default);
