@@ -11,13 +11,13 @@ import { newOpenDocEvent } from '@compas-oscd/core';
 import { newPendingStateEvent } from '@compas-oscd/core';
 
 import './addons/CompasSession.js';
-import './addons/CompasHistory.js';
 import './addons/CompasLayout.js';
 
-import { newLogEvent } from '@compas-oscd/core';
+import { newLogEvent } from '@compas-oscd/core'
 
 import '@compas-oscd/open-scd/addons/Waiter.js';
 import '@compas-oscd/open-scd/addons/Settings.js';
+import '@compas-oscd/open-scd/dist/addons/History.js';
 import {
   initializeNsdoc,
   Nsdoc,
@@ -73,7 +73,7 @@ export class OpenSCD extends LitElement {
           .languageConfig=${this.languageConfig}
         >
           <oscd-wizards .host=${this}>
-            <compas-history .host=${this} .editor=${this.editor}>
+            <oscd-history .host=${this} .editor=${this.editor}>
               <oscd-editor
                 .doc=${this.doc}
                 .docName=${this.docName}

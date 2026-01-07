@@ -9,8 +9,6 @@ import '@material/mwc-list';
 import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-snackbar';
 
-import '@compas-oscd/open-scd/filtered-list.js';
-
 import { IssueDetail } from '@compas-oscd/core';
 
 import {
