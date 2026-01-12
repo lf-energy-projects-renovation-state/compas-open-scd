@@ -2,7 +2,7 @@ import { html, LitElement } from 'lit-element';
 import { get } from 'lit-translate';
 
 import '@compas-oscd/open-scd/filtered-list.js';
-import '@openscd/open-scd/src/wizard-textfield.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import { newWizardEvent, Wizard } from '@openscd/open-scd/src/foundation.js';
 
 import '../compas/CompasImportFromApi.js';

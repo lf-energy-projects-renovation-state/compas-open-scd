@@ -1,7 +1,7 @@
 import { html, LitElement } from 'lit-element';
 import { get } from 'lit-translate';
 
-import { newWizardEvent, Wizard, WizardInputElement } from "@openscd/open-scd/src/foundation.js";
+import { newWizardEvent, Wizard, WizardInputElement, oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import { CompasSettingsElement } from '../compas/CompasSettings.js';
 
@@ -34,7 +34,7 @@ export function compasSettingWizard(): Wizard {
         label: get('save'),
         action: save(),
       },
-      content: [html`<compas-settings></compas-settings>`],
+      content: [oscdHtml`<compas-settings></compas-settings>`],
     },
   ];
 }
