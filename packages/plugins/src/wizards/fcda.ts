@@ -1,13 +1,14 @@
 import { html } from 'lit-element';
 import { get } from 'lit-translate';
 
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import {
   find,
   Wizard,
   WizardAction,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   createElement,
@@ -111,7 +112,7 @@ export function createFCDAsWizard(parent: Element): Wizard {
         icon: 'add',
         action: createFCDAsAction(parent),
       },
-      content: [server ? dataAttributePicker(server) : html``],
+      content: [server ? dataAttributePicker(server) : oscdHtml``],
     },
   ];
 }

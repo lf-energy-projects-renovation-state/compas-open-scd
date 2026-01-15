@@ -8,10 +8,11 @@ import { List } from '@material/mwc-list';
 import { ListItemBase } from '@material/mwc-list/mwc-list-item-base';
 import { SingleSelectedEvent } from '@material/mwc-list/mwc-list-foundation';
 
-import '@openscd/open-scd/src/wizard-checkbox.js';
-import '@openscd/open-scd/src/wizard-textfield.js';
-import '@openscd/open-scd/src/wizard-select.js';
-import '@openscd/open-scd/src/filtered-list.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-checkbox.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
+import '@compas-oscd/open-scd/dist/wizard-select.js';
+import '@compas-oscd/open-scd/filtered-list.js';
 import {
   find,
   getReference,
@@ -25,7 +26,7 @@ import {
   WizardMenuActor,
   MenuAction,
   newWizardEvent,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   cloneElement,
@@ -63,7 +64,7 @@ interface ContentOptions {
 
 function contentReportControlWizard(options: ContentOptions): TemplateResult[] {
   return [
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="name"
       .maybeValue=${options.name}
       helper="${get('scl.name')}"
@@ -73,31 +74,31 @@ function contentReportControlWizard(options: ContentOptions): TemplateResult[] {
       maxLength="${maxLength.cbName}"
       dialogInitialFocus
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="desc"
       .maybeValue=${options.desc}
       nullable
       helper="${get('scl.desc')}"
     ></wizard-textfield>`,
-    html`<wizard-checkbox
+    oscdHtml`<wizard-checkbox
       label="buffered"
       .maybeValue=${options.buffered}
       helper="${get('scl.buffered')}"
     ></wizard-checkbox>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="rptID"
       .maybeValue=${options.rptID}
       nullable
       required
       helper="${get('report.rptID')}"
     ></wizard-textfield>`,
-    html`<wizard-checkbox
+    oscdHtml`<wizard-checkbox
       label="indexed"
       .maybeValue=${options.indexed}
       nullable
       helper="${get('scl.indexed')}"
     ></wizard-checkbox>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="max Clients"
       .maybeValue=${options.max}
       helper="${get('scl.maxReport')}"
@@ -105,7 +106,7 @@ function contentReportControlWizard(options: ContentOptions): TemplateResult[] {
       type="number"
       suffix="#"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="bufTime"
       .maybeValue=${options.bufTime}
       helper="${get('scl.bufTime')}"
@@ -115,7 +116,7 @@ function contentReportControlWizard(options: ContentOptions): TemplateResult[] {
       min="0"
       suffix="ms"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="intgPd"
       .maybeValue=${options.intgPd}
       helper="${get('scl.intgPd')}"
@@ -298,7 +299,7 @@ export function createReportControlWizard(ln0OrLn: Element): Wizard {
         action: createReportControlAction(ln0OrLn),
       },
 
-      content: [server ? dataAttributePicker(server) : html``],
+      content: [server ? dataAttributePicker(server) : oscdHtml``],
     },
   ];
 }
@@ -519,7 +520,7 @@ function renderIedListItem(sourceCb: Element, ied: Element): TemplateResult {
   else if (!hasDataMatch) secondSpan = get('controlblock.hints.noMatchingData');
   else secondSpan = get('controlBlock.hints.valid');
 
-  return html`<mwc-check-list-item
+  return oscdHtml`<mwc-check-list-item
     twoline
     value="${identity(ied)}"
     ?disabled=${isSourceIed ||
@@ -542,7 +543,7 @@ export function reportControlCopyToIedSelector(element: Element): Wizard {
         action: copyReportControlActions(element),
       },
       content: [
-        html`<filtered-list multi
+        oscdHtml`<filtered-list multi
           >${Array.from(element.ownerDocument.querySelectorAll('IED')).map(
             ied => renderIedListItem(element, ied)
           )}</filtered-list
@@ -741,7 +742,7 @@ export function selectReportControlWizard(element: Element): Wizard {
       title: get('wizard.title.select', { tagName: 'ReportControl' }),
       primary,
       content: [
-        html`<filtered-list
+        oscdHtml`<filtered-list
           @selected=${(e: SingleSelectedEvent) => {
             const identity = (<ListItemBase>(<List>e.target).selected).value;
             const reportControl = find(element, 'ReportControl', identity);
@@ -753,7 +754,7 @@ export function selectReportControlWizard(element: Element): Wizard {
           }}
           >${reportControls.map(
             reportControl =>
-              html`<mwc-list-item twoline value="${identity(reportControl)}"
+              oscdHtml`<mwc-list-item twoline value="${identity(reportControl)}"
                 ><span>${reportControl.getAttribute('name')}</span
                 ><span slot="secondary"
                   >${identity(reportControl)}</span

@@ -2,14 +2,15 @@ import { html, TemplateResult } from 'lit-element';
 import { get } from 'lit-translate';
 
 import '@material/mwc-list/mwc-list-item';
-import '@openscd/open-scd/src/wizard-textfield.js';
-import '@openscd/open-scd/src/wizard-select.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
+import '@compas-oscd/open-scd/dist/wizard-select.js';
 import {
   getValue,
   Wizard,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import { cloneElement } from '@openscd/xml';
 
@@ -32,29 +33,29 @@ export function renderLN0Wizard(
   inst: string | null
 ): TemplateResult[] {
   return [
-    html`<wizard-select
+    oscdHtml`<wizard-select
       label="lnType"
       .maybeValue=${lnType}
       required
       helper="${get('ln0.wizard.lnTypeHelper')}"
       >${lnodeTypeIds.map(
-        id => html`<mwc-list-item value="${id}">${id}</mwc-list-item>`
+        id => oscdHtml`<mwc-list-item value="${id}">${id}</mwc-list-item>`
       )}</wizard-select
     >`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="desc"
       .maybeValue=${desc}
       nullable
       helper="${get('ln0.wizard.descHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="lnClass"
       readonly
       required
       .maybeValue=${lnClass}
       helper="${get('ln0.wizard.lnClassHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="inst"
       .maybeValue=${inst}
       readonly
