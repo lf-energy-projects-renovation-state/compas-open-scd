@@ -2,11 +2,12 @@ import { html, LitElement, property } from 'lit-element';
 import { get } from 'lit-translate';
 
 import { newPendingStateEvent } from '@compas-oscd/core';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import {
   newWizardEvent,
   Wizard,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import CompasAutoAlignmentElement from '../compas/CompasAutoAlignment.js';
 
@@ -47,7 +48,7 @@ export default class CompasAutoAlignmentMenuPlugin extends LitElement {
           action: execute(),
         },
         content: [
-          html`
+          oscdHtml`
             <compas-auto-alignment
               .doc="${this.doc}"
               .docName="${this.docName}"

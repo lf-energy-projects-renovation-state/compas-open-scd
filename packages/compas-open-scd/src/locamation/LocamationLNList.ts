@@ -4,9 +4,9 @@ import {get, translate} from "lit-translate";
 import '@material/mwc-list';
 import '@material/mwc-list/mwc-list-item';
 
-import {newSubWizardEvent, newWizardEvent, Wizard, WizardInputElement} from '@openscd/open-scd/src/foundation.js';
-import {isSCLNamespace} from "@openscd/open-scd/src/schemas.js";
-import {Nsdoc} from "@openscd/open-scd/src/foundation/nsdoc.js";
+import {newSubWizardEvent, newWizardEvent, Wizard, WizardInputElement} from '@compas-oscd/open-scd/dist/foundation.js';
+import {isSCLNamespace} from "@compas-oscd/open-scd/dist/schemas.js";
+import {Nsdoc} from "@compas-oscd/open-scd/dist/foundation/nsdoc.js";
 
 import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 

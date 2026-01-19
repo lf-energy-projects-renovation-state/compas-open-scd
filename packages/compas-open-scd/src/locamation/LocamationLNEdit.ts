@@ -8,7 +8,7 @@ import {
 } from 'lit-element';
 import { get, translate } from 'lit-translate';
 
-import { patterns } from '@openscd/open-scd/src/foundation.js';
+import { patterns } from '@compas-oscd/open-scd/dist/foundation.js';
 import { ComplexAction } from '@compas-oscd/core';
 import {
   checkValidity,
@@ -16,9 +16,10 @@ import {
   WizardAction,
   WizardInputElement,
   wizardInputSelector,
-} from '@openscd/open-scd/src/foundation.js';
-import { Nsdoc } from '@openscd/open-scd/src/foundation/nsdoc.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
+import { Nsdoc } from '@compas-oscd/open-scd/dist/foundation/nsdoc.js';
 
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
 import {
@@ -149,7 +150,7 @@ export class LocamationVMUEditElement extends LitElement {
       sumPattern = '[0-2],[0-2],[0-2]';
     }
 
-    return html`
+    return oscdHtml`
       <wizard-textfield
         label="${translate('locamation.vmu.ied.name')}"
         .maybeValue=${iedHeader(ied)}
@@ -189,7 +190,7 @@ export class LocamationVMUEditElement extends LitElement {
       </wizard-textfield>
 
       ${hasPrivateElement(locamationPrivate, 'SUM')
-        ? html`<wizard-textfield
+        ? oscdHtml`<wizard-textfield
             id="sum"
             label="${translate('locamation.vmu.sum')}"
             .maybeValue=${getPrivateTextValue(locamationPrivate, 'SUM')}
@@ -199,9 +200,9 @@ export class LocamationVMUEditElement extends LitElement {
             required
           >
           </wizard-textfield>`
-        : html``}
+        : oscdHtml``}
       ${hasPrivateElement(locamationPrivate, 'CHANNEL')
-        ? html`<wizard-textfield
+        ? oscdHtml`<wizard-textfield
             id="channel"
             label="${translate('locamation.vmu.channel')}"
             .maybeValue=${getPrivateTextValue(locamationPrivate, 'CHANNEL')}
@@ -210,7 +211,7 @@ export class LocamationVMUEditElement extends LitElement {
             required
           >
           </wizard-textfield>`
-        : html``}
+        : oscdHtml``}
 
       <wizard-textfield
         id="transformPrimary"
@@ -276,7 +277,7 @@ export function locamationLNEditWizard(
         action: save(),
       },
       content: [
-        html`<locamation-ln-edit
+        oscdHtml`<locamation-ln-edit
           .logicalNode="${logicalNode}"
           .nsdoc="${nsdoc}"
         ></locamation-ln-edit>`,
