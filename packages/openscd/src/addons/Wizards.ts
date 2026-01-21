@@ -45,6 +45,7 @@ export class OscdWizards extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
+    // @ts-ignore
     this.host.addEventListener('wizard', this.onWizard.bind(this));
     this.host.addEventListener('editor-action', () =>
       this.wizardUI.requestUpdate()
