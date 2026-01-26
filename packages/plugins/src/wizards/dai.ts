@@ -1,5 +1,4 @@
 import { html, TemplateResult } from 'lit-element';
-import { nothing } from 'lit-html';
 import { get } from 'lit-translate';
 
 import { DaiFieldTypes, getCustomField } from './foundation/dai-field-type.js';
@@ -109,7 +108,7 @@ export function renderDAIWizard(
           disabled
         >
         </wizard-textfield>`
-      : nothing}`,
+      : ''}`,
   ];
 }
 
