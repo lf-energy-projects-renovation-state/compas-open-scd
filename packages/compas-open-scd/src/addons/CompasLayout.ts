@@ -13,7 +13,7 @@ import { OscdLayout } from '@compas-oscd/open-scd/dist/addons/Layout.js';
 
 @customElement('compas-layout')
 export class CompasLayout extends OscdLayout {
-  @property({ type: String }) username: string | undefined = 'God Emperor Testus';
+  @property({ type: String }) username: string | undefined;
 
   connectedCallback(): void {
     super.connectedCallback();
