@@ -1,8 +1,7 @@
 import { expect, fixtureSync, html, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy, spy, SinonStub } from 'sinon';
 
-import { Wizarding } from '@openscd/open-scd/src/Wizarding.js';
-import '@openscd/open-scd/test/mock-editor-logger.js';
+import '../../mock-editor-logger.js';
 
 import {
   BASIC_VERSIONS_LIST_RESPONSE,
@@ -18,7 +17,7 @@ describe('compas-versions-plugin', () => {
 
   customElements.define(
     'compas-versions-plugin',
-    Wizarding(CompasVersionsPlugin)
+    (CompasVersionsPlugin)
   );
   let doc: Document;
   let element: CompasVersionsPlugin;
