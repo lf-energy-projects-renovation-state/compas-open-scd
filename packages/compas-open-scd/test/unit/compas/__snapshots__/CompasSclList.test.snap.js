@@ -50,7 +50,7 @@ snapshots["compas-scl-list when there are items without labels looks like the la
   <mwc-list-item
     aria-disabled="false"
     mwc-list-item=""
-    tabindex="-1"
+    tabindex="0"
   >
     Station-Utrecht-0002 (1.3.0)
   </mwc-list-item>
@@ -190,7 +190,7 @@ snapshots["compas-scl-list when there are items with labels looks like the lates
       graphic="control"
       mwc-list-item=""
       selected=""
-      tabindex="0"
+      tabindex="-1"
       value="Amsterdam"
     >
       Amsterdam
@@ -228,7 +228,7 @@ snapshots["compas-scl-list when there are items with labels looks like the lates
   <mwc-list-item
     aria-disabled="false"
     mwc-list-item=""
-    tabindex="-1"
+    tabindex="0"
   >
     Station-Amsterdam-0001 (1.3.0)
   </mwc-list-item>

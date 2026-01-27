@@ -3,7 +3,6 @@ import sinon, { SinonSpy, spy, SinonStub } from 'sinon';
 
 import { Wizarding } from '@openscd/open-scd/src/Wizarding.js';
 import '@openscd/open-scd/test/mock-editor-logger.js';
-import { MockEditorLogger } from '@openscd/open-scd/test/mock-editor-logger.js';
 
 import {
   BASIC_VERSIONS_LIST_RESPONSE,

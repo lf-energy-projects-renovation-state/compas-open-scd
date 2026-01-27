@@ -10,7 +10,7 @@ export async function addLabel(
   const newLabelField = <WizardTextField>(
     element.shadowRoot!.querySelector('wizard-textfield#newLabel')!
   );
-  newLabelField.value = value;
+  newLabelField.textfield.value = value;
   await element.updateComplete;
 
   const addButton = <Button>(
