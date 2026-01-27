@@ -148,7 +148,6 @@ export function updateDaAction(element: Element): WizardActor {
 }
 
 export function editDAWizard(element: Element): Wizard {
-  console.log('editDAWizard')
   const doc = element.ownerDocument;
 
   const name = element.getAttribute('name');
