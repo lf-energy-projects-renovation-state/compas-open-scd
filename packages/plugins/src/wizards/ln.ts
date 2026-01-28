@@ -1,13 +1,14 @@
 import { html, TemplateResult } from 'lit-element';
 import { get } from 'lit-translate';
 
-import '@openscd/open-scd/src/wizard-textfield.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   getValue,
   Wizard,
   WizardActor,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import { cloneElement } from '@openscd/xml';
 
@@ -22,33 +23,33 @@ export function renderLNWizard(
   reservedInst: string[]
 ): TemplateResult[] {
   return [
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="lnType"
       .maybeValue=${lnType}
       readonly
       required
       helper="${get('ln.wizard.lnTypeHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="desc"
       .maybeValue=${desc}
       nullable
       helper="${get('ln.wizard.descHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="prefix"
       nullable
       .maybeValue=${prefix}
       helper="${get('ln.wizard.prefixHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="lnClass"
       readonly
       required
       .maybeValue=${lnClass}
       helper="${get('ln.wizard.lnClassHelper')}"
     ></wizard-textfield>`,
-    html`<wizard-textfield
+    oscdHtml`<wizard-textfield
       label="inst"
       .maybeValue=${inst}
       helper="${get('ln.wizard.instHelper')}"

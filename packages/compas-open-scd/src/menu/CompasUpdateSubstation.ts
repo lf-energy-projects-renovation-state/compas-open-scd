@@ -1,7 +1,8 @@
 import { html, LitElement } from 'lit-element';
 import { get } from 'lit-translate';
 
-import { newWizardEvent, Wizard } from "@openscd/open-scd/src/foundation.js";
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import { newWizardEvent, Wizard } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import { DocRetrievedEvent } from '../compas/CompasOpen.js';
 import { mergeSubstation } from '@openscd/plugins/src/menu/UpdateSubstation.js';
@@ -17,7 +18,7 @@ export default class CompasUpdateSubstationMenuPlugin extends LitElement {
       {
         title: get('compas.updateSubstation.title'),
         content: [
-          html`<compas-open
+          oscdHtml`<compas-open
             @doc-retrieved=${(evt: DocRetrievedEvent) => {
               mergeSubstation(this, this.doc, evt.detail.doc);
               this.dispatchEvent(newWizardEvent());

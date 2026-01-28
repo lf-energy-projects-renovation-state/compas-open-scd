@@ -1,6 +1,6 @@
 import { Button } from '@material/mwc-button';
 
-import { WizardTextField } from "@openscd/open-scd/src/wizard-textfield.js";
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import { CompasLabelsFieldElement } from '../../../src/compas/CompasLabelsField.js';
 
 export async function addLabel(
@@ -10,7 +10,7 @@ export async function addLabel(
   const newLabelField = <WizardTextField>(
     element.shadowRoot!.querySelector('wizard-textfield#newLabel')!
   );
-  newLabelField.value = value;
+  newLabelField.textfield.value = value;
   await element.updateComplete;
 
   const addButton = <Button>(

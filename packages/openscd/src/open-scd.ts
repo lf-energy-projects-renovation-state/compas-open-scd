@@ -469,6 +469,7 @@ export class OpenSCD extends LitElement {
 
 }
 
+/*
 declare global {
   interface ElementEventMap {
     'reset-plugins': CustomEvent;
@@ -476,6 +477,7 @@ declare global {
     'set-plugins': CustomEvent<SetPluginsDetail>;
   }
 }
+*/
 
 
 // HOSTING INTERFACES

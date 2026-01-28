@@ -2532,8 +2532,10 @@ export function minAvailableLogicalNodeInstance(
   return lnInstRange.find(lnInst => !lnInsts.has(lnInst));
 }
 
+/*
 declare global {
   interface ElementEventMap {
     ['wizard']: WizardEvent;
   }
 }
+*/

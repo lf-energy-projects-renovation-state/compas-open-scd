@@ -1,7 +1,7 @@
 import {LitElement} from 'lit-element';
 
-import {newWizardEvent} from '@openscd/open-scd/src/foundation.js';
-import {Nsdoc} from "@openscd/open-scd/src/foundation/nsdoc.js";
+import {newWizardEvent} from '@compas-oscd/open-scd/dist/foundation.js';
+import {Nsdoc} from "@compas-oscd/open-scd/dist/foundation/nsdoc.js";
 
 import "../locamation/LocamationIEDList.js";
 

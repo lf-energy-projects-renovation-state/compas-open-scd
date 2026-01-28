@@ -1,9 +1,9 @@
 import {expect, fixture, fixtureSync, html, waitUntil} from '@open-wc/testing';
 import sinon from "sinon";
 
-import {MockWizardEditor} from "@openscd/open-scd/test/mock-wizard-editor.js";
-import '@openscd/open-scd/test/mock-wizard-editor.js';
-import { newWizardEvent } from '@openscd/open-scd/src/foundation.js';
+import {MockWizardEditor} from "../../mock-wizard-editor.js";
+import '../../mock-wizard-editor.js';
+import { newWizardEvent } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {addVersionToCompasWizard, CompasUploadVersionElement} from "../../../src/compas/CompasUploadVersion.js";
 import {CompasExistsInElement} from "../../../src/compas/CompasExistsIn.js";

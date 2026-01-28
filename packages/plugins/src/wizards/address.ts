@@ -5,7 +5,8 @@ import { get } from 'lit-translate';
 import '@material/mwc-checkbox';
 import '@material/mwc-formfield';
 
-import '@openscd/open-scd/src/wizard-textfield.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   createElement,
 } from '@openscd/xml';
@@ -21,15 +22,15 @@ export function contentGseOrSmvWizard(
   content: ContentOptions
 ): TemplateResult[] {
   return [
-    html`<mwc-formfield label="${get('connectedap.wizard.addschemainsttype')}">
+    oscdHtml`<mwc-formfield label="${get('connectedap.wizard.addschemainsttype')}">
       <mwc-checkbox
         id="instType"
         ?checked="${content.hasInstType}"
       ></mwc-checkbox>
     </mwc-formfield>`,
-    html`${Object.entries(content.attributes).map(
+    oscdHtml`${Object.entries(content.attributes).map(
       ([key, value]) =>
-        html`<wizard-textfield
+        oscdHtml`<wizard-textfield
           label="${key}"
           ?nullable=${typeNullable[key]}
           .maybeValue=${value}
