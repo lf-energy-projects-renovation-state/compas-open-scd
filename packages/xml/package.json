@@ -44,7 +44,7 @@
     "lint-staged": "^13.0.3",
     "prettier": "^2.3.2",
     "sinon": "^17.0.1",
-    "sinon-chai": "^3.7.0",
+    "sinon-chai": "^4.0.0",
     "tsdoc": "^0.0.4",
     "tslib": "^2.3.1",
     "typedoc": "^0.23.8",
