@@ -43,7 +43,7 @@
     "@openscd/core": "*",
     "@openscd/xml": "*",
     "ace-custom-element": "^1.6.5",
-    "lit": "^2.2.7",
+    "lit": "^3.0.0",
     "lit-translate": "^1.2.1",
     "marked": "^4.0.10",
     "panzoom": "^9.4.2"
