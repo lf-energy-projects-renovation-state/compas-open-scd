@@ -3,7 +3,6 @@ export const snapshots = {};
 
 snapshots["compas-comment looks like the latest snapshot"] = 
 `<wizard-textfield
-  disabled=""
   id="comment"
   label="[compas.comment]"
   nullable=""

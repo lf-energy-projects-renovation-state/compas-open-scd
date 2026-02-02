@@ -1,4 +1,4 @@
-import { Nsdoc } from '@openscd/open-scd/src/foundation/nsdoc.js';
+import { Nsdoc } from '@compas-oscd/open-scd/dist/foundation/nsdoc.js';
 
 import {
   getDescriptionAttribute,
@@ -6,7 +6,7 @@ import {
   getNameAttribute,
   getValue,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 import { cloneElement } from '@compas-oscd/xml';
 import { SimpleAction } from '@compas-oscd/core';
 

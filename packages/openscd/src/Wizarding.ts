@@ -40,6 +40,7 @@ export function Wizarding<TBase extends LitElementConstructor>(Base: TBase) {
     constructor(...args: any[]) {
       super(...args);
 
+      // @ts-ignore
       this.addEventListener('wizard', this.onWizard);
       this.addEventListener('editor-action', () =>
         this.wizardUI.requestUpdate()

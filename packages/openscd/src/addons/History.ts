@@ -285,7 +285,9 @@ export class OscdHistory extends LitElement {
 
     this.host.addEventListener('log', this.onLog);
     this.host.addEventListener('issue', this.onIssue);
+    // @ts-ignore
     this.host.addEventListener('history-dialog-ui', this.historyUIHandler);
+    // @ts-ignore
     this.host.addEventListener('empty-issues', this.emptyIssuesHandler);
     this.diagnoses.clear();
   }
@@ -578,9 +580,11 @@ export class OscdHistory extends LitElement {
   }
 }
 
+/*
 declare global {
   interface ElementEventMap {
     'history-dialog-ui': CustomEvent<HistoryUIDetail>;
     'empty-issues': CustomEvent<EmptyIssuesDetail>;
   }
 }
+*/

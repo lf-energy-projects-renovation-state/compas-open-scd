@@ -1,6 +1,6 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import { MockWizardEditor } from '@openscd/open-scd/test/mock-wizard-editor.js';
+import { MockWizardEditor } from '../../mock-wizard-editor.js';
 import {
   fetchDoc,
   setWizardTextFieldValue,
@@ -8,13 +8,13 @@ import {
 import {
   initializeNsdoc,
   Nsdoc,
-} from '@openscd/open-scd/src/foundation/nsdoc.js';
-import { WizardTextField } from '@openscd/open-scd/src/wizard-textfield.js';
-import { WizardAction } from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation/nsdoc.js';
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
+import { WizardAction } from '@compas-oscd/open-scd/dist/foundation.js';
 import { ComplexAction, isSimple, isReplace, Replace } from '@compas-oscd/core';
 
-import '@openscd/open-scd/test/mock-wizard-editor.js';
-import { newWizardEvent } from '@openscd/open-scd/src/foundation.js';
+import '../../mock-wizard-editor.js';
+import { newWizardEvent } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   LocamationVMUEditElement,

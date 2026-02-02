@@ -1,8 +1,9 @@
 import { html, LitElement } from 'lit-element';
 import { get } from 'lit-translate';
 
-import { newWizardEvent, Wizard } from '@openscd/open-scd/src/foundation.js';
-import { mergeWizard } from '@openscd/open-scd/src/wizards.js';
+import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
+import { newWizardEvent, Wizard } from '@compas-oscd/open-scd/dist/foundation.js';
+import { mergeWizard } from '@compas-oscd/open-scd/dist/wizards.js';
 
 import { DocRetrievedEvent } from '../compas/CompasOpen.js';
 
@@ -17,7 +18,7 @@ export default class CompasMergeMenuPlugin extends LitElement {
       {
         title: get('compas.merge.title'),
         content: [
-          html`<compas-open
+          oscdHtml`<compas-open
             @doc-retrieved=${(evt: DocRetrievedEvent) => {
               this.parent.dispatchEvent(
                 newWizardEvent(

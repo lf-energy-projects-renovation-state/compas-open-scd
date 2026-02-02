@@ -1,6 +1,6 @@
 {
   "name": "compas-open-scd",
-  "version": "0.44.0-2",
+  "version": "0.44.0-3",
   "repository": "https://github.com/openscd/open-scd.git",
   "description": "OpenSCD CoMPAS Edition",
   "directory": "packages/compas-open-scd",
@@ -19,6 +19,7 @@
   "type": "module",
   "dependencies": {
     "@compas-oscd/core": "^0.1.23",
+    "@compas-oscd/open-scd": "0.34.43",
     "@compas-oscd/xml": "^0.0.1",
     "@material/mwc-dialog": "0.22.1",
     "@material/mwc-drawer": "0.22.1",
@@ -71,7 +72,7 @@
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
     "build:test": "npm run test && npm run build && cp .nojekyll build/",
-    "build": "npm run doc && npm run build:only && cp .nojekyll build/",
+    "build": "npm run build:only && cp .nojekyll build/",
     "build:only": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && snowpack build && workbox generateSW workbox-config.cjs",
     "__comment:start": "snowpack dev fails if the lit package is cached. I don't know why, but we have to delete it before starting",
     "start": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && NODE_OPTIONS=--no-experimental-require-module snowpack dev"
