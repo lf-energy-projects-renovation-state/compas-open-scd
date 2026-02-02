@@ -1,5 +1,14 @@
 FROM public.ecr.aws/nginx/nginx:1.29.4
 
+# Upgrade OpenSSL packages to fix critical vulnerabilities
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    libssl3t64 \
+    openssl \
+    openssl-provider-legacy && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
 COPY ./nginx/default.conf.template /etc/nginx/templates/default.conf.template
 COPY build/. /usr/share/nginx/html
 
