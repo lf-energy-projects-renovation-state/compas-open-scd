@@ -48,7 +48,7 @@
     "@open-wc/semantic-dom-diff": "^0.19.5",
     "@open-wc/testing": "^2.5.33",
     "@snowpack/plugin-typescript": "^1.2.1",
-    "@types/marked": "^2.0.4",
+    "@types/marked": "^6.0.0",
     "@types/node": "^16.6.1",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
