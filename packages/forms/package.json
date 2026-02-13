@@ -21,7 +21,7 @@
     "test": "web-test-runner --coverage"
   },
   "devDependencies": {
-    "typescript": "^4.7.4",
+    "typescript": "^5.0.0",
     "@open-wc/testing": "^2.5.33",
     "@web/dev-server-esbuild": "^0.2.16",
     "@web/test-runner": "^0.13.22",
