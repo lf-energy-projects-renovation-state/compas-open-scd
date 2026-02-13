@@ -50,7 +50,7 @@
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
     "@web/dev-server-esbuild": "^0.2.16",
-    "@web/test-runner": "^0.13.22",
+    "@web/test-runner": "^0.20.0",
     "concurrently": "^6.2.1",
     "deepmerge": "^4.2.2",
     "es-dev-server": "^2.1.0",
