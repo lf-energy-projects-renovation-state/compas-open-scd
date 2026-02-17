@@ -18,10 +18,6 @@
 	path = packages/external-plugins/scl-template-update
 	url = https://github.com/com-pas/scl-template-update
 	branch = deploy
-[submodule "packages/external-plugins/oscd-designer"]
-	path = packages/external-plugins/oscd-designer
-	url = https://github.com/OpenEnergyTools/oscd-designer
-	branch = gh-pages
 [submodule "packages/external-plugins/scl-bay-template"]
 	path = packages/external-plugins/scl-bay-template
 	url = https://github.com/com-pas/scl-bay-template
@@ -29,4 +25,8 @@
 [submodule "packages/external-plugins/scl-wizarding"]
 	path = packages/external-plugins/scl-wizarding
 	url = https://github.com/openenergytools/scl-wizarding
+	branch = deploy
+[submodule "packages/external-plugins/oscd-bay-template-editor"]
+	path = packages/external-plugins/oscd-bay-template-editor
+	url = https://github.com/com-pas/oscd-bay-template-editor
 	branch = deploy
