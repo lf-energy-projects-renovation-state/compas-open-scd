@@ -144,6 +144,14 @@ export const officialPlugins = [
     requireDoc: true
   },
   {
+    name: 'Bay Template Editor',
+    src: '/external-plugins/oscd-bay-template-editor/bay-template-editor.js',
+    icon: 'edit',
+    activeByDefault: false,
+    kind: 'editor',
+    requireDoc: true
+  },
+  {
     name: 'Open project',
     src: '/src/menu/CompasOpen.js',
     icon: 'folder_open',
@@ -373,14 +381,6 @@ export const officialPlugins = [
     src: '/src/compas-editors/Sitipe.js',
     icon: 'precision_manufacturing',
     activeByDefault: true,
-    kind: 'editor',
-    requireDoc: true
-  },
-  {
-    name: 'Designer',
-    src: '/external-plugins/oscd-designer/oscd-designer.js',
-    icon: 'add_box',
-    activeByDefault: false,
     kind: 'editor',
     requireDoc: true
   },
