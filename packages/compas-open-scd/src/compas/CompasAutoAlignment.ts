@@ -46,7 +46,7 @@ export default class CompasAutoAlignmentElement extends LitElement {
   async execute(): Promise<void> {
     if (this.valid()) {
       await CompasSclAutoAlignmentService()
-        .updateSCL(this.doc, this.getSelectedValues())
+        .updateSCL(this, this.doc, this.getSelectedValues())
         .then(sclDocument => {
           this.dispatchEvent(newLogEvent({ kind: 'reset' }));
           this.dispatchEvent(
