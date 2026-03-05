@@ -81,17 +81,13 @@ export function extractSclFromResponse(response: Document): Promise<Document> {
 
 export function extractSclElementFromMapResponse(
   response: Document
-): Promise<Document> {
+): Document {
   const sclElement = response.getElementsByTagName('SCL')[0];
   if (!sclElement) {
-    return Promise.reject(new Error('No <SCL> element found in MapResponse.'));
+    throw new Error('No <SCL> element found in MapResponse.');
   }
   const sclString = new XMLSerializer().serializeToString(sclElement);
-  const sclDocument = new DOMParser().parseFromString(
-    sclString,
-    'application/xml'
-  );
-  return Promise.resolve(sclDocument);
+  return new DOMParser().parseFromString(sclString, 'application/xml');
 }
 
 export function handleError(error: Error): Promise<never> {
