@@ -26,7 +26,7 @@ export default class CompasImportFromApiElement extends LitElement {
       .then(parseXml);
 
     await CompasCimMappingService()
-      .map({ cimData: [{ name: name + '.xml', doc: doc }] })
+      .map(this, { cimData: [{ name: name + '.xml', doc: doc }] })
       .then(response => {
         const sclName = name + '.ssd';
 

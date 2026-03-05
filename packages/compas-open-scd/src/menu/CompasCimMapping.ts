@@ -31,7 +31,7 @@ export default class OpenProjectPlugin extends LitElement {
     }
 
     await CompasCimMappingService()
-      .map({ cimData: cimData })
+      .map(this, { cimData: cimData })
       .then(response => {
         // We will use the first filename as the basis of the new filename.
         const sclName = stripExtensionFromName(cimData[0].name) + '.ssd';
