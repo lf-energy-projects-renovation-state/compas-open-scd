@@ -10,11 +10,9 @@ export function websocket(
   element: Element,
   serviceName: string,
   url: string,
-  request: string,
-  timeoutMs = 15000
+  request: string
 ): Promise<Document> {
   let websocket: WebSocket | undefined;
-  let timeoutHandle: ReturnType<typeof setTimeout> | undefined;
 
   function sleep(sleepTime: number): Promise<unknown> {
     return new Promise(resolve => setTimeout(resolve, sleepTime));
@@ -29,22 +27,11 @@ export function websocket(
   return new Promise<Document>((resolve, reject) => {
     websocket = new WebSocket(url);
 
-    timeoutHandle = setTimeout(() => {
-      if (websocket) {
-        websocket.close();
-        reject({
-          type: SERVER_ERROR,
-          message: `Websocket timeout in service "${serviceName}" after ${timeoutMs}ms`,
-        });
-      }
-    }, timeoutMs);
-
     websocket.onopen = () => {
       websocket?.send(request);
     };
 
     websocket.onmessage = evt => {
-      if (timeoutHandle) clearTimeout(timeoutHandle);
       parseXml(evt.data)
         .then(doc => {
           if (doc.documentElement.localName === 'ErrorResponse') {
@@ -62,7 +49,6 @@ export function websocket(
     };
 
     websocket.onerror = () => {
-      if (timeoutHandle) clearTimeout(timeoutHandle);
       reject({
         type: SERVER_ERROR,
         message: `Websocket Error in service "${serviceName}"`,
@@ -71,7 +57,6 @@ export function websocket(
     };
     websocket.onclose = () => {
       websocket = undefined;
-      if (timeoutHandle) clearTimeout(timeoutHandle);
     };
 
     element.dispatchEvent(newPendingStateEvent(waitUntilExecuted()));
