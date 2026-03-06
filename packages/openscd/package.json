@@ -107,7 +107,7 @@
     "typedoc": "^0.23.8",
     "typedoc-plugin-markdown": "3.12.0",
     "typescript": "^4.7.4",
-    "web-component-analyzer": "^1.1.6",
+    "web-component-analyzer": "^2.0.0",
     "workbox-cli": "^6.2.4"
   },
   "eslintConfig": {
