@@ -56,7 +56,7 @@
     "@web/test-runner": "next",
     "@web/dev-server-esbuild": "^0.2.16",
     "@web/test-runner-playwright": "^0.8.10",
-    "@web/test-runner-visual-regression": "^0.6.6",
+    "@web/test-runner-visual-regression": "^0.10.0",
     "concurrently": "^7.3.0",
     "es-dev-server": "^2.1.0",
     "eslint": "^8.20.0",
