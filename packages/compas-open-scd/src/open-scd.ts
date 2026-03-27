@@ -11,7 +11,6 @@ import {
   newLogEvent,
   newOpenDocEvent,
   newPendingStateEvent,
-  XMLEditor,
 } from '@compas-oscd/core';
 
 import './addons/CompasSession.js';
@@ -35,6 +34,7 @@ import { ActionDetail } from '@material/mwc-list';
 
 import { officialPlugins as builtinPlugins } from '../public/js/plugins.js';
 import type { PluginSet, Plugin as CorePlugin } from '@compas-oscd/core';
+import { XMLEditor } from '@openscd/oscd-editor';
 import {
   newConfigurePluginEvent,
   ConfigurePluginEvent,
@@ -226,10 +226,7 @@ export class OpenSCD extends LitElement {
     this.checkAppVersion();
     this.loadPlugins();
 
-    this.unsubscribers.push(
-      this.editor.subscribe(e => this.editCount++),
-      this.editor.subscribeUndoRedo(e => this.editCount++)
-    );
+    this.unsubscribers.push(this.editor.subscribe(() => this.editCount++));
 
     // TODO: let Lit handle the event listeners, move to render()
     this.addEventListener('reset-plugins', this.resetPlugins);
