@@ -31,20 +31,20 @@ export interface UpdateRequestBody {
   doc: Document;
 }
 
+function getSclDataServiceUrl(): string {
+  return CompasSettings().compasSettings.sclDataServiceUrl;
+}
+
+function useWebsocket(): boolean {
+  return CompasSettings().useWebsockets();
+}
+
+function listSclTypes(): Promise<Document> {
+  const sclUrl = getSclDataServiceUrl() + '/common/v1/type/list';
+  return fetch(sclUrl).catch(handleError).then(handleResponse).then(parseXml);
+}
+
 export function CompasSclDataService() {
-  function getSclDataServiceUrl(): string {
-    return CompasSettings().compasSettings.sclDataServiceUrl;
-  }
-
-  function useWebsocket(): boolean {
-    return CompasSettings().useWebsockets();
-  }
-
-  function listSclTypes(): Promise<Document> {
-    const sclUrl = getSclDataServiceUrl() + '/common/v1/type/list';
-    return fetch(sclUrl).catch(handleError).then(handleResponse).then(parseXml);
-  }
-
   return {
     listOrderedSclTypes(): Promise<Element[]> {
       return listSclTypes().then(xmlResponse => {

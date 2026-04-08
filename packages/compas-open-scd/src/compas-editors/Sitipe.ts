@@ -18,6 +18,14 @@ export default class SitipePlugin extends LitElement {
     return 'Sitipe';
   }
 
+  private renderMissingSubstationMessage(): TemplateResult {
+    return html`<h1>
+      <span style="color: var(--base1)"
+        >${translate('substation.missing')}</span
+      >
+    </h1>`;
+  }
+
   private renderSubstations(): TemplateResult {
     return html`${this.doc?.querySelector(':root > Substation')
       ? html`<section>
@@ -32,11 +40,7 @@ export default class SitipePlugin extends LitElement {
                 ></sitipe-substation>`
             )}
         </section>`
-      : html`<h1>
-          <span style="color: var(--base1)"
-            >${translate('substation.missing')}</span
-          >
-        </h1>`}`;
+      : this.renderMissingSubstationMessage()}`;
   }
 
   render(): TemplateResult {

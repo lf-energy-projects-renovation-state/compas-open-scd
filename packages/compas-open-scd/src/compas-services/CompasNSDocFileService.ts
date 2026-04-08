@@ -50,9 +50,9 @@ function parseVersionNumber(
   revision: string,
   release: string
 ): number {
-  const versionNum = parseInt(version) || 0;
+  const versionNum = Number.parseInt(version) || 0;
   const revisionNum = revision.charCodeAt(0) - 65;
-  const releaseNum = parseInt(release) || 0;
+  const releaseNum = Number.parseInt(release) || 0;
 
   return versionNum * 1000000 + revisionNum * 1000 + releaseNum;
 }

@@ -60,14 +60,15 @@ function addLNodes(condEq: Element, cswi: Element): Element {
 //TODO : Got this from guess-wizard, it's unclear if this functionality will stay the same in the guess wizard
 //       Check on a later point if implementation of an export of this function will remain valid.
 function getSwitchGearType(cswi: Element): string {
+  const prefixSelector = cswi.getAttribute('prefix')
+    ? `[prefix="${cswi.getAttribute('prefix')}"]`
+    : ``;
+  const instSelector = cswi.getAttribute('inst')
+    ? `[inst="${cswi.getAttribute('inst')}"]`
+    : ``;
+
   return cswi.parentElement?.querySelector(
-    `LN[lnClass="XCBR"]${
-      cswi.getAttribute('prefix')
-        ? `[prefix="${cswi.getAttribute('prefix')}"]`
-        : ``
-    }${
-      cswi.getAttribute('inst') ? `[inst="${cswi.getAttribute('inst')}"]` : ``
-    }`
+    `LN[lnClass="XCBR"]${prefixSelector}${instSelector}`
   )
     ? 'CBR'
     : 'DIS';

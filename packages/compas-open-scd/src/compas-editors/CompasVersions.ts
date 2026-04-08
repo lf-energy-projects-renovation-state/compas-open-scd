@@ -261,7 +261,7 @@ export default class CompasVersionsPlugin extends LitElement {
   @state()
   private compareRightTitle: string | undefined;
   @query('mwc-dialog#compareDialog')
-  private compareDialog!: Dialog;
+  private readonly compareDialog!: Dialog;
 
   async compareCurrentVersion(): Promise<void> {
     const selectedVersions = this.getSelectedVersions();

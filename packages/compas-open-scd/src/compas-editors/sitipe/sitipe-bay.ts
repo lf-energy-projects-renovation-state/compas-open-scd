@@ -385,7 +385,8 @@ export class SitipeBay extends LitElement {
     const name = this.bay.getAttribute('name') ?? '';
     const desc = this.bay.getAttribute('desc');
 
-    return `${name} ${desc ? `(${desc})` : ''}`;
+    const descPart = desc ? `(${desc})` : '';
+    return `${name} ${descPart}`.trim();
   }
 
   @query('mwc-menu')
@@ -411,9 +412,7 @@ export class SitipeBay extends LitElement {
     return html`
       <div>
         ${Array.from(
-          this.bay.querySelectorAll(
-            `Private[type="${SIEMENS_SITIPE_IED_REF}"]` ?? []
-          )
+          this.bay.querySelectorAll(`Private[type="${SIEMENS_SITIPE_IED_REF}"]`)
         ).map(
           iedTemplate =>
             html`<action-icon
