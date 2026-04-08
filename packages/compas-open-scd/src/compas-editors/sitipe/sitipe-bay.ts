@@ -39,7 +39,6 @@ import {
   getBayTypicalComponents,
   getImportedBTComponentData,
   getImportedBtComponents,
-  ImportedBTComponent,
 } from './sitipe-service.js';
 import { defaultNamingStrategy, NamingStrategy } from './sitipe-substation.js';
 import { get } from 'lit-translate';
@@ -294,7 +293,7 @@ function addLNodeType(
     Array.from(
       ied.querySelectorAll(`LN0[lnType="${idOld}"],LN[lnType="${idOld}"]`)
     )
-      .filter(isPublic)
+      .filter(el => isPublic(el))
       .forEach(ln => ln.setAttribute('lnType', idNew));
   }
 
@@ -483,7 +482,7 @@ export class SitipeBay extends LitElement {
     });
 
     getBayTypicalComponents(bayTypical.accessId).then(btComponents => {
-      btComponents.forEach((btComponent, index) => {
+      for (const [index, btComponent] of btComponents.entries()) {
         const iedRefElement: Element = createElement(this.doc, 'Private', {
           type: SIEMENS_SITIPE_IED_REF,
         });
@@ -497,23 +496,27 @@ export class SitipeBay extends LitElement {
           },
         });
 
-        getImportedBtComponents(btComponent.accessId).then(res => {
-          res.forEach(importedBTComponent => {
-            getImportedBTComponentData(importedBTComponent.id).then(data => {
-              const doc: Document = new DOMParser().parseFromString(
-                data.data,
-                'application/xml'
-              );
-
-              if (this.isValidDoc(doc)) {
-                this.prepareImport(doc, iedName, btComponent);
-              }
-            });
-          });
-        });
-      });
+        this.importBtComponent(btComponent, iedName);
+      }
       this.dispatchEvent(newActionEvent(complexAction));
     });
+  }
+
+  private async importBtComponent(
+    btComponent: BTComponent,
+    iedName: string
+  ): Promise<void> {
+    const res = await getImportedBtComponents(btComponent.accessId);
+    for (const importedBTComponent of res) {
+      const data = await getImportedBTComponentData(importedBTComponent.id);
+      const doc: Document = new DOMParser().parseFromString(
+        data.data,
+        'application/xml'
+      );
+      if (this.isValidDoc(doc)) {
+        this.prepareImport(doc, iedName, btComponent);
+      }
+    }
   }
 
   private isValidDoc(doc: Document): boolean {

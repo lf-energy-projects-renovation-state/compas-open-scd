@@ -199,7 +199,7 @@ export default class CompasAutogenerateSubstation extends LitElement {
           desc,
         });
 
-        await this.createVoltageLevels(
+        this.createVoltageLevels(
           substation,
           name + '_'.repeat(this.substationNameLength - name.length)
         );

@@ -134,7 +134,7 @@ export class LocamationVMUEditElement extends LitElement {
   }
 
   private checkValidityInputs(inputs: WizardInputElement[]): boolean {
-    return Array.from(inputs).every(checkValidity);
+    return Array.from(inputs).every(input => input.checkValidity());
   }
 
   render(): TemplateResult {
@@ -189,8 +189,9 @@ export class LocamationVMUEditElement extends LitElement {
       >
       </wizard-textfield>
 
-      ${hasPrivateElement(locamationPrivate, 'SUM')
-        ? oscdHtml`<wizard-textfield
+      ${
+        hasPrivateElement(locamationPrivate, 'SUM')
+          ? oscdHtml`<wizard-textfield
             id="sum"
             label="${translate('locamation.vmu.sum')}"
             .maybeValue=${getPrivateTextValue(locamationPrivate, 'SUM')}
@@ -200,9 +201,11 @@ export class LocamationVMUEditElement extends LitElement {
             required
           >
           </wizard-textfield>`
-        : oscdHtml``}
-      ${hasPrivateElement(locamationPrivate, 'CHANNEL')
-        ? oscdHtml`<wizard-textfield
+          : oscdHtml``
+      }
+      ${
+        hasPrivateElement(locamationPrivate, 'CHANNEL')
+          ? oscdHtml`<wizard-textfield
             id="channel"
             label="${translate('locamation.vmu.channel')}"
             .maybeValue=${getPrivateTextValue(locamationPrivate, 'CHANNEL')}
@@ -211,7 +214,8 @@ export class LocamationVMUEditElement extends LitElement {
             required
           >
           </wizard-textfield>`
-        : oscdHtml``}
+          : oscdHtml``
+      }
 
       <wizard-textfield
         id="transformPrimary"

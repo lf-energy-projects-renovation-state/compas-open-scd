@@ -22,7 +22,7 @@ export default class SitipePlugin extends LitElement {
     return html`${this.doc?.querySelector(':root > Substation')
       ? html`<section>
           ${Array.from(this.doc.querySelectorAll('Substation') ?? [])
-            .filter(isPublic)
+            .filter(el => isPublic(el))
             .map(
               substation =>
                 html`<sitipe-substation

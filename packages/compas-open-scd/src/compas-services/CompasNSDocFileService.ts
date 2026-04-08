@@ -259,7 +259,7 @@ export function CompasNSDocFileService(): {
       );
 
       if (!nsDocFile) {
-        return Promise.reject(`Unable to find nsDoc file with id ${id}`);
+        throw new Error(`Unable to find nsDoc file with id ${id}`);
       }
 
       const content = await fetch(`/public/nsdoc/${nsDocFile.filename}`)

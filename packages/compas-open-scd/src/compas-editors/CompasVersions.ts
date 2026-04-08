@@ -26,7 +26,10 @@ import '@compas-oscd/open-scd/dist/plain-compare-list.js';
 import { newLogEvent } from '@compas-oscd/core';
 import { newOpenDocEvent } from '@compas-oscd/core';
 
-import { newWizardEvent, Wizard } from '@compas-oscd/open-scd/dist/foundation.js';
+import {
+  newWizardEvent,
+  Wizard,
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   CompasSclDataService,
@@ -363,7 +366,7 @@ export default class CompasVersionsPlugin extends LitElement {
     return CompasSclDataService()
       .getSclDocumentVersion(this, type, this.docId, version)
       .then(sclDocument => {
-        return Promise.resolve(<Element>sclDocument.documentElement);
+        return <Element>sclDocument.documentElement;
       })
       .catch(reason => {
         createLogEvent(this, reason);
