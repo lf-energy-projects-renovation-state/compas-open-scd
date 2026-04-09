@@ -89,7 +89,9 @@ export function extractSclElementFromMapResponse(response: Document): Document {
 }
 
 export function handleError(error: Error): Promise<never> {
-  return Promise.reject({ type: SERVER_ERROR, message: error.message });
+  const newError = new Error(error.message);
+  (newError as any).type = SERVER_ERROR;
+  return Promise.reject(newError);
 }
 
 export function createLogEvent(element: Element, reason: any): void {

@@ -53,7 +53,7 @@ export default class CompasOpenElement extends LitElement {
   allowLocalFile = true;
 
   @query('#scl-file')
-  private sclFileUI!: HTMLInputElement;
+  private readonly sclFileUI!: HTMLInputElement;
 
   private async getSclDocument(docId?: string): Promise<void> {
     const doc = await CompasSclDataService()

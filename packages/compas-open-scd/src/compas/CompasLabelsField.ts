@@ -15,9 +15,9 @@ import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-icon';
 import '@material/mwc-icon-button';
 
-import { WizardTextField } from "@compas-oscd/open-scd/dist/wizard-textfield.js";
+import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
-import "@compas-oscd/open-scd/dist/wizard-textfield.js";
+import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
 import {
   COMPAS_LABELS_MAXIMUM,
@@ -59,7 +59,7 @@ export class CompasLabelsFieldElement extends LitElement {
   }
 
   @query('wizard-textfield#newLabel')
-  private newLabelField!: WizardTextField;
+  private readonly newLabelField!: WizardTextField;
 
   private addLabel(): void {
     if (this.newLabelField.checkValidity()) {
@@ -72,7 +72,7 @@ export class CompasLabelsFieldElement extends LitElement {
   }
 
   private removeLabel(element: Element): void {
-    this.newLabelsElement!.removeChild(element);
+    element.remove();
 
     this.requestUpdate('labels');
   }
@@ -81,7 +81,7 @@ export class CompasLabelsFieldElement extends LitElement {
     // We will just add or replace the complete Labels Element, so if it exists
     // first remove it and always add the new one.
     if (this.originalLabelsElement) {
-      privateElement?.removeChild(this.originalLabelsElement);
+      this.originalLabelsElement.remove();
     }
     privateElement?.append(this.newLabelsElement);
     this.originalLabelsElement = this.newLabelsElement;

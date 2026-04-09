@@ -153,27 +153,25 @@ export interface AddToCompasWizardOptions {
   docId: string;
   docName: string;
 }
+function uploadToCompas() {
+  return function (inputs: WizardInputElement[], wizard: Element) {
+    const compasUploadVersionElement = <CompasUploadVersionElement>(
+      wizard.shadowRoot!.querySelector('compas-upload-version')
+    );
+    if (!compasUploadVersionElement.valid()) {
+      return [];
+    }
+
+    compasUploadVersionElement.dispatchEvent(
+      newPendingStateEvent(compasUploadVersionElement.updateDocumentInCompas())
+    );
+    return [];
+  };
+}
+
 export function addVersionToCompasWizard(
   saveToOptions: AddToCompasWizardOptions
 ): Wizard {
-  function uploadToCompas() {
-    return function (inputs: WizardInputElement[], wizard: Element) {
-      const compasUploadVersionElement = <CompasUploadVersionElement>(
-        wizard.shadowRoot!.querySelector('compas-upload-version')
-      );
-      if (!compasUploadVersionElement.valid()) {
-        return [];
-      }
-
-      compasUploadVersionElement.dispatchEvent(
-        newPendingStateEvent(
-          compasUploadVersionElement.updateDocumentInCompas()
-        )
-      );
-      return [];
-    };
-  }
-
   return [
     {
       title: get('compas.uploadVersion.title'),

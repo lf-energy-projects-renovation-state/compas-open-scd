@@ -27,7 +27,7 @@ export function saveDocumentToFile(doc: Document | null, docName: string) {
     a.style.display = 'none';
     document.body.appendChild(a);
     a.click();
-    document.body.removeChild(a);
+    a.remove();
     setTimeout(function () {
       URL.revokeObjectURL(a.href);
     }, 5000);

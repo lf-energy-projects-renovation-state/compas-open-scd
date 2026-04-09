@@ -24,7 +24,7 @@ export class CompasSessionExpiredDialogElement extends LitElement {
   public docName = '';
 
   @query('mwc-dialog[id="compasSessionExpiredDialog"]')
-  private dialog!: Dialog;
+  private readonly dialog!: Dialog;
 
   show(): void {
     if (!this.dialog.open) {

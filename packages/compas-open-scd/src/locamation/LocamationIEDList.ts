@@ -37,7 +37,7 @@ export class LocamationIEDListElement extends LitElement {
 
   private get logicaDevices(): Element[] {
     return Array.from(
-      this.doc!.querySelectorAll(
+      this.doc.querySelectorAll(
         `IED[manufacturer="${LOCAMATION_MANUFACTURER}"] LDevice`
       )
     )
@@ -95,20 +95,20 @@ export class LocamationIEDListElement extends LitElement {
   `;
 }
 
+function close() {
+  return function (inputs: WizardInputElement[], wizard: Element) {
+    const locamationIEDListElement = <LocamationIEDListElement>(
+      wizard.shadowRoot!.querySelector('locamation-ied-list')
+    );
+    locamationIEDListElement.close();
+    return [];
+  };
+}
+
 export function locamationIEDListWizard(
   doc: XMLDocument,
   nsdoc: Nsdoc
 ): Wizard {
-  function close() {
-    return function (inputs: WizardInputElement[], wizard: Element) {
-      const locamationIEDListElement = <LocamationIEDListElement>(
-        wizard.shadowRoot!.querySelector('locamation-ied-list')
-      );
-      locamationIEDListElement.close();
-      return [];
-    };
-  }
-
   return [
     {
       title: get('locamation.vmu.ied.title'),

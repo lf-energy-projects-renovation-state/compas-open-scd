@@ -67,22 +67,28 @@ export function updateDocumentInOpenSCD(
   );
 }
 
+// Function to compare parts of the version.
+function comparePart(leftPart: string, rightPart: string): number {
+  // First make convert them to number and check if the strings are numbers.
+  const leftNumber = Number.parseInt(leftPart);
+  const rightNumber = Number.parseInt(rightPart);
+  if (Number.isNaN(leftNumber) || Number.isNaN(rightNumber)) {
+    return 0;
+  }
+  // Now compare the two numbers.
+  if (leftNumber < rightNumber) {
+    return -1;
+  }
+  if (leftNumber > rightNumber) {
+    return 1;
+  }
+  return 0;
+}
+
 export function compareVersions(
   leftVersion: string,
   rightVersion: string
 ): number {
-  // Function to compare parts of the version.
-  function comparePart(leftPart: string, rightPart: string): number {
-    // First make convert them to number and check if the strings are numbers.
-    const leftNumber = parseInt(leftPart);
-    const rightNumber = parseInt(rightPart);
-    if (isNaN(leftNumber) || isNaN(rightNumber)) {
-      return 0;
-    }
-    // Now compare the two numbers.
-    return leftNumber < rightNumber ? -1 : leftNumber > rightNumber ? 1 : 0;
-  }
-
   // If the strings are the same, just return 0, because they are the same.
   if (leftVersion.localeCompare(rightVersion) == 0) {
     return 0;

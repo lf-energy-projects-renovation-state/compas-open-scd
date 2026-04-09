@@ -61,19 +61,19 @@ export default class CompasSaveElement extends CompasExistsIn(LitElement) {
   allowLocalFile = true;
 
   @query('mwc-textfield#name')
-  private nameField!: TextFieldBase;
+  private readonly nameField!: TextFieldBase;
 
   @query('compas-scltype-select')
-  private sclTypeRadioGroup!: CompasSclTypeSelect;
+  private readonly sclTypeRadioGroup!: CompasSclTypeSelect;
 
   @query('compas-changeset-radiogroup')
-  private changeSetRadiogroup!: CompasChangeSetRadiogroup;
+  private readonly changeSetRadiogroup!: CompasChangeSetRadiogroup;
 
   @query('compas-comment')
-  private commentField!: CompasCommentElement;
+  private readonly commentField!: CompasCommentElement;
 
   @query('compas-labels-field')
-  private labelsField!: CompasLabelsFieldElement;
+  private readonly labelsField!: CompasLabelsFieldElement;
 
   protected updated(_changedProperties: PropertyValues): void {
     super.updated(_changedProperties);

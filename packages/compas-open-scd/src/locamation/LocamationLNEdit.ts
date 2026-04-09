@@ -11,7 +11,6 @@ import { get, translate } from 'lit-translate';
 import { patterns } from '@compas-oscd/open-scd/dist/foundation.js';
 import { ComplexAction } from '@compas-oscd/core';
 import {
-  checkValidity,
   Wizard,
   WizardAction,
   WizardInputElement,

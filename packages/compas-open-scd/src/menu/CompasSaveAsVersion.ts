@@ -88,48 +88,56 @@ export default class CompasSaveAsVersionMenuPlugin extends LitElement {
     }
   }
 
+  private renderDialogContent(): TemplateResult {
+    if (!this.doc || !this.docName) {
+      return html` <compas-loading></compas-loading>`;
+    }
+
+    if (!this.saveToDoc || !this.saveToDocId) {
+      return html`
+        <compas-open
+          .allowLocalFile="${false}"
+          @doc-retrieved=${(event: DocRetrievedEvent) => {
+            this.saveToDoc = event.detail.doc;
+            this.saveToDocName = event.detail.docName;
+            this.saveToDocId = event.detail.docId;
+            this.copyCompasPrivates();
+          }}
+        ></compas-open>
+      `;
+    }
+
+    return html` <compas-save
+        .doc="${this.doc}"
+        .docName="${this.saveToDocName}"
+        .docId="${this.saveToDocId}"
+        .allowLocalFile="${false}"
+        .editCount=${this.editCount}
+        @doc-saved=${() => {
+          this.dialog.close();
+        }}
+      ></compas-save>
+      <mwc-button
+        slot="primaryAction"
+        icon="save"
+        trailingIcon
+        label="${translate('save')}"
+        @click=${() => {
+          if (this.compasSaveElement?.valid()) {
+            this.dispatchEvent(
+              newPendingStateEvent(this.compasSaveElement.saveToCompas())
+            );
+          }
+        }}
+      ></mwc-button>`;
+  }
+
   render(): TemplateResult {
     return html` <mwc-dialog
       id="compas-save-as-version-dlg"
       heading="${translate('compas.save.saveAsVersionTitle')}"
     >
-      ${!this.doc || !this.docName
-        ? html` <compas-loading></compas-loading>`
-        : !this.saveToDoc || !this.saveToDocId
-        ? html`
-            <compas-open
-              .allowLocalFile="${false}"
-              @doc-retrieved=${(event: DocRetrievedEvent) => {
-                this.saveToDoc = event.detail.doc;
-                this.saveToDocName = event.detail.docName;
-                this.saveToDocId = event.detail.docId;
-                this.copyCompasPrivates();
-              }}
-            ></compas-open>
-          `
-        : html` <compas-save
-              .doc="${this.doc}"
-              .docName="${this.saveToDocName}"
-              .docId="${this.saveToDocId}"
-              .allowLocalFile="${false}"
-              .editCount=${this.editCount}
-              @doc-saved=${() => {
-                this.dialog.close();
-              }}
-            ></compas-save>
-            <mwc-button
-              slot="primaryAction"
-              icon="save"
-              trailingIcon
-              label="${translate('save')}"
-              @click=${() => {
-                if (this.compasSaveElement && this.compasSaveElement.valid()) {
-                  this.dispatchEvent(
-                    newPendingStateEvent(this.compasSaveElement.saveToCompas())
-                  );
-                }
-              }}
-            ></mwc-button>`}
+      ${this.renderDialogContent()}
       <mwc-button
         slot="secondaryAction"
         icon=""
