@@ -15,7 +15,7 @@ import {
   HistoryUIDetail,
   OscdHistory,
 } from '@compas-oscd/open-scd/dist/addons/History.js';
-import { wizards } from '@openscd/plugins/src/wizards/wizard-library';
+import { wizards } from '@compas-oscd/plugins/dist/wizards/wizard-library';
 import { newWizardEvent, SCLTag } from '@compas-oscd/open-scd/dist/foundation.js';
 import { nothing } from 'lit-html';
 

@@ -5,7 +5,7 @@ import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import { newWizardEvent, Wizard } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import { DocRetrievedEvent } from '../compas/CompasOpen.js';
-import { mergeSubstation } from '@openscd/plugins/src/menu/UpdateSubstation.js';
+import { mergeSubstation } from '@compas-oscd/plugins/dist/menu/UpdateSubstation.js';
 
 import '../compas/CompasOpen.js';
 
