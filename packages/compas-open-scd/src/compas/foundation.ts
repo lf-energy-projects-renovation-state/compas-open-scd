@@ -1,7 +1,6 @@
 import { get } from 'lit-translate';
 
-import { newLogEvent } from '@compas-oscd/core';
-import { newOpenDocEvent } from '@compas-oscd/core';
+import { newLogEvent, newOpenDocEvent } from '@compas-oscd/core';
 import {
   COMPAS_SCL_PRIVATE_TYPE,
   getCompasSclFileType,
@@ -59,11 +58,9 @@ export function updateDocumentInOpenSCD(
 
   element.dispatchEvent(newLogEvent({ kind: 'reset' }));
   element.dispatchEvent(
-    newOpenDocEvent(
-      doc,
-      docName ? docName : buildDocName(doc.documentElement),
-      { detail: { docId: id } }
-    )
+    newOpenDocEvent(doc, docName ?? buildDocName(doc.documentElement), {
+      detail: { docId: id },
+    })
   );
 }
 

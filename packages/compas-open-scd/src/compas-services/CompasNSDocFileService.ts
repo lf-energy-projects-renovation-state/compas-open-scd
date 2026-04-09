@@ -33,7 +33,7 @@ interface NsdocContentResponse {
 function generateIdFromName(name: string): string {
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
-    const char = name.charCodeAt(i);
+    const char = name.codePointAt(i) || 0;
     hash = (hash << 5) - hash + char;
     hash = hash & hash;
   }
@@ -51,15 +51,15 @@ function parseVersionNumber(
   release: string
 ): number {
   const versionNum = Number.parseInt(version) || 0;
-  const revisionNum = revision.charCodeAt(0) - 65;
+  const revisionNum = (revision.codePointAt(0) || 0) - 65;
   const releaseNum = Number.parseInt(release) || 0;
 
   return versionNum * 1000000 + revisionNum * 1000 + releaseNum;
 }
 
 function parseNsDocFilename(filename: string): NsDocFileInfo | null {
-  const match = filename.match(
-    /^IEC_61850-([0-9]+-[0-9]+)_(\d{4})([A-Z])(\d+)-en\.nsdoc$/
+  const match = /^IEC_61850-(\d+-\d+)_(\d{4})([A-Z])(\d+)-en\.nsdoc$/.exec(
+    filename
   );
   if (match) {
     const [, standardPart, version, revision, release] = match;
@@ -92,6 +92,7 @@ async function isValidNsDocFile(filename: string): Promise<boolean> {
 
     return xmlns === 'http://www.iec.ch/61850/2016/NSD';
   } catch (error) {
+    console.warn('Failed to validate NSDOC file:', error);
     return false;
   }
 }
@@ -116,6 +117,7 @@ async function getNsDocFilesFromManifest(): Promise<string[]> {
 
     return nsdocFiles;
   } catch (error) {
+    console.warn('Failed to load NSDOC files from manifest:', error);
     return [];
   }
 }
@@ -134,8 +136,9 @@ async function getNsDocFilesByPattern(): Promise<string[]> {
           discoveredFiles.push(filename);
           break;
         }
-      } catch (e) {
-        // Continue to next version
+      } catch {
+        // Continue to next version on fetch failure
+        continue;
       }
     }
   }
@@ -148,8 +151,9 @@ async function getNsDocFilesByPattern(): Promise<string[]> {
         discoveredFiles.push(filename);
         break;
       }
-    } catch (e) {
-      // Continue to next version
+    } catch {
+      // Continue to next version on fetch failure
+      continue;
     }
   }
 
@@ -184,9 +188,7 @@ function selectLatestVersions(parsedFiles: NsDocFileInfo[]): NsDocFile[] {
   for (const fileInfo of parsedFiles) {
     const currentFileInMap = standardsMap.get(fileInfo.id);
 
-    if (!currentFileInMap) {
-      standardsMap.set(fileInfo.id, fileInfo);
-    } else {
+    if (currentFileInMap) {
       const currentVersionNum = parseVersionNumber(
         currentFileInMap.version,
         currentFileInMap.revision,
@@ -201,6 +203,8 @@ function selectLatestVersions(parsedFiles: NsDocFileInfo[]): NsDocFile[] {
       if (newVersionNum > currentVersionNum) {
         standardsMap.set(fileInfo.id, fileInfo);
       }
+    } else {
+      standardsMap.set(fileInfo.id, fileInfo);
     }
   }
 

@@ -1,4 +1,4 @@
-import { html, LitElement } from 'lit-element';
+import { LitElement } from 'lit-element';
 import { get } from 'lit-translate';
 
 import {
@@ -8,9 +8,8 @@ import {
   oscdHtml,
 } from '@compas-oscd/open-scd/dist/foundation.js';
 
-import { CompasSettingsElement } from '../compas/CompasSettings.js';
-
 import '../compas/CompasSettings.js';
+import type { CompasSettingsElement } from '../compas/CompasSettings.js';
 
 export default class CompasSettingsMenuPlugin extends LitElement {
   async run(): Promise<void> {

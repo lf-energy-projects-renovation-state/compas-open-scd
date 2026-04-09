@@ -88,7 +88,7 @@ export class LocamationIEDListElement extends LitElement {
     `;
   }
 
-  static styles = css`
+  static readonly styles = css`
     :host {
       width: 20vw;
     }

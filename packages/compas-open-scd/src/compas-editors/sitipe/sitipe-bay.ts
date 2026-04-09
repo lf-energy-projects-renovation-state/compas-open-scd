@@ -8,21 +8,22 @@ import {
   TemplateResult,
 } from 'lit-element';
 
-import { Menu } from '@material/mwc-menu';
-
 import '@material/mwc-menu';
 import '@material/mwc-list';
 import '@material/mwc-icon';
 import '@material/mwc-icon-button';
 
-import { IconButton } from '@material/mwc-icon-button';
+import type { IconButton } from '@material/mwc-icon-button';
+import type { Menu } from '@material/mwc-menu';
 
 import { isPublic } from '@compas-oscd/open-scd/dist/foundation.js';
-import { newActionEvent } from '@compas-oscd/core';
+import {
+  newActionEvent,
+  newLogEvent,
+  ComplexAction,
+  SimpleAction,
+} from '@compas-oscd/core';
 import { createElement } from '@compas-oscd/xml';
-import { newLogEvent } from '@compas-oscd/core';
-
-import { ComplexAction, SimpleAction } from '@compas-oscd/core';
 
 import '@compas-oscd/open-scd/dist/action-pane.js';
 import '@compas-oscd/open-scd/dist/action-icon.js';
@@ -67,7 +68,7 @@ function getSubNetwork(elements: Element[], element: Element): Element {
   const existElement = elements.find(
     item => item.getAttribute('name') === element.getAttribute('name')
   );
-  return existElement ? existElement : <Element>element.cloneNode(false);
+  return existElement ?? <Element>element.cloneNode(false);
 }
 
 function addCommunicationElements(
@@ -77,10 +78,8 @@ function addCommunicationElements(
   const actions = [];
 
   const oldCommunicationElement = doc.querySelector(':root > Communication');
-
-  const communication = oldCommunicationElement
-    ? oldCommunicationElement
-    : createElement(doc, 'Communication', {});
+  const communication =
+    oldCommunicationElement ?? createElement(doc, 'Communication', {});
 
   if (!oldCommunicationElement)
     actions.push({
@@ -108,9 +107,8 @@ function addCommunicationElements(
       )}"]`
     );
 
-    const subNetwork = oldSubNetworkMatch
-      ? oldSubNetworkMatch
-      : getSubNetwork(createdSubNetworks, newSubNetwork);
+    const subNetwork =
+      oldSubNetworkMatch ?? getSubNetwork(createdSubNetworks, newSubNetwork);
     const element = <Element>connectedAP.cloneNode(true);
 
     if (!oldSubNetworkMatch && !createdSubNetworks.includes(subNetwork)) {
@@ -324,25 +322,21 @@ function addDataTypeTemplates(ied: Element, doc: XMLDocument): SimpleAction[] {
   ied.ownerDocument
     .querySelectorAll(':root > DataTypeTemplates > LNodeType')
     .forEach(lNodeType =>
-      actions.push(addLNodeType(ied, lNodeType, dataTypeTemplates!))
+      actions.push(addLNodeType(ied, lNodeType, dataTypeTemplates))
     );
 
   ied.ownerDocument
     .querySelectorAll(':root > DataTypeTemplates > DOType')
-    .forEach(doType =>
-      actions.push(addDOType(ied, doType, dataTypeTemplates!))
-    );
+    .forEach(doType => actions.push(addDOType(ied, doType, dataTypeTemplates)));
 
   ied.ownerDocument
     .querySelectorAll(':root > DataTypeTemplates > DAType')
-    .forEach(daType =>
-      actions.push(addDAType(ied, daType, dataTypeTemplates!))
-    );
+    .forEach(daType => actions.push(addDAType(ied, daType, dataTypeTemplates)));
 
   ied.ownerDocument
     .querySelectorAll(':root > DataTypeTemplates > EnumType')
     .forEach(enumType =>
-      actions.push(addEnumType(ied, enumType, dataTypeTemplates!))
+      actions.push(addEnumType(ied, enumType, dataTypeTemplates))
     );
 
   return <SimpleAction[]>actions.filter(item => item !== undefined);
@@ -397,7 +391,7 @@ export class SitipeBay extends LitElement {
 
   updated(): void {
     if (this.menu && this.iconButton) {
-      this.menu!.anchor = <HTMLElement>this.iconButton!;
+      this.menu.anchor = <HTMLElement>this.iconButton;
     }
   }
 
@@ -579,16 +573,15 @@ export class SitipeBay extends LitElement {
       });
       privateIEDRef.textContent = btComponent.name || oldIEDName;
 
-      const actions: SimpleAction[] = [];
-
-      actions.push({
-        new: {
-          parent: ied,
-          element: privateIEDRef,
+      const actions: SimpleAction[] = [
+        {
+          new: {
+            parent: ied,
+            element: privateIEDRef,
+          },
         },
-      });
-
-      actions.push(...updateReferences(ied, oldIEDName, iedName));
+        ...updateReferences(ied, oldIEDName, iedName),
+      ];
       this.dispatchEvent(
         newActionEvent({
           title: get('editing.import', { name: ied.getAttribute('name')! }),
@@ -596,7 +589,6 @@ export class SitipeBay extends LitElement {
         })
       );
     }
-    return;
   }
 
   private importIED(ied: Element): void {
@@ -626,7 +618,7 @@ export class SitipeBay extends LitElement {
     const actions = communicationActions.concat(dataTypeTemplateActions);
     actions.push({
       new: {
-        parent: this.doc!.querySelector(':root')!,
+        parent: this.doc.querySelector(':root')!,
         element: ied,
       },
     });

@@ -11,15 +11,9 @@ import { translate } from 'lit-translate';
 
 import '@material/mwc-button';
 import '@material/mwc-dialog';
-import { Dialog } from '@material/mwc-dialog';
 
 import { newPendingStateEvent } from '@compas-oscd/core';
 
-import CompasSaveElement from '../compas/CompasSave.js';
-import { DocRetrievedEvent } from '../compas/CompasOpen.js';
-
-import '../compas/CompasOpen.js';
-import '../compas/CompasSave.js';
 import {
   COMPAS_SCL_PRIVATE_TYPE,
   copyCompasLabels,
@@ -27,6 +21,13 @@ import {
   copyCompasSclName,
   getPrivate,
 } from '../compas/private.js';
+
+import '../compas/CompasOpen.js';
+import '../compas/CompasSave.js';
+
+import type { Dialog } from '@material/mwc-dialog';
+import type CompasSaveElement from '../compas/CompasSave.js';
+import type { DocRetrievedEvent } from '../compas/CompasOpen.js';
 
 export default class CompasSaveAsVersionMenuPlugin extends LitElement {
   @property()
@@ -149,7 +150,7 @@ export default class CompasSaveAsVersionMenuPlugin extends LitElement {
     </mwc-dialog>`;
   }
 
-  static styles = css`
+  static readonly styles = css`
     mwc-dialog {
       --mdc-dialog-min-width: 23vw;
       --mdc-dialog-max-width: 92vw;

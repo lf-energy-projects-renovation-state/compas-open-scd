@@ -13,8 +13,8 @@ import { CompasUserInfoService } from '../compas-services/CompasUserInfoService.
 import '../compas/CompasSessionExpiringDialog.js';
 import '../compas/CompasSessionExpiredDialog.js';
 
-import { CompasSessionExpiringDialogElement } from '../compas/CompasSessionExpiringDialog.js';
-import { CompasSessionExpiredDialogElement } from '../compas/CompasSessionExpiredDialog.js';
+import type { CompasSessionExpiringDialogElement } from '../compas/CompasSessionExpiringDialog.js';
+import type { CompasSessionExpiredDialogElement } from '../compas/CompasSessionExpiredDialog.js';
 
 import { loadNsdocFiles } from '../compas/CompasNsdoc.js';
 import { retrieveUserInfo } from '../compas/CompasUserInfo.js';

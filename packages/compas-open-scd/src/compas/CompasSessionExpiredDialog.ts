@@ -10,7 +10,7 @@ import {
 import { translate, translateUnsafeHTML } from 'lit-translate';
 
 import '@material/mwc-dialog';
-import { Dialog } from '@material/mwc-dialog';
+import type { Dialog } from '@material/mwc-dialog';
 
 import { saveDocumentToFile } from '../file.js';
 

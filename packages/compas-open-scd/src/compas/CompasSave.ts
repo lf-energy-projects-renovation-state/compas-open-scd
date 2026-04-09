@@ -10,6 +10,7 @@ import {
 } from 'lit-element';
 import { get, translate } from 'lit-translate';
 import { TextFieldBase } from '@material/mwc-textfield/mwc-textfield-base';
+import { nothing } from 'lit-html';
 
 import '@material/mwc-textfield';
 import '@material/mwc-button';
@@ -20,10 +21,7 @@ import { saveDocumentToFile } from '../file.js';
 import '@compas-oscd/open-scd/dist/WizardDivider.js';
 
 import { CompasExistsIn } from './CompasExistsIn.js';
-import { CompasChangeSetRadiogroup } from './CompasChangeSetRadiogroup.js';
-import { CompasSclTypeSelect } from './CompasSclTypeSelect.js';
-import { CompasCommentElement } from './CompasComment.js';
-import { CompasLabelsFieldElement } from './CompasLabelsField.js';
+
 import { CompasSclDataService } from '../compas-services/CompasSclDataService.js';
 import { createLogEvent } from '../compas-services/foundation.js';
 import {
@@ -42,7 +40,10 @@ import './CompasComment.js';
 import './CompasLabelsField.js';
 import './CompasLoading.js';
 import './CompasSclTypeSelect.js';
-import { nothing } from 'lit-html';
+import type { CompasChangeSetRadiogroup } from './CompasChangeSetRadiogroup.js';
+import type { CompasSclTypeSelect } from './CompasSclTypeSelect.js';
+import type { CompasCommentElement } from './CompasComment.js';
+import type { CompasLabelsFieldElement } from './CompasLabelsField.js';
 
 /* Event that will be used when an SCL Document is saved. */
 export type DocSavedEvent = CustomEvent<void>;
@@ -248,7 +249,7 @@ export default class CompasSaveElement extends CompasExistsIn(LitElement) {
     `;
   }
 
-  static styles = css`
+  static readonly styles = css`
     #content > * {
       display: block;
       margin-top: 16px;

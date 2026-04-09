@@ -42,10 +42,10 @@ export function extractErrorMessage(doc: Document): string | undefined {
     let errorMessage = '';
     messages.forEach((errorMessageElement, index) => {
       const code = errorMessageElement
-        .getElementsByTagNameNS(COMMONS_NAMESPACE, 'Code')!
+        .getElementsByTagNameNS(COMMONS_NAMESPACE, 'Code')
         .item(0)!.textContent;
       const message = errorMessageElement
-        .getElementsByTagNameNS(COMMONS_NAMESPACE, 'Message')!
+        .getElementsByTagNameNS(COMMONS_NAMESPACE, 'Message')
         .item(0)!.textContent;
 
       if (index > 0) {

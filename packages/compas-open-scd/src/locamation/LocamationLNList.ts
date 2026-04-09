@@ -40,7 +40,7 @@ export class LocamationLNodeListElement extends LitElement {
   nsdoc!: Nsdoc;
 
   private get logicaNodes(): Element[] {
-    return Array.from(this.lDevice!.querySelectorAll('LN'))
+    return Array.from(this.lDevice.querySelectorAll('LN'))
       .filter(element => isSCLNamespace(element))
       .filter(
         element =>
@@ -106,7 +106,7 @@ export class LocamationLNodeListElement extends LitElement {
     `;
   }
 
-  static styles = css`
+  static readonly styles = css`
     :host {
       width: 20vw;
     }

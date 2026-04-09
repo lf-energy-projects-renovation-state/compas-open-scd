@@ -52,11 +52,11 @@ export function CompasSclDataService() {
           (type1, type2) => {
             const description1 =
               type1
-                .getElementsByTagNameNS(SDS_NAMESPACE, 'Description')!
+                .getElementsByTagNameNS(SDS_NAMESPACE, 'Description')
                 .item(0)!.textContent ?? '';
             const description2 =
               type2
-                .getElementsByTagNameNS(SDS_NAMESPACE, 'Description')!
+                .getElementsByTagNameNS(SDS_NAMESPACE, 'Description')
                 .item(0)!.textContent ?? '';
             return description1.localeCompare(description2);
           }

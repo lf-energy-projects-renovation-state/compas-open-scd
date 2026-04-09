@@ -7,13 +7,15 @@ import {
   TemplateResult,
 } from 'lit-element';
 
-import { newOpenDocEvent } from '@compas-oscd/core';
-import { newPendingStateEvent } from '@compas-oscd/core';
+import {
+  newLogEvent,
+  newOpenDocEvent,
+  newPendingStateEvent,
+  XMLEditor,
+} from '@compas-oscd/core';
 
 import './addons/CompasSession.js';
 import './addons/CompasLayout.js';
-
-import { newLogEvent } from '@compas-oscd/core';
 
 import '@compas-oscd/open-scd/addons/Waiter.js';
 import '@compas-oscd/open-scd/addons/Settings.js';
@@ -33,8 +35,6 @@ import { ActionDetail } from '@material/mwc-list';
 
 import { officialPlugins as builtinPlugins } from '../public/js/plugins.js';
 import type { PluginSet, Plugin as CorePlugin } from '@compas-oscd/core';
-import { OscdApi, XMLEditor } from '@compas-oscd/core';
-import { classMap } from 'lit-html/directives/class-map.js';
 import {
   newConfigurePluginEvent,
   ConfigurePluginEvent,

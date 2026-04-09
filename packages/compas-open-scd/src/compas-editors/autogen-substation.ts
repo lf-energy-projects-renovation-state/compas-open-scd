@@ -1,7 +1,6 @@
 import { LitElement, property } from 'lit-element';
-import { newActionEvent } from '@compas-oscd/core';
+import { newActionEvent, newLogEvent } from '@compas-oscd/core';
 import { createElement } from '@compas-oscd/xml';
-import { newLogEvent } from '@compas-oscd/core';
 import { get } from 'lit-translate';
 
 let cbNum = 1;
@@ -99,25 +98,22 @@ function isSwitchGear(ln: Element, selectedCtlModel: string[]): boolean {
 
   // ctlModel can be configured as type in DataTypeTemplate section
   const doc = ln.ownerDocument;
-  return (
-    Array.from(
-      doc.querySelectorAll(
-        `DataTypeTemplates > LNodeType[id="${ln.getAttribute(
-          'lnType'
-        )}"] > DO[name="Pos"]`
-      )
+  return Array.from(
+    doc.querySelectorAll(
+      `DataTypeTemplates > LNodeType[id="${ln.getAttribute(
+        'lnType'
+      )}"] > DO[name="Pos"]`
     )
-      .map(DO => (<Element>DO).getAttribute('type'))
-      .flatMap(doType =>
-        Array.from(
-          doc.querySelectorAll(
-            `DOType[id="${doType}"] > DA[name="ctlModel"] > Val`
-          )
+  )
+    .map(DO => DO.getAttribute('type'))
+    .flatMap(doType =>
+      Array.from(
+        doc.querySelectorAll(
+          `DOType[id="${doType}"] > DA[name="ctlModel"] > Val`
         )
       )
-      .filter(val => selectedCtlModel.includes((<Element>val).innerHTML.trim()))
-      .length > 0
-  );
+    )
+    .some(val => selectedCtlModel.includes(val.innerHTML.trim()));
 }
 
 //TODO : Got this from guess-wizard, it's unclear if this functionality will stay the same in the guess wizard

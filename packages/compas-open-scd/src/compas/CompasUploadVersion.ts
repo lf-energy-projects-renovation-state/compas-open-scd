@@ -10,8 +10,7 @@ import {
   Wizard,
   WizardInputElement,
 } from '@compas-oscd/open-scd/dist/foundation.js';
-import { newLogEvent } from '@compas-oscd/core';
-import { newPendingStateEvent } from '@compas-oscd/core';
+import { newLogEvent, newPendingStateEvent } from '@compas-oscd/core';
 
 import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
@@ -19,12 +18,12 @@ import { CompasExistsIn } from './CompasExistsIn.js';
 import { CompasSclDataService } from '../compas-services/CompasSclDataService.js';
 import { createLogEvent } from '../compas-services/foundation.js';
 import { getTypeFromDocName, updateDocumentInOpenSCD } from './foundation.js';
-import { CompasChangeSetRadiogroup } from './CompasChangeSetRadiogroup.js';
-import { CompasCommentElement } from './CompasComment.js';
 
 import './CompasChangeSetRadiogroup.js';
 import './CompasComment.js';
 import './CompasLoading.js';
+import type { CompasChangeSetRadiogroup } from './CompasChangeSetRadiogroup.js';
+import type { CompasCommentElement } from './CompasComment.js';
 
 @customElement('compas-upload-version')
 export class CompasUploadVersionElement extends CompasExistsIn(LitElement) {

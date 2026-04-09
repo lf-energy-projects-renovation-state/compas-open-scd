@@ -47,7 +47,7 @@ export default class SitipePlugin extends LitElement {
     return html`<div class="container">${this.renderSubstations()}</div>`;
   }
 
-  static styles = css`
+  static readonly styles = css`
     :host {
       width: 100vw;
       padding: 16px;

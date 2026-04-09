@@ -1,16 +1,16 @@
 import {
   css,
   customElement,
-  html,
   LitElement,
   property,
   TemplateResult,
 } from 'lit-element';
 import { get, translate } from 'lit-translate';
 
-import { patterns } from '@compas-oscd/open-scd/dist/foundation.js';
 import { ComplexAction } from '@compas-oscd/core';
 import {
+  oscdHtml,
+  patterns,
   Wizard,
   WizardAction,
   WizardInputElement,
@@ -18,7 +18,6 @@ import {
 } from '@compas-oscd/open-scd/dist/foundation.js';
 import { Nsdoc } from '@compas-oscd/open-scd/dist/foundation/nsdoc.js';
 
-import { oscdHtml } from '@compas-oscd/open-scd/dist/foundation.js';
 import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
 import {
@@ -90,9 +89,7 @@ export class LocamationVMUEditElement extends LitElement {
         locamationPrivate,
         'TRANSFORM-PRIMARY',
         getInputFieldValue(this.inputs, 'transformPrimary')
-      )
-    );
-    complexAction.actions.push(
+      ),
       ...createEditorAction(
         locamationPrivate,
         'TRANSFORM-SECONDARY',
@@ -243,7 +240,7 @@ export class LocamationVMUEditElement extends LitElement {
     `;
   }
 
-  static styles = css`
+  static readonly styles = css`
     :host {
       width: 20vw;
     }

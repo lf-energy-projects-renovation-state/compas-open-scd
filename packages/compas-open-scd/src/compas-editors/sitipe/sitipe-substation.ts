@@ -147,7 +147,7 @@ export class SitipeSubstation extends LitElement {
       ).map(this.renderVoltageLevel.bind(this))}
     </action-pane>`;
   }
-  static styles = css`
+  static readonly styles = css`
     .bayContainer {
       display: grid;
       grid-gap: 12px;

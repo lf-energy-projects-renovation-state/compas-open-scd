@@ -15,9 +15,8 @@ import '@material/mwc-list/mwc-list-item';
 import '@material/mwc-icon';
 import '@material/mwc-icon-button';
 
-import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
-
 import '@compas-oscd/open-scd/dist/wizard-textfield.js';
+import type { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';
 
 import {
   COMPAS_LABELS_MAXIMUM,
@@ -64,7 +63,7 @@ export class CompasLabelsFieldElement extends LitElement {
   private addLabel(): void {
     if (this.newLabelField.checkValidity()) {
       const value = this.newLabelField.value;
-      createLabel(this.newLabelsElement!, value);
+      createLabel(this.newLabelsElement, value);
 
       this.newLabelField.value = '';
       this.requestUpdate('labels');
@@ -131,7 +130,7 @@ export class CompasLabelsFieldElement extends LitElement {
     `;
   }
 
-  static styles = css`
+  static readonly styles = css`
     wizard-textfield {
       width: 100%;
     }
