@@ -65,8 +65,8 @@ export class CompasSclList extends LitElement {
     return this.items.filter(item => {
       const labels = Array.from(item.querySelectorAll('Label') ?? [])
         .map(element => element.textContent)
-        .filter(value => !!value);
-      return labels.some(label => this.selectedLabels.includes(label!));
+        .filter((value): value is string => !!value);
+      return labels.some(label => this.selectedLabels.includes(label));
     });
   }
 

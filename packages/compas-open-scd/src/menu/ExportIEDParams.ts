@@ -241,7 +241,7 @@ export default class ExportIEDParamsPlugin extends LitElement {
           }
           return this.getValue(element, column.attributeName);
         })
-        .filter(value => value)
+        .filter(Boolean)
         .join(' / ');
     });
   }
