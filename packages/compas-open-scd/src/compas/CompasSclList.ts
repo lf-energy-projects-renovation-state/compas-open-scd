@@ -16,7 +16,7 @@ import '@material/mwc-list/mwc-list-item';
 
 import { SelectedItemsChangedEvent } from '@compas-oscd/open-scd/dist/oscd-filter-button.js';
 
-import '@compas-oscd/open-scd/filtered-list.js';
+import '@compas-oscd/open-scd/dist/filtered-list.js';
 import '@compas-oscd/open-scd/dist/oscd-filter-button.js';
 
 import {

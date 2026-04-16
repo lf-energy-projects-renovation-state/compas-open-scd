@@ -6,7 +6,7 @@ import { newWizardEvent } from '@compas-oscd/open-scd/dist/foundation.js';
 import { newOpenDocEvent } from '@compas-oscd/core';
 import { newPendingStateEvent } from '@compas-oscd/core';
 
-import '@compas-oscd/open-scd/filtered-list.js';
+import '@compas-oscd/open-scd/dist/filtered-list.js';
 
 import {
   createLogEvent,
