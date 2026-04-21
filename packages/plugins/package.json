@@ -36,7 +36,7 @@
     "@openscd/wizards": "*",
     "@openscd/xml": "*",
     "lit": "^2.2.7",
-    "lit-translate": "^1.2.1",
+    "lit-translate": "^2.0.0",
     "marked": "^4.0.10",
     "panzoom": "^9.4.2"
   },
