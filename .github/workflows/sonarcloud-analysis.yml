@@ -21,7 +21,7 @@ jobs:
     steps:
       - name: Download PR number artifact
         if: github.event.workflow_run.event == 'pull_request'
-        uses: dawidd6/action-download-artifact@5c98f0b039f36ef966fdb7dfa9779262785ecb05 # v14
+        uses: dawidd6/action-download-artifact@8305c0f1062bb0d184d09ef4493ecb9288447732 # v20
         with:
           workflow: SonarCloud Build
           run_id: ${{ github.event.workflow_run.id }}
@@ -30,13 +30,13 @@ jobs:
       - name: Read PR_NUMBER.txt
         if: github.event.workflow_run.event == 'pull_request'
         id: pr_number
-        uses: juliangruber/read-file-action@b549046febe0fe86f8cb4f93c24e284433f9ab58 # v1
+        uses: juliangruber/read-file-action@271ff311a4947af354c6abcd696a306553b9ec18 # v1
         with:
           path: ./PR_NUMBER.txt
 
       - name: Request GitHub API for PR data
         if: github.event.workflow_run.event == 'pull_request'
-        uses: octokit/request-action@dad4362715b7fb2ddedf9772c8670824af564f0d # v2.4.0
+        uses: octokit/request-action@b91aabaa861c777dcdb14e2387e30eddf04619ae # v3.0.0
         id: get_pr_data
         with:
           route: GET /repos/${{ github.event.repository.full_name }}/pulls/${{ steps.pr_number.outputs.content }}
@@ -74,14 +74,14 @@ jobs:
           git clean -ffdx && git reset --hard HEAD
 
       - name: Cache SonarCloud packages
-        uses: actions/cache@cdf6c1fa76f9f475f3d7449005a359c84ca0f306 # v5
+        uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
       - name: Download coverage artifact
-        uses: dawidd6/action-download-artifact@5c98f0b039f36ef966fdb7dfa9779262785ecb05 # v14
+        uses: dawidd6/action-download-artifact@8305c0f1062bb0d184d09ef4493ecb9288447732 # v20
         with:
           workflow: SonarCloud Build
           run_id: ${{ github.event.workflow_run.id }}
@@ -90,7 +90,7 @@ jobs:
 
       - name: Analyze (Pull Request)
         if: ${{ github.event.workflow_run.event == 'pull_request' }}
-        uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 #v7.0.0
+        uses: SonarSource/sonarqube-scan-action@299e4b793aaa83bf2aba7c9c14bedbb485688ec4 #v7.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
@@ -102,7 +102,7 @@ jobs:
 
       - name: Analyze (Push)
         if: ${{ github.event.workflow_run.event == 'push' }}
-        uses: SonarSource/sonarqube-scan-action@a31c9398be7ace6bbfaf30c0bd5d415f843d45e9 #v7.0.0
+        uses: SonarSource/sonarqube-scan-action@299e4b793aaa83bf2aba7c9c14bedbb485688ec4 #v7.1.0
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
