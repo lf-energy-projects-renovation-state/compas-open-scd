@@ -19,7 +19,7 @@
   "dependencies": {
     "@compas-oscd/open-scd": "0.34.43",
     "@material/mwc-dialog": "0.22.1",
-    "@material/mwc-fab": "0.22.1",
+    "@material/mwc-fab": "0.27.0",
     "@material/mwc-formfield": "0.22.1",
     "@material/mwc-icon": "0.22.1",
     "@material/mwc-icon-button": "0.22.1",
