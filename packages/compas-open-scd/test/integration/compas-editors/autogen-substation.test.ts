@@ -1,7 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import '@openscd/open-scd/test/mock-editor-logger.js';
-import { MockEditorLogger } from '@openscd/open-scd/test/mock-editor-logger.js';
+import '@compas-oscd/open-scd/dist/test-helper';
+import { MockEditorLogger } from '@compas-oscd/open-scd/dist/test-helper';
 import '../../../src/compas-editors/autogen-substation.js';
 import CompasAutogenerateSubstation from '../../../src/compas-editors/autogen-substation.js';
 

@@ -16,12 +16,12 @@ import {
 import {
   Wizard,
   WizardInputElement,
-} from '@openscd/open-scd/src/foundation.js';
+} from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {
   fetchDoc,
   setWizardTextFieldValue,
-} from '@openscd/plugins/test/unit/wizards/test-support.js';
+} from './test-support.js';
 import { executeWizardComplexAction } from '../wizards/compas-test-support.js';
 import {
   editCompasSCLWizard,

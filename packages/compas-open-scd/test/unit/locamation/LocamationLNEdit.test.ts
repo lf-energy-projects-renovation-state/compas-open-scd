@@ -4,7 +4,7 @@ import { MockWizardEditor } from '../../mock-wizard-editor.js';
 import {
   fetchDoc,
   setWizardTextFieldValue,
-} from '@openscd/plugins/test/unit/wizards/test-support.js';
+} from '../compas-wizards/test-support.js';
 import {
   initializeNsdoc,
   Nsdoc,

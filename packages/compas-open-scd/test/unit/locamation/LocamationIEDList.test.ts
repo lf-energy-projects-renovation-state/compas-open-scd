@@ -1,7 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
 import {MockWizardEditor} from "../../mock-wizard-editor.js";
-import {fetchDoc} from "@openscd/plugins/test/unit/wizards/test-support.js";
+import {fetchDoc} from "../compas-wizards/test-support.js";
 import {initializeNsdoc, Nsdoc} from "@compas-oscd/open-scd/dist/foundation/nsdoc.js"
 
 import '../../mock-wizard-editor.js';
