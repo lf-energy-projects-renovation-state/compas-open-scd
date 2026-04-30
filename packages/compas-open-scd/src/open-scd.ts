@@ -97,7 +97,7 @@ export class OpenSCD extends LitElement {
                 >
                 </compas-layout>
               </oscd-editor>
-            </compas-history>
+            </oscd-history>
           </oscd-wizards>
         </oscd-settings>
       </oscd-waiter>
