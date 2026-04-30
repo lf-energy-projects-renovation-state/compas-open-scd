@@ -1,7 +1,7 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import '../../mock-wizard-editor.js';
-import { MockWizardEditor } from '../../mock-wizard-editor.js';
+import '@compas-oscd/open-scd/dist/test-helper';
+import { MockWizardEditor } from '@compas-oscd/open-scd/dist/test-helper';
 import { newWizardEvent } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js';

@@ -1,10 +1,10 @@
 import {expect, fixture, html} from "@open-wc/testing";
 
-import {MockWizardEditor} from "../../mock-wizard-editor.js";
+import {MockWizardEditor} from "@compas-oscd/open-scd/dist/test-helper";
 import {fetchDoc} from "../compas-wizards/test-support.js";
 import {initializeNsdoc, Nsdoc} from "@compas-oscd/open-scd/dist/foundation/nsdoc.js";
 
-import "../../mock-wizard-editor.js";
+import "@compas-oscd/open-scd/dist/test-helper";
 import { newWizardEvent } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {LocamationLNodeListElement, locamationLNListWizard} from "../../../src/locamation/LocamationLNList.js";
