@@ -1,10 +1,10 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import { MockWizardEditor } from '../../mock-wizard-editor.js';
+import { MockWizardEditor } from '@compas-oscd/open-scd/dist/test-helper';
 import {
   fetchDoc,
   setWizardTextFieldValue,
-} from '@openscd/plugins/test/unit/wizards/test-support.js';
+} from '../compas-wizards/test-support.js';
 import {
   initializeNsdoc,
   Nsdoc,
@@ -13,7 +13,7 @@ import { WizardTextField } from '@compas-oscd/open-scd/dist/wizard-textfield.js'
 import { WizardAction } from '@compas-oscd/open-scd/dist/foundation.js';
 import { ComplexAction, isSimple, isReplace, Replace } from '@compas-oscd/core';
 
-import '../../mock-wizard-editor.js';
+import '@compas-oscd/open-scd/dist/test-helper';
 import { newWizardEvent } from '@compas-oscd/open-scd/dist/foundation.js';
 
 import {

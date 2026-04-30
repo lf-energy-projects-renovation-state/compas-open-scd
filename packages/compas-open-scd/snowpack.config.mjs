@@ -35,14 +35,11 @@ export default {
   ],
   workspaceRoot: '../../',
   mount: {
-    '../openscd/': '/openscd/',
-    '../plugins/': '/plugins/',
+    '../../node_modules/@compas-oscd/plugins/': '/plugins/',
     '../external-plugins/': '/external-plugins/',
     './': '/',
   },
   alias: {
-    '@openscd/open-scd': '../openscd/',
-    '@openscd/plugins': '../plugins/',
     // Snowpack's esinstall doesn't support package.json "exports" subpath maps,
     // so we manually resolve the subpath export to its actual dist file.
     '@openscd/oscd-api/utils.js':

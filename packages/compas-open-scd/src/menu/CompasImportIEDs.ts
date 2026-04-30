@@ -1,7 +1,7 @@
-import { html, query, TemplateResult } from 'lit-element';
+import { query, TemplateResult } from 'lit-element';
 import { translate } from 'lit-translate';
 
-import ImportingIedPlugin from '@openscd/plugins/src/menu/ImportIEDs.js';
+import ImportingIedPlugin from '@compas-oscd/plugins/dist/menu/ImportIEDs.js';
 
 import { Dialog } from '@material/mwc-dialog';
 import '../compas/CompasOpen.js';
@@ -15,7 +15,7 @@ export default class CompasImportIEDSMenuPlugin extends ImportingIedPlugin {
   compasOpen!: Dialog;
 
   renderInput(): TemplateResult {
-    return html`<mwc-dialog
+    return this.componentHtml`<mwc-dialog
       id="compas-import-ieds-dlg"
       heading="${translate('compas.open.title')}"
     >

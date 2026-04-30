@@ -1,7 +1,7 @@
 import { expect, fixtureSync, html, waitUntil } from '@open-wc/testing';
 import sinon, { SinonSpy, spy, SinonStub } from 'sinon';
 
-import '../../mock-editor-logger.js';
+import '@compas-oscd/open-scd/dist/test-helper';
 
 import {
   BASIC_VERSIONS_LIST_RESPONSE,

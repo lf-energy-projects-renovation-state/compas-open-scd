@@ -43,7 +43,7 @@ import {
 } from './sitipe-service.js';
 import { defaultNamingStrategy, NamingStrategy } from './sitipe-substation.js';
 import { get } from 'lit-translate';
-import { updateReferences } from '@openscd/plugins/src/wizards/foundation/references.js';
+import { updateReferences } from './references.js';
 
 /**
  * Transfer namespaces from one element to another

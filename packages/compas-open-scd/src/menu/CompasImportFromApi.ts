@@ -1,7 +1,7 @@
 import { LitElement } from 'lit-element';
 import { get } from 'lit-translate';
 
-import '@compas-oscd/open-scd/filtered-list.js';
+import '@compas-oscd/open-scd/dist/filtered-list.js';
 import '@compas-oscd/open-scd/dist/wizard-textfield.js';
 import {
   newWizardEvent,

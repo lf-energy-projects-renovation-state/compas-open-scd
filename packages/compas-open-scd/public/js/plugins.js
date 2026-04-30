@@ -9,7 +9,7 @@ export const officialPlugins = [
   },
   {
     name: 'Substation',
-    src: '/plugins/src/editors/Substation.js',
+    src: '/plugins/dist/editors/Substation.js',
     icon: 'margin',
     activeByDefault: true,
     kind: 'editor',
@@ -17,7 +17,7 @@ export const officialPlugins = [
   },
   {
     name: 'Single Line Diagram',
-    src: '/plugins/src/editors/SingleLineDiagram.js',
+    src: '/plugins/dist/editors/SingleLineDiagram.js',
     icon: 'edit',
     activeByDefault: true,
     kind: 'editor',
@@ -25,7 +25,7 @@ export const officialPlugins = [
   },
   {
     name: 'Subscriber Message Binding (GOOSE)',
-    src: '/plugins/src/editors/GooseSubscriberMessageBinding.js',
+    src: '/plugins/dist/editors/GooseSubscriberMessageBinding.js',
     icon: 'link',
     activeByDefault: false,
     kind: 'editor',
@@ -33,7 +33,7 @@ export const officialPlugins = [
   },
   {
     name: 'Subscriber Data Binding (GOOSE)',
-    src: '/plugins/src/editors/GooseSubscriberDataBinding.js',
+    src: '/plugins/dist/editors/GooseSubscriberDataBinding.js',
     icon: 'link',
     activeByDefault: false,
     kind: 'editor',
@@ -41,7 +41,7 @@ export const officialPlugins = [
   },
   {
     name: 'Subscriber Message Binding (SMV)',
-    src: '/plugins/src/editors/SMVSubscriberMessageBinding.js',
+    src: '/plugins/dist/editors/SMVSubscriberMessageBinding.js',
     icon: 'link',
     activeByDefault: false,
     kind: 'editor',
@@ -49,7 +49,7 @@ export const officialPlugins = [
   },
   {
     name: 'Subscriber Data Binding (SMV)',
-    src: '/plugins/src/editors/SMVSubscriberDataBinding.js',
+    src: '/plugins/dist/editors/SMVSubscriberDataBinding.js',
     icon: 'link',
     activeByDefault: false,
     kind: 'editor',
@@ -57,7 +57,7 @@ export const officialPlugins = [
   },
   {
     name: 'Communication',
-    src: '/plugins/src/editors/Communication.js',
+    src: '/plugins/dist/editors/Communication.js',
     icon: 'settings_ethernet',
     activeByDefault: true,
     kind: 'editor',
@@ -65,7 +65,7 @@ export const officialPlugins = [
   },
   {
     name: '104',
-    src: '/plugins/src/editors/Protocol104.js',
+    src: '/plugins/dist/editors/Protocol104.js',
     icon: 'settings_ethernet',
     activeByDefault: false,
     kind: 'editor',
@@ -73,7 +73,7 @@ export const officialPlugins = [
   },
   {
     name: 'Templates',
-    src: '/plugins/src/editors/Templates.js',
+    src: '/plugins/dist/editors/Templates.js',
     icon: 'copy_all',
     activeByDefault: true,
     kind: 'editor',
@@ -113,7 +113,7 @@ export const officialPlugins = [
   },
   {
     name: 'Cleanup',
-    src: '/plugins/src/editors/Cleanup.js',
+    src: '/plugins/dist/editors/Cleanup.js',
     icon: 'cleaning_services',
     activeByDefault: false,
     kind: 'editor',
@@ -162,7 +162,7 @@ export const officialPlugins = [
   },
   {
     name: 'New project',
-    src: '/plugins/src/menu/NewProject.js',
+    src: '/plugins/dist/menu/NewProject.js',
     icon: 'create_new_folder',
     activeByDefault: true,
     kind: 'menu',
@@ -223,14 +223,14 @@ export const officialPlugins = [
   },
   {
     name: 'Validate Schema',
-    src: '/plugins/src/validators/ValidateSchema.js',
+    src: '/plugins/dist/validators/ValidateSchema.js',
     icon: 'rule_folder',
     activeByDefault: true,
     kind: 'validator',
   },
   {
     name: 'Validate Templates',
-    src: '/plugins/src/validators/ValidateTemplates.js',
+    src: '/plugins/dist/validators/ValidateTemplates.js',
     icon: 'rule_folder',
     activeByDefault: true,
     kind: 'validator',
@@ -246,7 +246,7 @@ export const officialPlugins = [
   },
   {
     name: 'Create Virtual IED',
-    src: '/plugins/src/menu/VirtualTemplateIED.js',
+    src: '/plugins/dist/menu/VirtualTemplateIED.js',
     icon: 'developer_board',
     activeByDefault: false,
     kind: 'menu',
@@ -255,7 +255,7 @@ export const officialPlugins = [
   },
   {
     name: 'Subscriber Update',
-    src: '/plugins/src/menu/SubscriberInfo.js',
+    src: '/plugins/dist/menu/SubscriberInfo.js',
     activeByDefault: true,
     kind: 'menu',
     requireDoc: true,
@@ -263,7 +263,7 @@ export const officialPlugins = [
   },
   {
     name: 'Update desc (ABB)',
-    src: '/plugins/src/menu/UpdateDescriptionABB.js',
+    src: '/plugins/dist/menu/UpdateDescriptionABB.js',
     activeByDefault: false,
     kind: 'menu',
     requireDoc: true,
@@ -271,7 +271,7 @@ export const officialPlugins = [
   },
   {
     name: 'Update desc (SEL)',
-    src: '/plugins/src/menu/UpdateDescriptionSEL.js',
+    src: '/plugins/dist/menu/UpdateDescriptionSEL.js',
     activeByDefault: false,
     kind: 'menu',
     requireDoc: true,
@@ -342,7 +342,7 @@ export const officialPlugins = [
   },
   {
     name: 'Show SCL History',
-    src: '/plugins/src/menu/SclHistory.js',
+    src: '/plugins/dist/menu/SclHistory.js',
     icon: 'history_toggle_off',
     activeByDefault: true,
     kind: 'menu',
@@ -360,7 +360,7 @@ export const officialPlugins = [
   },
   {
     name: 'Help',
-    src: '/plugins/src/menu/Help.js',
+    src: '/plugins/dist/menu/Help.js',
     icon: 'help',
     activeByDefault: true,
     kind: 'menu',
@@ -369,7 +369,7 @@ export const officialPlugins = [
   },
   {
     name: 'Export Communication Section',
-    src: '/plugins/src/menu/ExportCommunication.js',
+    src: '/plugins/dist/menu/ExportCommunication.js',
     icon: 'sim_card_download',
     activeByDefault: false,
     kind: 'menu',
@@ -395,7 +395,7 @@ export const officialPlugins = [
   },
   {
     name: 'Export IEC 104 CSV',
-    src: '/plugins/src/menu/Export104.js',
+    src: '/plugins/dist/menu/Export104.js',
     icon: 'sim_card_download',
     activeByDefault: false,
     kind: 'menu',

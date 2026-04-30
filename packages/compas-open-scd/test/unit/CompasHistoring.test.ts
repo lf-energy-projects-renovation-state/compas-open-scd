@@ -1,11 +1,11 @@
 import { expect, fixture, html } from '@open-wc/testing';
 
-import '@openscd/open-scd/test/unit/mock-logger.js';
+import '@compas-oscd/open-scd/dist/test-helper';
 
 import { newIssueEvent } from '@compas-oscd/core';
 
-import { MockOpenSCD } from '@openscd/open-scd/test/mock-open-scd.js';
-import { OscdHistory } from '@openscd/open-scd//src/addons/History.js';
+import { MockOpenSCD } from '@compas-oscd/open-scd/dist/test-helper';
+import { OscdHistory } from '@compas-oscd/open-scd/dist/addons/History.js';
 
 describe('HistoringElement', () => {
   let mock: MockOpenSCD;

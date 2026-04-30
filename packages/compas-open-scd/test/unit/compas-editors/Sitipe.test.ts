@@ -3,7 +3,9 @@ import { expect, fixture, html } from '@open-wc/testing';
 import Sitipe from '../../../src/compas-editors/Sitipe.js';
 
 describe('Sitipe plugin', () => {
-  customElements.define('sitipe-plugin', Sitipe);
+  if (customElements.get('sitipe-plugin') === undefined) {
+    customElements.define('sitipe-plugin', Sitipe);
+  }
 
   let element: Sitipe;
 
