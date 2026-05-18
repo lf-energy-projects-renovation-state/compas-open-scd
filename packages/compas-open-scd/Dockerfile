@@ -1,11 +1,14 @@
-FROM public.ecr.aws/nginx/nginx:1.29.8
+FROM public.ecr.aws/nginx/nginx:1.31.0
 
-# Upgrade OpenSSL packages to fix critical vulnerabilities
-RUN apt-get update && \
+# Upgrade OpenSSL and GnuTLS packages to fix critical vulnerabilities
+RUN echo "deb http://deb.debian.org/debian sid main" > /etc/apt/sources.list.d/sid.list && \
+    apt-get update && \
     apt-get install -y --no-install-recommends \
     libssl3t64 \
     openssl \
-    openssl-provider-legacy && \
+    openssl-provider-legacy \
+    -t sid libgnutls30t64 && \
+    rm /etc/apt/sources.list.d/sid.list && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
