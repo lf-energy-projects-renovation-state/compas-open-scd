@@ -49,7 +49,7 @@
   </script>
   <script>
     const openScd = document.querySelector("open-scd");
-    addEventListener("beforeunload", e => {
+    window.addEventListener("beforeunload", e => {
       if (openScd && openScd.doc) {
         e.preventDefault();
         return e.returnValue = "Are you sure you want to exit?";
