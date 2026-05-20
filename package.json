@@ -51,6 +51,8 @@
   },
   "scripts": {
     "dev": "vite",
+    "preview": "vite preview",
+    "build": "vite build",
     "__OLDSTUFF": "--------------------------------------------------------------",
     "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
     "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
@@ -72,9 +74,9 @@
     "release:minor": "standard-version --release-as minor",
     "release:patch": "standard-version --release-as patch",
     "release:major": "standard-version --release-as major",
-    "build:test": "npm run test && npm run build && cp .nojekyll build/",
-    "build": "npm run build:only && cp .nojekyll build/",
-    "build:only": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && snowpack build && workbox generateSW workbox-config.cjs",
+    "old_build:test": "npm run test && npm run build && cp .nojekyll build/",
+    "old_build": "npm run build:only && cp .nojekyll build/",
+    "old_build:only": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && snowpack build && workbox generateSW workbox-config.cjs",
     "__comment:start": "snowpack dev fails if the lit package is cached. I don't know why, but we have to delete it before starting",
     "start": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && NODE_OPTIONS=--no-experimental-require-module snowpack dev"
   },
@@ -108,6 +110,7 @@
     "typedoc-plugin-markdown": "^3.14.0",
     "typescript": "~4.7.4",
     "vite": "^8.0.12",
+    "vite-plugin-static-copy": "^4.0.1",
     "web-component-analyzer": "^1.1.6",
     "workbox-cli": "^6.2.4"
   },
