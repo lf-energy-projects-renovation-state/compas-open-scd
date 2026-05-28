@@ -1,6 +1,6 @@
 {
   "name": "compas-open-scd",
-  "version": "0.44.0-10",
+"version": "0.44.0-11",
   "repository": "https://github.com/openscd/open-scd.git",
   "description": "OpenSCD CoMPAS Edition",
   "directory": "packages/compas-open-scd",
@@ -19,8 +19,8 @@
   "type": "module",
   "dependencies": {
     "@compas-oscd/core": "^0.1.23",
-    "@compas-oscd/open-scd": "0.34.49",
-    "@compas-oscd/plugins": "0.0.6",
+    "@compas-oscd/open-scd": "0.34.51",
+    "@compas-oscd/plugins": "0.0.13",
     "@compas-oscd/xml": "^0.0.1",
     "@material/mwc-dialog": "0.22.1",
     "@material/mwc-drawer": "0.22.1",
