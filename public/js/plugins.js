@@ -1,7 +1,7 @@
 export const officialPlugins = [
   {
     name: 'IED',
-    src: '/external-plugins/IedEditor.js',
+    src: '/external-plugins/IedEditor.ts',
     icon: 'developer_board',
     activeByDefault: true,
     kind: 'editor',
