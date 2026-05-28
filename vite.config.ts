@@ -9,5 +9,11 @@ export default defineConfig({
         { src: 'node_modules/@compas-oscd/plugins/**/*', dest: 'plugins', rename: { stripBase: 3 } }
       ]
     })
-  ]
+  ],
+  optimizeDeps: {
+    exclude: ['@compas-oscd/plugins']
+  },
+  server: {
+    port: 8080
+  }
 })
