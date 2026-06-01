@@ -13,7 +13,7 @@ RUN echo "deb http://deb.debian.org/debian sid main" > /etc/apt/sources.list.d/s
     rm -rf /var/lib/apt/lists/*
 
 COPY ./nginx/default.conf.template /etc/nginx/templates/default.conf.template
-COPY build/. /usr/share/nginx/html
+COPY dist/. /usr/share/nginx/html
 
 ENV NGINX_PORT=8080
 EXPOSE 8080

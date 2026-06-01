@@ -2,7 +2,7 @@ const packageJson = require('./package.json');
 
 module.exports = {
   cacheId: `compas-${packageJson.version}`,
-  globDirectory: 'build/',
+  globDirectory: 'dist/',
   globPatterns: [
     '_snowpack/**/*.{md,js,png,xml,pdf,css,html,info,json,ico,svg,wasm}',
     'public/**/*.{md,js,png,xml,pdf,css,html,info,json,ico,svg,wasm}',
@@ -15,7 +15,7 @@ module.exports = {
   globIgnores: [
     'public/nsdoc/README.md'
   ],
-  swDest: 'build/sw.js',
+  swDest: 'dist/sw.js',
   runtimeCaching: [
     {
       urlPattern: /package\.json\.proxy\.js$/,

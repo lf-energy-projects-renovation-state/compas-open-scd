@@ -50,10 +50,9 @@
     "panzoom": "^9.4.2"
   },
   "scripts": {
-    "dev": "vite",
-    "preview": "vite preview",
-    "build": "vite build",
-    "__OLDSTUFF": "--------------------------------------------------------------",
+    "start": "vite",
+    "preview": "vite build && vite preview",
+    "build": "vite build && workbox generateSW workbox-config.cjs",
     "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
     "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
     "lint:prettier": "prettier \"**/*.js\" \"**/*.ts\" --check --ignore-path .gitignore",
@@ -65,20 +64,7 @@
     "test:manual": "web-test-runner --manual",
     "test:watch": "web-test-runner --watch",
     "test:unit": "web-test-runner --watch --group unit",
-    "test:integration": "web-test-runner --watch --group integration",
-    "doc:clean": "npx rimraf doc",
-    "doc:typedoc": "typedoc --entryPointStrategy expand --entryPoints ./src --exclude **/*.spec.ts --exclude **/*.test.ts --out doc",
-    "doc:wca": "wca src --outDir doc/components",
-    "doc": "npm run doc:clean && npm run doc:typedoc && npm run doc:wca",
-    "release": "standard-version",
-    "release:minor": "standard-version --release-as minor",
-    "release:patch": "standard-version --release-as patch",
-    "release:major": "standard-version --release-as major",
-    "old_build:test": "npm run test && npm run build && cp .nojekyll build/",
-    "old_build": "npm run build:only && cp .nojekyll build/",
-    "old_build:only": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && snowpack build && workbox generateSW workbox-config.cjs",
-    "__comment:start": "snowpack dev fails if the lit package is cached. I don't know why, but we have to delete it before starting",
-    "start": "npx rimraf node_modules/.cache/snowpack/build/lit@2.8.0 && NODE_OPTIONS=--no-experimental-require-module snowpack dev"
+    "test:integration": "web-test-runner --watch --group integration"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
