@@ -6,7 +6,7 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         { src: 'packages/external-plugins/**/*', dest: 'external-plugins', rename: { stripBase: 2 } },
-        { src: 'packages/external-plugins/IedEditor.ts', dest: 'external-plugins', rename: { stripBase: 2 } }
+        { src: 'packages/external-plugins/IedEditor.js', dest: 'external-plugins', rename: { stripBase: 2 } }
       ]
     })
   ],
