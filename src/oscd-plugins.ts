@@ -2,7 +2,7 @@ import { pluginTag } from '@compas-oscd/open-scd/dist/plugin-tag.js';
 
 // editor plugins
 import { default as Substation } from '@compas-oscd/plugins/dist/editors/Substation.js';
-// import { default as SingleLineDiagram } from '@compas-oscd/plugins/dist/editors/SingleLineDiagram.js';
+import { default as SingleLineDiagram } from '@compas-oscd/plugins/dist/editors/SingleLineDiagram.js';
 import { default as GooseSubscriberMessageBinding } from '@compas-oscd/plugins/dist/editors/GooseSubscriberMessageBinding.js';
 import { default as GooseSubscriberDataBinding } from '@compas-oscd/plugins/dist/editors/GooseSubscriberDataBinding.js';
 import { default as SMVSubscriberMessageBinding } from '@compas-oscd/plugins/dist/editors/SMVSubscriberMessageBinding.js';
@@ -26,7 +26,7 @@ import { default as ExportCommunication } from '@compas-oscd/plugins/dist/menu/E
 
 export enum OscdPluginSrc {
   Substation = '/oscd-plugins/editors/Substation.js',
-  // SingleLineDiagram = '/oscd-plugins/editors/SingleLineDiagram.js',
+  SingleLineDiagram = '/oscd-plugins/editors/SingleLineDiagram.js',
   GooseSubscriberMessageBinding = '/oscd-plugins/editors/GooseSubscriberMessageBinding.js',
   GooseSubscriberDataBinding = '/oscd-plugins/editors/GooseSubscriberDataBinding.js',
   SMVSubscriberMessageBinding = '/oscd-plugins/editors/SMVSubscriberMessageBinding.js',
@@ -49,7 +49,7 @@ export enum OscdPluginSrc {
 
 const plugins: { [key in OscdPluginSrc]: CustomElementConstructor } = {
   [OscdPluginSrc.Substation]: Substation,
-  // [OscdPluginSrc.SingleLineDiagram]: SingleLineDiagram,
+  [OscdPluginSrc.SingleLineDiagram]: SingleLineDiagram,
   [OscdPluginSrc.GooseSubscriberMessageBinding]: GooseSubscriberMessageBinding,
   [OscdPluginSrc.GooseSubscriberDataBinding]: GooseSubscriberDataBinding,
   [OscdPluginSrc.SMVSubscriberMessageBinding]: SMVSubscriberMessageBinding,

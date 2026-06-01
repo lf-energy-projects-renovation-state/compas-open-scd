@@ -10,9 +10,6 @@ export default defineConfig({
       ]
     })
   ],
-  optimizeDeps: {
-    exclude: ['@compas-oscd/plugins']
-  },
   server: {
     port: 8080
   }
