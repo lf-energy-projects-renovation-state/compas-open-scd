@@ -19,5 +19,4 @@ jobs:
         run: |
           npm ci
           npm run-script build
-          cd packages/compas-open-scd
           npm run-script test

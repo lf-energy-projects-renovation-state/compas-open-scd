@@ -46,7 +46,6 @@ jobs:
         run: |
           npm ci
           npm run-script build
-          cd packages/compas-open-scd
           npm run-script test
 
       - name: Build application with npm
@@ -59,6 +58,6 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f #v7.1.0
         with:
-          # Set the context to use the packages/compas-open-scd directory and not execute it's own git checkout.
-          context: packages/compas-open-scd
+          # Set the context to use the root directory and not execute it's own git checkout.
+          context: .
           push: false
