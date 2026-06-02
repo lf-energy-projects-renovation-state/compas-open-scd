@@ -37,9 +37,7 @@ jobs:
         run: npm run-script build
 
       - name: Run tests with coverage
-        run: |
-          cd packages/compas-open-scd
-          npm run-script test
+        run: npm run-script test
 
       - name: Save PR number to file
         if: ${{ github.event_name == 'pull_request' }}
@@ -58,4 +56,4 @@ jobs:
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: coverage
-          path: packages/compas-open-scd/coverage/
+          path: coverage/

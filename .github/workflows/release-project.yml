@@ -58,8 +58,8 @@ jobs:
         id: build-push
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f #v7.1.0
         with:
-          # Set the context to use the packages/compas-open-scd directory and not execute it's own git checkout.
-          context: packages/compas-open-scd
+          # Set the context to use the root directory and not execute it's own git checkout.
+          context: .
           push: true
           # Tag the images using the tagname and also latest.
           tags: |

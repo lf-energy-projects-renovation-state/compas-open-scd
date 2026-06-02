@@ -44,6 +44,7 @@ import packageJson from '../package.json';
 import { CompasSclDataService } from './compas-services/CompasSclDataService.js';
 import { createLogEvent } from './compas-services/foundation.js';
 import { languages, loader } from './translations/loader.js';
+import { registerOscdPlugins, OscdPluginSrc } from './oscd-plugins.js';
 
 const LNODE_LIB_DOC_ID = 'fc55c46d-c109-4ccd-bf66-9f1d0e135689';
 
@@ -224,6 +225,7 @@ export class OpenSCD extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
     this.checkAppVersion();
+    registerOscdPlugins();
     this.loadPlugins();
 
     this.unsubscribers.push(this.editor.subscribe(() => this.editCount++));
@@ -465,8 +467,19 @@ export class OpenSCD extends LitElement {
     return builtinPlugins as CorePlugin[];
   }
 
-  private addContent(plugin: Omit<Plugin, 'content'>): Plugin {
+  private addContent(plugin: Plugin): Plugin {
     const tag = this.pluginTag(plugin.src);
+
+    const isOscdPlugin = Object.values(OscdPluginSrc).includes(plugin.src as any);
+    if (isOscdPlugin) {
+      const tag = pluginTag(plugin.src);
+      return {
+        ...plugin,
+        content: {
+          tag,
+        },
+      };
+    }
 
     if (!this.loadedPlugins.has(tag)) {
       this.loadedPlugins.add(tag);
