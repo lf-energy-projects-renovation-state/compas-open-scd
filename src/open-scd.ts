@@ -32,7 +32,7 @@ import {
 } from '@compas-oscd/open-scd/dist/plugin.js';
 import { ActionDetail } from '@material/mwc-list';
 
-import { officialPlugins as builtinPlugins } from '../public/js/plugins.js';
+import { officialPlugins as builtinPlugins } from '../public/public/js/plugins.js';
 import type { PluginSet, Plugin as CorePlugin } from '@compas-oscd/core';
 import { XMLEditor } from '@openscd/oscd-editor';
 import {
@@ -475,7 +475,6 @@ export class OpenSCD extends LitElement {
     const isOscdPlugin = Object.values(OscdPluginSrc).includes(plugin.src as any);
     const isCompasPlugin = Object.values(CompasPluginSrc).includes(plugin.src as any);
     if (isOscdPlugin || isCompasPlugin) {
-      console.log(`Plugin ${plugin.name} is a built-in plugin, using predefined content`);
       const tag = pluginTag(plugin.src);
       return {
         ...plugin,
