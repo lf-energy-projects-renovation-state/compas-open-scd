@@ -40,20 +40,20 @@ jobs:
         with:
           node-version: '20.x'
 
-      - name: Test application with npm
+      - name: Test application with pnpm
         timeout-minutes: 45
         if: ${{ github.event_name == 'push' }}
         run: |
-          npm ci
-          npm run-script build
-          npm run-script test
+          pnpm ci
+          pnpm run-script build
+          pnpm run-script test
 
-      - name: Build application with npm
+      - name: Build application with pnpm
         if: ${{ github.event_name == 'pull_request' }}
         timeout-minutes: 45
         run: |
-          npm ci
-          npm run-script build
+          pnpm ci
+          pnpm run-script build
       - name: Build docker image
         if: ${{ github.event_name == 'pull_request' }}
         uses: docker/build-push-action@f9f3042f7e2789586610d6e8b85c8f03e5195baf #v7.2.0

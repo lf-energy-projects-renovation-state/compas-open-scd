@@ -17,6 +17,6 @@ jobs:
 
       - name: Install and Test OpenSCD
         run: |
-          npm ci
-          npm run-script build
-          npm run-script test
+          pnpm ci
+          pnpm run-script build
+          pnpm run-script test
