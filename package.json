@@ -97,7 +97,7 @@
     "typescript": "~4.7.4",
     "vite": "^8.0.12",
     "vite-plugin-static-copy": "^4.0.1",
-    "web-component-analyzer": "^1.1.6",
+    "web-component-analyzer": "^2.0.0",
     "workbox-cli": "^6.2.4"
   },
   "eslintConfig": {
