@@ -18,7 +18,7 @@
   "module": "open-scd.js",
   "type": "module",
   "dependencies": {
-    "@compas-oscd/core": "^0.1.23",
+    "@compas-oscd/core": "^0.2.0",
     "@compas-oscd/open-scd": "0.34.51",
     "@compas-oscd/plugins": "0.0.13",
     "@compas-oscd/xml": "^0.0.1",
