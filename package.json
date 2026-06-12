@@ -21,7 +21,7 @@
     "@compas-oscd/core": "^0.1.23",
     "@compas-oscd/open-scd": "0.34.51",
     "@compas-oscd/plugins": "0.0.13",
-    "@compas-oscd/xml": "^0.0.1",
+    "@compas-oscd/xml": "^0.0.2",
     "@material/mwc-dialog": "0.22.1",
     "@material/mwc-drawer": "0.22.1",
     "@material/mwc-fab": "0.22.1",
