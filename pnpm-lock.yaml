@@ -60,8 +60,8 @@ importers:
         specifier: 0.22.1
         version: 0.22.1
       '@material/mwc-switch':
-        specifier: 0.22.1
-        version: 0.22.1
+        specifier: 0.27.0
+        version: 0.27.0
       '@material/mwc-tab':
         specifier: 0.22.1
         version: 0.22.1
@@ -972,6 +972,9 @@ packages:
   '@material/density@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-uCOzDL3U8EAOU6A+3lwbys6lB5P24PwEsNoe5YoB7CmkNS+8LLFPdemp4dMdVY2xGlDX+McaUOKJKmFub4cPUA==}
 
+  '@material/density@14.0.0-canary.53b3cad2f.0':
+    resolution: {integrity: sha512-Eh/vZ3vVyqtpylg5Ci33qlgtToS4H1/ppd450Ib3tcdISIoodgijYY0w4XsRvrnZgbI/h/1STFdLxdzS0UNuFw==}
+
   '@material/dialog@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-WOK+HN7HQa3mHvNEsEnleDOHCLRAbpFOhGuGyqnSDOCyxTl2DcNCUqsWupDVDpAlLv2OfLdmceyJrejMF+8q7g==}
 
@@ -998,6 +1001,9 @@ packages:
 
   '@material/floating-label@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-MZIVki9uD6JMyfQ6v5FIgt2WEZQ3fOCpoOiE8c9cHuNiawVJc3pmoA5wT/38hJs3iMCx86D1jL1vK9UdyIdF7A==}
+
+  '@material/focus-ring@14.0.0-canary.53b3cad2f.0':
+    resolution: {integrity: sha512-exPX5VrjQimipBwgcFDGRiEE783sOBgpkFui59A6i6iGvS2UrLHlYY2E65fyyyQnD1f/rv4Po1OOnCesE1kulg==}
 
   '@material/form-field@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-wYNyh1RMqEviuWcredWYx8ENEjR1GYdQu/NE9SKlfK7zKsFxF7szwHDd/3cZd7BSYVJUeylveDW+KgXQaW0YpQ==}
@@ -1096,6 +1102,10 @@ packages:
     resolution: {integrity: sha512-QQyWWPBZ6veWNbBMWo8WQw0iY9QUjLLANorug8mPHv13ETdhwVUUozeKOY0ZCXWupNlqtap1Gd0IQjv6HVRMjA==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
 
+  '@material/mwc-ripple@0.27.0':
+    resolution: {integrity: sha512-by0O8d8g3Rd96/sUB8hxy6MrDx1QTstqOsA64vqypWd526hMTBGRik08jTNap5sVIyrN9Vq17jb4NJLWQLnNHQ==}
+    deprecated: MWC beta is longer supported. Please upgrade to @material/web
+
   '@material/mwc-select@0.22.1':
     resolution: {integrity: sha512-P5o2DD48AtEpr+ZqbFlQ04GgSmcbhOTdQEeDBkDAxSsuErXQZgzY1aPCXlaDI0QzQ/gNP/13b4ejLqstVp9SQg==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
@@ -1106,6 +1116,10 @@ packages:
 
   '@material/mwc-switch@0.22.1':
     resolution: {integrity: sha512-KDY3uqT2qTEw6Z9TS91Ucs0LViUcMsP1XHu6ZNhbv9Ai1uK/i8pwVWAIGIX9Cm1iCdjiYGfKm4DZLORDb/rfEQ==}
+    deprecated: MWC beta is longer supported. Please upgrade to @material/web
+
+  '@material/mwc-switch@0.27.0':
+    resolution: {integrity: sha512-MKKjm42f8YyHN1HmvfgppgTPJUxulcmOqND5R7zI/kB38vFcWDxEhnpdUYr2kEsFtebpYNSF0j6FXcKV/W+fJw==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
 
   '@material/mwc-tab-bar@0.22.1':
@@ -1184,6 +1198,9 @@ packages:
   '@material/switch@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-kubSphtXl74TC/PAjp67lYi7Ngk0MEKTLzp1ZHiMHElew2Z9/IYHP0pPaQRTkBY0ddIx6hVdHMiMf8qB4zuz2w==}
 
+  '@material/switch@14.0.0-canary.53b3cad2f.0':
+    resolution: {integrity: sha512-hL7lOF8tgYaS1Spce6zlxfveoqUlqDTW+vv+R7TIHwzLD5HJCdhTiotXshOKCZLoSi7Ljx7JpCdvNqGlv4rpIw==}
+
   '@material/tab-bar@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-cxGyfONh9tFK2tISHDSAWFfH/uxH/HfTTjuDQIiPkOLmr6oVgGPXP2AdsZ0Z60HJCAedbR9mdWCesEk8w4f8+Q==}
 
@@ -1204,6 +1221,9 @@ packages:
 
   '@material/theme@14.0.0-canary.53b3cad2f.0':
     resolution: {integrity: sha512-S06XAevDCDWMe+GgsEpITMS07imUidzadNaTbJsqssFajBLr53QWVZsG84BpjXKXoYvyEJvb0hX5U0lq6ip9UQ==}
+
+  '@material/tokens@14.0.0-canary.53b3cad2f.0':
+    resolution: {integrity: sha512-myHFB7vac8zErA3qgkqmV+kpE+i9JEwc/6Yf0MOumDSpylJGw28QikpNC6eAVBK2EmPQTaFn20mqUxyud8dGqw==}
 
   '@material/top-app-bar@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-fTS0kOHyUAKBhtz8olDvsCtZ6VxJEJ5QNUAZdHbJsTjig87poLLUP2CKJ18t5DjzW/KFMFjNYMSbah6NOREvqg==}
@@ -6861,6 +6881,10 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
+  '@material/density@14.0.0-canary.53b3cad2f.0':
+    dependencies:
+      tslib: 2.8.1
+
   '@material/dialog@12.0.0-canary.22d29cbb4.0':
     dependencies:
       '@material/animation': 12.0.0-canary.22d29cbb4.0
@@ -6938,6 +6962,12 @@ snapshots:
       '@material/theme': 12.0.0-canary.22d29cbb4.0
       '@material/typography': 12.0.0-canary.22d29cbb4.0
       tslib: 2.8.1
+
+  '@material/focus-ring@14.0.0-canary.53b3cad2f.0':
+    dependencies:
+      '@material/dom': 14.0.0-canary.53b3cad2f.0
+      '@material/feature-targeting': 14.0.0-canary.53b3cad2f.0
+      '@material/rtl': 14.0.0-canary.53b3cad2f.0
 
   '@material/form-field@12.0.0-canary.22d29cbb4.0':
     dependencies:
@@ -7174,6 +7204,14 @@ snapshots:
       lit-html: 1.4.1
       tslib: 2.8.1
 
+  '@material/mwc-ripple@0.27.0':
+    dependencies:
+      '@material/dom': 14.0.0-canary.53b3cad2f.0
+      '@material/mwc-base': 0.27.0
+      '@material/ripple': 14.0.0-canary.53b3cad2f.0
+      lit: 2.8.0
+      tslib: 2.8.1
+
   '@material/mwc-select@0.22.1':
     dependencies:
       '@material/dom': 12.0.0-canary.22d29cbb4.0
@@ -7206,6 +7244,14 @@ snapshots:
       '@material/mwc-ripple': 0.22.1
       '@material/switch': 12.0.0-canary.22d29cbb4.0
       lit-element: 2.5.1
+      tslib: 2.8.1
+
+  '@material/mwc-switch@0.27.0':
+    dependencies:
+      '@material/mwc-base': 0.27.0
+      '@material/mwc-ripple': 0.27.0
+      '@material/switch': 14.0.0-canary.53b3cad2f.0
+      lit: 2.8.0
       tslib: 2.8.1
 
   '@material/mwc-tab-bar@0.22.1':
@@ -7413,6 +7459,22 @@ snapshots:
       '@material/theme': 12.0.0-canary.22d29cbb4.0
       tslib: 2.8.1
 
+  '@material/switch@14.0.0-canary.53b3cad2f.0':
+    dependencies:
+      '@material/animation': 14.0.0-canary.53b3cad2f.0
+      '@material/base': 14.0.0-canary.53b3cad2f.0
+      '@material/density': 14.0.0-canary.53b3cad2f.0
+      '@material/dom': 14.0.0-canary.53b3cad2f.0
+      '@material/elevation': 14.0.0-canary.53b3cad2f.0
+      '@material/feature-targeting': 14.0.0-canary.53b3cad2f.0
+      '@material/focus-ring': 14.0.0-canary.53b3cad2f.0
+      '@material/ripple': 14.0.0-canary.53b3cad2f.0
+      '@material/rtl': 14.0.0-canary.53b3cad2f.0
+      '@material/shape': 14.0.0-canary.53b3cad2f.0
+      '@material/theme': 14.0.0-canary.53b3cad2f.0
+      '@material/tokens': 14.0.0-canary.53b3cad2f.0
+      tslib: 2.8.1
+
   '@material/tab-bar@12.0.0-canary.22d29cbb4.0':
     dependencies:
       '@material/animation': 12.0.0-canary.22d29cbb4.0
@@ -7482,6 +7544,10 @@ snapshots:
     dependencies:
       '@material/feature-targeting': 14.0.0-canary.53b3cad2f.0
       tslib: 2.8.1
+
+  '@material/tokens@14.0.0-canary.53b3cad2f.0':
+    dependencies:
+      '@material/elevation': 14.0.0-canary.53b3cad2f.0
 
   '@material/top-app-bar@12.0.0-canary.22d29cbb4.0':
     dependencies:
