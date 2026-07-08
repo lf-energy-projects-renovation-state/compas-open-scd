@@ -77,7 +77,7 @@
     "@types/marked": "2.0.5",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
-    "@web/dev-server-esbuild": "0.2.16",
+    "@web/dev-server-esbuild": "0.4.4",
     "@web/test-runner": "0.13.31",
     "concurrently": "6.5.1",
     "es-dev-server": "2.1.0",
