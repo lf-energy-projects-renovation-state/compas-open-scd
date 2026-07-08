@@ -21,8 +21,8 @@ importers:
         specifier: 0.0.2
         version: 0.0.2
       '@material/mwc-button':
-        specifier: 0.22.1
-        version: 0.22.1
+        specifier: 0.27.0
+        version: 0.27.0
       '@material/mwc-dialog':
         specifier: 0.22.1
         version: 0.22.1
@@ -1032,6 +1032,10 @@ packages:
     resolution: {integrity: sha512-Z+NOM+d7QkmIOGbVT7BA/rzLJMXGaxC4Bp+dXcm3ESu6ohPBtG878IyZGSGiMXXDtmAKgMAIp74z4gE/Y0j1pA==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
 
+  '@material/mwc-button@0.27.0':
+    resolution: {integrity: sha512-t5m2zfE93RNKHMjdsU67X6csFzuSG08VJKKvXVQ+BriGE3xBgzY5nZdmZXomFpaWjDENPAlyS4ppCFm6o+DILw==}
+    deprecated: MWC beta is longer supported. Please upgrade to @material/web
+
   '@material/mwc-checkbox@0.22.1':
     resolution: {integrity: sha512-JfUEVWAos/sscPH1k9oUKhjtCbTuU4rl7GgKcenCF6EnxTaXbzxGJKPz28BUS5I14JM7vHNUwfqTC+M/87tNxg==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
@@ -1068,6 +1072,10 @@ packages:
     resolution: {integrity: sha512-LX4MUThlYEBfpTr1O53J27KbzFhPbe2dBGouY9piztCI3FObbRVQI+LXFlXJm6KU0BzemaQfz105ZAuLlPAN4g==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
 
+  '@material/mwc-icon@0.27.0':
+    resolution: {integrity: sha512-Sul44I37M9Ewynn0A9DjkEBrmll2VtNbth6Pxj7I1A/EAwEfaCrPvryyGqfIu1T2hTsRcaojzQx6QjF+B5QW9A==}
+    deprecated: MWC beta is longer supported. Please upgrade to @material/web
+
   '@material/mwc-line-ripple@0.22.1':
     resolution: {integrity: sha512-Wx2BHD+/z4Fm8TXyiv59UVeNAirunTfR3uCEjGMU/R7mXUwjpjOhY5bNYGUcP9VyMGG5CkLovc8XX96/iKs1ag==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
@@ -1094,6 +1102,10 @@ packages:
 
   '@material/mwc-ripple@0.22.1':
     resolution: {integrity: sha512-QQyWWPBZ6veWNbBMWo8WQw0iY9QUjLLANorug8mPHv13ETdhwVUUozeKOY0ZCXWupNlqtap1Gd0IQjv6HVRMjA==}
+    deprecated: MWC beta is longer supported. Please upgrade to @material/web
+
+  '@material/mwc-ripple@0.27.0':
+    resolution: {integrity: sha512-by0O8d8g3Rd96/sUB8hxy6MrDx1QTstqOsA64vqypWd526hMTBGRik08jTNap5sVIyrN9Vq17jb4NJLWQLnNHQ==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
 
   '@material/mwc-select@0.22.1':
@@ -7037,6 +7049,13 @@ snapshots:
       lit-html: 1.4.1
       tslib: 2.8.1
 
+  '@material/mwc-button@0.27.0':
+    dependencies:
+      '@material/mwc-icon': 0.27.0
+      '@material/mwc-ripple': 0.27.0
+      lit: 2.8.0
+      tslib: 2.8.1
+
   '@material/mwc-checkbox@0.22.1':
     dependencies:
       '@material/mwc-base': 0.22.1
@@ -7108,6 +7127,11 @@ snapshots:
       lit-element: 2.5.1
       tslib: 2.8.1
 
+  '@material/mwc-icon@0.27.0':
+    dependencies:
+      lit: 2.8.0
+      tslib: 2.8.1
+
   '@material/mwc-line-ripple@0.22.1':
     dependencies:
       '@material/line-ripple': 12.0.0-canary.22d29cbb4.0
@@ -7172,6 +7196,14 @@ snapshots:
       '@material/ripple': 12.0.0-canary.22d29cbb4.0
       lit-element: 2.5.1
       lit-html: 1.4.1
+      tslib: 2.8.1
+
+  '@material/mwc-ripple@0.27.0':
+    dependencies:
+      '@material/dom': 14.0.0-canary.53b3cad2f.0
+      '@material/mwc-base': 0.27.0
+      '@material/ripple': 14.0.0-canary.53b3cad2f.0
+      lit: 2.8.0
       tslib: 2.8.1
 
   '@material/mwc-select@0.22.1':
