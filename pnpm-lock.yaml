@@ -36,8 +36,8 @@ importers:
         specifier: 0.22.1
         version: 0.22.1
       '@material/mwc-icon':
-        specifier: 0.22.1
-        version: 0.22.1
+        specifier: 0.27.0
+        version: 0.27.0
       '@material/mwc-icon-button':
         specifier: 0.22.1
         version: 0.22.1
@@ -1066,6 +1066,10 @@ packages:
 
   '@material/mwc-icon@0.22.1':
     resolution: {integrity: sha512-LX4MUThlYEBfpTr1O53J27KbzFhPbe2dBGouY9piztCI3FObbRVQI+LXFlXJm6KU0BzemaQfz105ZAuLlPAN4g==}
+    deprecated: MWC beta is longer supported. Please upgrade to @material/web
+
+  '@material/mwc-icon@0.27.0':
+    resolution: {integrity: sha512-Sul44I37M9Ewynn0A9DjkEBrmll2VtNbth6Pxj7I1A/EAwEfaCrPvryyGqfIu1T2hTsRcaojzQx6QjF+B5QW9A==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
 
   '@material/mwc-line-ripple@0.22.1':
@@ -7106,6 +7110,11 @@ snapshots:
   '@material/mwc-icon@0.22.1':
     dependencies:
       lit-element: 2.5.1
+      tslib: 2.8.1
+
+  '@material/mwc-icon@0.27.0':
+    dependencies:
+      lit: 2.8.0
       tslib: 2.8.1
 
   '@material/mwc-line-ripple@0.22.1':
