@@ -93,8 +93,8 @@ importers:
         specifier: 1.4.1
         version: 1.4.1
       lit-translate:
-        specifier: 1.2.1
-        version: 1.2.1
+        specifier: 2.0.1
+        version: 2.0.1
       marked:
         specifier: 4.3.0
         version: 4.3.0
@@ -3966,6 +3966,9 @@ packages:
 
   lit-translate@1.2.1:
     resolution: {integrity: sha512-jykKpkdRX0lx3JYq9jUMzVs02ISClOe2wxyPHat5wVKPyBRJQxgXxLxj1AbpuLNBCDZKEysMBpeJ1z0Y35Bk2Q==}
+
+  lit-translate@2.0.1:
+    resolution: {integrity: sha512-AcGwE0d3M3KwMPZ0YlJRMB48V18LwRmkjkIYQaU+JycFA5yxkel2LJg1gThfrHFIPS8fcmtTMrXXSVEMg1BCTg==}
 
   lit@2.8.0:
     resolution: {integrity: sha512-4Sc3OFX9QHOJaHbmTMk28SYgVxLN3ePDjg7hofEft2zWlehFL3LiAuapWc4U/kYwMYJSh2hTCPZ6/LIC7ii0MA==}
@@ -10729,6 +10732,10 @@ snapshots:
   lit-translate@1.2.1:
     dependencies:
       lit-html: 1.4.1
+
+  lit-translate@2.0.1:
+    dependencies:
+      lit: 2.8.0
 
   lit@2.8.0:
     dependencies:
