@@ -45,8 +45,8 @@ importers:
         specifier: 0.22.1
         version: 0.22.1
       '@material/mwc-linear-progress':
-        specifier: 0.22.1
-        version: 0.22.1
+        specifier: 0.27.0
+        version: 0.27.0
       '@material/mwc-list':
         specifier: 0.22.1
         version: 0.22.1
@@ -1011,6 +1011,9 @@ packages:
   '@material/linear-progress@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-SuEJPdtMbY9hN7X8s9Y8MzVfnmQy32gi4cSIv3r3aL5wmfO29Dg5Gw8OkggEuVjy0QKTXSN9N74WdCdpQ5rUPw==}
 
+  '@material/linear-progress@14.0.0-canary.53b3cad2f.0':
+    resolution: {integrity: sha512-QqkDBcqX7TMt3zQn51LgS7K0y13rJ4ppMQL1f2uYBhDOov8nqndlaXw456KYE9RhU39JrLzVQlaAbU3eecVb/Q==}
+
   '@material/list@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-Vai+ggNyDBuWM0ihBs3ELGEKCdRmFoTFEhfcZ321VEI2YE8EY6eW1tvazzBfSzpLZkrqcn2QkqD6UpQBzkp4AA==}
 
@@ -1074,6 +1077,10 @@ packages:
 
   '@material/mwc-linear-progress@0.22.1':
     resolution: {integrity: sha512-GqqUDomF1nZh6cN0Dgz41vphfvDR17+vdtYk1O5YU9ajW/yd+9SBqwbjfqo4g/jmCpJvMeKnBDZo3Hbc8KnK7g==}
+    deprecated: MWC beta is longer supported. Please upgrade to @material/web
+
+  '@material/mwc-linear-progress@0.27.0':
+    resolution: {integrity: sha512-kpWVLHPb7RzHU70Dq9bl1lBv05S49rQkyfFoL3PU5tEZHozT8IPQjdBLqAqd7H10cfLVjO7oIB+mVmvnFV+UsQ==}
     deprecated: MWC beta is longer supported. Please upgrade to @material/web
 
   '@material/mwc-list@0.22.1':
@@ -1153,6 +1160,9 @@ packages:
 
   '@material/progress-indicator@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-XnG61vDDUPQWK3obQcPHaTPxEKFfPKo8qtiKxkFnGdzIeezDGj7n9m8gdvzcqed8rGZWCNKYOzodkRfplStpMw==}
+
+  '@material/progress-indicator@14.0.0-canary.53b3cad2f.0':
+    resolution: {integrity: sha512-vW0oZK70QOpAarip95ueCQ/I3kBClcWjxsc0F0QjkqT76DOVXpjnZ4XoRRyq9eMpwLqlKLTecrsSNpmqwwF1Dg==}
 
   '@material/radio@12.0.0-canary.22d29cbb4.0':
     resolution: {integrity: sha512-piGy+6YEtW3odicIImRGnc3uY0iD42IAe4+pnVo36KsfHLm5peYuEc0jrLI4zdmOPYlRxSskIbAAzfMKdwKG1A==}
@@ -6978,6 +6988,17 @@ snapshots:
       '@material/theme': 12.0.0-canary.22d29cbb4.0
       tslib: 2.8.1
 
+  '@material/linear-progress@14.0.0-canary.53b3cad2f.0':
+    dependencies:
+      '@material/animation': 14.0.0-canary.53b3cad2f.0
+      '@material/base': 14.0.0-canary.53b3cad2f.0
+      '@material/dom': 14.0.0-canary.53b3cad2f.0
+      '@material/feature-targeting': 14.0.0-canary.53b3cad2f.0
+      '@material/progress-indicator': 14.0.0-canary.53b3cad2f.0
+      '@material/rtl': 14.0.0-canary.53b3cad2f.0
+      '@material/theme': 14.0.0-canary.53b3cad2f.0
+      tslib: 2.8.1
+
   '@material/list@12.0.0-canary.22d29cbb4.0':
     dependencies:
       '@material/base': 12.0.0-canary.22d29cbb4.0
@@ -7122,6 +7143,14 @@ snapshots:
       '@material/theme': 12.0.0-canary.22d29cbb4.0
       lit-element: 2.5.1
       lit-html: 1.4.1
+      tslib: 2.8.1
+
+  '@material/mwc-linear-progress@0.27.0':
+    dependencies:
+      '@material/linear-progress': 14.0.0-canary.53b3cad2f.0
+      '@material/mwc-base': 0.27.0
+      '@material/theme': 14.0.0-canary.53b3cad2f.0
+      lit: 2.8.0
       tslib: 2.8.1
 
   '@material/mwc-list@0.22.1':
@@ -7305,6 +7334,10 @@ snapshots:
       tslib: 2.8.1
 
   '@material/progress-indicator@12.0.0-canary.22d29cbb4.0':
+    dependencies:
+      tslib: 2.8.1
+
+  '@material/progress-indicator@14.0.0-canary.53b3cad2f.0':
     dependencies:
       tslib: 2.8.1
 
