@@ -12,8 +12,8 @@ RUN apk add --no-cache curl jq
 
 WORKDIR /build
 
-COPY remote-plugins.json .
-COPY scripts/download-plugins.sh .
+COPY distribution/remote-plugins.json .
+COPY distribution/scripts/download-plugins.sh .
 
 # Set REQUIRE_SHA256=true to make the build fail for any plugin without a sha256 hash.
 ARG REQUIRE_SHA256=false

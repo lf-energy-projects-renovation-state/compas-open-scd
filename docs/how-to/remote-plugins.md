@@ -8,8 +8,8 @@ serve them directly, so the browser never needs to reach external sources.
 A multi-stage Docker build is used:
 
 1. **`plugin-downloader` stage** – an Alpine container that runs
-   [`scripts/download-plugins.sh`](../../scripts/download-plugins.sh).  
-   It reads `remote-plugins.json`, downloads every listed plugin with `curl`, and
+   [`distribution/scripts/download-plugins.sh`](../../distribution/scripts/download-plugins.sh).  
+   It reads `distribution/remote-plugins.json`, downloads every listed plugin with `curl`, and
    optionally verifies the file's SHA-256 digest.  
    - If a download fails, the build fails.
    - If a SHA-256 hash is provided and does not match, the build fails.
@@ -17,14 +17,14 @@ A multi-stage Docker build is used:
    into `/usr/share/nginx/html/external-plugins`, where nginx serves them under the
    `/external-plugins/` URL prefix.
 
-Because the `COPY remote-plugins.json` instruction comes before the download step,
+Because the `COPY distribution/remote-plugins.json` instruction comes before the download step,
 Docker's layer cache is only invalidated for the download stage when
 `remote-plugins.json` actually changes.  Updates to the application source alone
 will not trigger a re-download of plugin files.
 
 ## Configuration file format
 
-Plugins are defined in `remote-plugins.json` at the repository root:
+Plugins are defined in `distribution/remote-plugins.json` at the repository root:
 
 ```json
 {
@@ -55,7 +55,7 @@ Plugins are defined in `remote-plugins.json` at the repository root:
    curl -fsSL https://example.com/path/to/plugin.js | sha256sum
    ```
 
-3. Add an entry to `remote-plugins.json`:
+3. Add an entry to `distribution/remote-plugins.json`:
 
    ```json
    {
@@ -79,13 +79,13 @@ Plugins are defined in `remote-plugins.json` at the repository root:
 5. Rebuild the Docker image to pull in the new plugin:
 
    ```sh
-   docker build -t compas-open-scd .
+   docker build -f distribution/Dockerfile -t compas-open-scd .
    ```
 
 ## Updating an existing plugin
 
 1. Obtain the new URL (if changed) and compute the new SHA-256 hash as shown above.
-2. Update the relevant entry in `remote-plugins.json`.
+2. Update the relevant entry in `distribution/remote-plugins.json`.
 3. Rebuild the Docker image. Because `remote-plugins.json` has changed, the
    `plugin-downloader` layer is invalidated and all plugins are re-downloaded.
 
@@ -100,7 +100,7 @@ Plugins are defined in `remote-plugins.json` at the repository root:
   Docker build argument:
 
   ```sh
-  docker build --build-arg REQUIRE_SHA256=true -t compas-open-scd .
+  docker build --build-arg REQUIRE_SHA256=true -f distribution/Dockerfile -t compas-open-scd .
   ```
 
   The build will fail immediately for any plugin entry that has an empty `sha256`
