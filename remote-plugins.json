@@ -2,8 +2,8 @@
   "plugins": [
     {
       "name": "IED Editor",
-      "url": "https://raw.githubusercontent.com/OMICRONEnergyOSS/oscd-editor-ied/deploy/IedEditor.js",
-      "dest": "IedEditor.js",
+      "url": "https://raw.githubusercontent.com/OMICRONEnergyOSS/oscd-editor-ied/deploy/oscd-editor-ied.js",
+      "dest": "oscd-editor-ied/oscd-editor-ied.js",
       "sha256": ""
     },
     {
