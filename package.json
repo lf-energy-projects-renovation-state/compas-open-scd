@@ -69,8 +69,8 @@
     "test:integration": "web-test-runner --watch --group integration"
   },
   "devDependencies": {
-    "@commitlint/cli": "21.1.0",
-    "@commitlint/config-conventional": "21.1.0",
+    "@commitlint/cli": "21.2.1",
+    "@commitlint/config-conventional": "21.2.0",
     "@open-wc/eslint-config": "4.3.0",
     "@open-wc/semantic-dom-diff": "0.19.9",
     "@open-wc/testing": "2.5.33",
