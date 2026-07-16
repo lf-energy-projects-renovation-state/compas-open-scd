@@ -132,6 +132,9 @@ importers:
       '@web/test-runner':
         specifier: 0.13.31
         version: 0.13.31
+      commit-and-tag-version:
+        specifier: 9.5.0
+        version: 9.5.0
       concurrently:
         specifier: 6.5.1
         version: 6.5.1
@@ -168,9 +171,6 @@ importers:
       source-map:
         specifier: 0.7.6
         version: 0.7.6
-      standard-version:
-        specifier: 9.5.0
-        version: 9.5.0
       tslib:
         specifier: 2.8.1
         version: 2.8.1
@@ -2313,6 +2313,11 @@ packages:
   commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
+
+  commit-and-tag-version@9.5.0:
+    resolution: {integrity: sha512-XpYAhoa87HfrVY2B9Rle3XbxFNI8eVusMF66H49oom2UNYAU0u5JbLL6x5MuCJw8wfac4KKpoJmUWCYuLHDdUw==}
+    engines: {node: '>=10'}
+    hasBin: true
 
   common-tags@1.8.2:
     resolution: {integrity: sha512-gk/Z852D2Wtb//0I+kRFNKKE9dIIVirjoqPoA1wJU+XePVXZfGeBpk45+A1rKO4Q43prqWBNY/MiIeRLbPWUaA==}
@@ -4984,11 +4989,6 @@ packages:
   sshpk@1.18.0:
     resolution: {integrity: sha512-2p2KJZTSqQ/I3+HX42EpYOa2l3f8Erv8MWKsy2I9uf4wA7yFIkXRffYdsx86y6z4vHtV8u7g+pPlr8/4ouAxsQ==}
     engines: {node: '>=0.10.0'}
-    hasBin: true
-
-  standard-version@9.5.0:
-    resolution: {integrity: sha512-3zWJ/mmZQsOaO+fOlsa0+QK90pwhNd042qEcw6hKFNoLFs7peGyvPffpEBbK/DSGPbyOvli0mUIFv5A4qTjh2Q==}
-    engines: {node: '>=10'}
     hasBin: true
 
   statuses@1.5.0:
@@ -8916,6 +8916,23 @@ snapshots:
 
   commander@4.1.1: {}
 
+  commit-and-tag-version@9.5.0:
+    dependencies:
+      chalk: 2.4.2
+      conventional-changelog: 3.1.25
+      conventional-changelog-config-spec: 2.1.0
+      conventional-changelog-conventionalcommits: 4.6.3
+      conventional-recommended-bump: 6.1.0
+      detect-indent: 6.1.0
+      detect-newline: 3.1.0
+      dotgitignore: 2.1.0
+      figures: 3.2.0
+      find-up: 5.0.0
+      git-semver-tags: 4.1.1
+      semver: 7.8.4
+      stringify-package: 1.0.1
+      yargs: 16.2.0
+
   common-tags@1.8.2: {}
 
   compare-func@2.0.0:
@@ -11866,23 +11883,6 @@ snapshots:
       jsbn: 0.1.1
       safer-buffer: 2.1.2
       tweetnacl: 0.14.5
-
-  standard-version@9.5.0:
-    dependencies:
-      chalk: 2.4.2
-      conventional-changelog: 3.1.25
-      conventional-changelog-config-spec: 2.1.0
-      conventional-changelog-conventionalcommits: 4.6.3
-      conventional-recommended-bump: 6.1.0
-      detect-indent: 6.1.0
-      detect-newline: 3.1.0
-      dotgitignore: 2.1.0
-      figures: 3.2.0
-      find-up: 5.0.0
-      git-semver-tags: 4.1.1
-      semver: 7.8.4
-      stringify-package: 1.0.1
-      yargs: 16.2.0
 
   statuses@1.5.0: {}
 
