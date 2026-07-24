@@ -10,7 +10,7 @@ A multi-stage Docker build is used:
 1. **`plugin-downloader` stage** – an Alpine container that runs
    [`distribution/scripts/download-plugins.sh`](../../distribution/scripts/download-plugins.sh).  
    It reads `distribution/remote-plugins.json`, downloads every listed plugin with `curl`, and
-   optionally verifies the file's SHA-256 digest.  
+   optionally verifies the file's SHA-256 digest.
    - If a download fails, the build fails.
    - If a SHA-256 hash is provided and does not match, the build fails.
 2. **Final nginx stage** – the downloaded plugins are copied from the builder stage
@@ -19,7 +19,7 @@ A multi-stage Docker build is used:
 
 Because the `COPY distribution/remote-plugins.json` instruction comes before the download step,
 Docker's layer cache is only invalidated for the download stage when
-`remote-plugins.json` actually changes.  Updates to the application source alone
+`remote-plugins.json` actually changes. Updates to the application source alone
 will not trigger a re-download of plugin files.
 
 ## Configuration file format
@@ -30,64 +30,75 @@ Plugins are defined in `distribution/remote-plugins.json` at the repository root
 {
   "plugins": [
     {
-      "name":   "Human-readable name shown in build logs",
-      "url":    "https://example.com/path/to/plugin.js",
-      "dest":   "relative/dest/within/external-plugins/plugin.js",
+      "name": "Human-readable name shown in build logs",
+      "url": "https://example.com/path/to/plugin.js",
+      "dest": "relative/dest/within/external-plugins/plugin.js",
       "sha256": "64-character hex SHA-256 digest (leave empty to skip verification)"
     }
   ]
 }
 ```
 
-| Field    | Required | Description |
-|----------|----------|-------------|
-| `name`   | ✅       | Displayed in build output for easy identification. |
-| `url`    | ✅       | Full URL of the plugin JavaScript file to download. |
+| Field    | Required | Description                                                                                                                                                                                                    |
+| -------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`   | ✅       | Displayed in build output for easy identification.                                                                                                                                                             |
+| `url`    | ✅       | Full URL of the plugin JavaScript file to download.                                                                                                                                                            |
 | `dest`   | ✅       | Destination path **relative to** the `external-plugins/` directory. The path determines the URL at which nginx serves the plugin (e.g. `dest: "my-plugin/index.js"` → `/external-plugins/my-plugin/index.js`). |
-| `sha256` | ⚠️       | Hex-encoded SHA-256 digest of the expected file content. Strongly recommended for all production deployments. Leave as `""` to skip integrity verification. |
+| `sha256` | ⚠️       | Hex-encoded SHA-256 digest of the expected file content. Strongly recommended for all production deployments. Leave as `""` to skip integrity verification.                                                    |
 
-## Adding a plugin
+## Managing plugins
 
-1. Find the download URL of the plugin JavaScript bundle.
-2. Compute the SHA-256 hash of the file:
+Use the [`manage-plugins.js`](../../distribution/scripts/manage-plugins.js) helper
+(exposed as npm scripts) to add, update, and verify plugins without editing the
+two files by hand. All URLs must use `https`.
 
-   ```sh
-   curl -fsSL https://example.com/path/to/plugin.js | sha256sum
-   ```
+### Add a plugin
 
-3. Add an entry to `distribution/remote-plugins.json`:
+```sh
+npm run plugins:add -- \
+  --name "My Plugin" \
+  --url  "https://example.com/path/to/plugin.js" \
+  --sha256 <optional 64-char hex digest>
+```
 
-   ```json
-   {
-     "name":   "My Plugin",
-     "url":    "https://example.com/path/to/plugin.js",
-     "dest":   "my-plugin/plugin.js",
-     "sha256": "<output from sha256sum above>"
-   }
-   ```
+This appends the entry to `distribution/remote-plugins.json` and registers it in
+`public/public/js/plugins.js` with `src: "/external-plugins/<dest>"`. If
+`--dest` is omitted it defaults to the URL path (without the leading `/`);
+optional editor metadata: `--icon`, `--kind`, `--active-by-default`,
+`--require-doc`. To compute the hash beforehand:
 
-4. Register the plugin in `public/public/js/plugins.js` using the local path:
+```sh
+curl -fsSL https://example.com/path/to/plugin.js | sha256sum
+```
 
-   ```js
-   {
-     name: 'My Plugin',
-     src: '/external-plugins/my-plugin/plugin.js',
-     // ...
-   }
-   ```
+### Update a plugin
 
-5. Rebuild the Docker image to pull in the new plugin:
+```sh
+npm run plugins:update -- --name "My Plugin" [--url <new-url>] [--dest <new-dest>]
+```
 
-   ```sh
-   docker build -f distribution/Dockerfile -t compas-open-scd .
-   ```
+At least one of `--url` / `--dest` is required. The script re-downloads the
+content and recomputes `sha256` so the stored hash cannot drift from the
+served file, and rewrites the `src:` line in `plugins.js` when `dest` changes.
 
-## Updating an existing plugin
+### Verify plugins
 
-1. Obtain the new URL (if changed) and compute the new SHA-256 hash as shown above.
-2. Update the relevant entry in `distribution/remote-plugins.json`.
-3. Rebuild the Docker image. Because `remote-plugins.json` has changed, the
-   `plugin-downloader` layer is invalidated and all plugins are re-downloaded.
+```sh
+npm run plugins:verify              # all plugins
+npm run plugins:verify -- --name "My Plugin"
+```
+
+Downloads every plugin and compares against its stored `sha256`. Entries with
+an empty `sha256` are reported as _skipped_; mismatches and empty responses
+exit non-zero.
+
+### Rebuild the image
+
+After any change, rebuild the Docker image so nginx serves the new file set:
+
+```sh
+docker build -f distribution/Dockerfile -t compas-open-scd .
+```
 
 ## Security considerations
 
