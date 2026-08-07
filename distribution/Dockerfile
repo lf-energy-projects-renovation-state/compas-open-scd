@@ -16,6 +16,13 @@ COPY distribution/remote-plugins.json .
 COPY distribution/scripts/download-plugins.sh .
 
 # Set REQUIRE_SHA256=true to make the build fail for any plugin without a sha256 hash.
+# You can use the --build-arg option when building the image:
+#   docker build -f distribution\Dockerfile --build-arg REQUIRE_SHA256=true -t compas-openscd:latest .
+# or in a Docker Compose file:
+#   build:
+#     context: .
+#     args:
+#       REQUIRE_SHA256: "true"
 ARG REQUIRE_SHA256=false
 
 RUN chmod +x download-plugins.sh && \
