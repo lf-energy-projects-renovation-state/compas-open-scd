@@ -5,26 +5,14 @@ serve them directly, so the browser never needs to reach external sources.
 
 ## How it works
 
-A multi-stage Docker build is used:
-
-1. **`plugin-downloader` stage** – an Alpine container that runs
-   [`distribution/scripts/download-plugins.sh`](../../distribution/scripts/download-plugins.sh).  
-   It reads `distribution/remote-plugins.json`, downloads every listed plugin with `curl`, and
-   optionally verifies the file's SHA-256 digest.
-   - If a download fails, the build fails.
-   - If a SHA-256 hash is provided and does not match, the build fails.
-2. **Final nginx stage** – the downloaded plugins are copied from the builder stage
-   into `/usr/share/nginx/html/external-plugins`, where nginx serves them under the
-   `/external-plugins/` URL prefix.
-
-Because the `COPY distribution/remote-plugins.json` instruction comes before the download step,
-Docker's layer cache is only invalidated for the download stage when
-`remote-plugins.json` actually changes. Updates to the application source alone
-will not trigger a re-download of plugin files.
+Plugin entries are read from [`remote-plugins.json`](./remote-plugins.json). 
+At build time, the Docker build copies this file into a temporary Alpine container, 
+which makes use of [`scripts/download-plugins.sh`](scripts/download-plugins.sh) 
+to download every listed plugin from its source URL and places the files where nginx can serve them.
 
 ## Configuration file format
 
-Plugins are defined in `distribution/remote-plugins.json` at the repository root:
+Plugins are defined in [`remote-plugins.json`](./remote-plugins.json) at the repository root:
 
 ```json
 {
@@ -48,7 +36,7 @@ Plugins are defined in `distribution/remote-plugins.json` at the repository root
 
 ## Managing plugins
 
-Use the [`manage-plugins.js`](../../distribution/scripts/manage-plugins.js) helper
+Use the [`manage-plugins.js`](scripts/manage-plugins.js) helper
 (exposed as npm scripts) to add, update, and verify plugins without editing the
 two files by hand. All URLs must use `https`.
 
@@ -58,39 +46,49 @@ two files by hand. All URLs must use `https`.
 npm run plugins:add -- \
   --name "My Plugin" \
   --url  "https://example.com/path/to/plugin.js" \
-  --sha256 <optional 64-char hex digest>
+  [--allow-insecure]
 ```
 
-This appends the entry to `distribution/remote-plugins.json` and registers it in
-`public/public/js/plugins.js` with `src: "/external-plugins/<dest>"`. If
-`--dest` is omitted it defaults to the URL path (without the leading `/`);
-optional editor metadata: `--icon`, `--kind`, `--active-by-default`,
-`--require-doc`. To compute the hash beforehand:
+This appends the entry to `remote-plugins.json` and registers it in
+`../public/public/js/plugins.js` with `src: "/external-plugins/<dest>"`.
+The plugin is downloaded during the build, its SHA-256 hash is generated
+automatically, and the hash is stored in `remote-plugins.json`. Add
+`--allow-insecure` to leave `sha256` empty. If `--dest` is omitted it defaults
+to the URL path (without the leading `/`); optional editor metadata:
+`--icon`, `--kind`, `--active-by-default`, `--require-doc`. Existing plugins
+with the same name, url, or dest are rejected.
 
-```sh
-curl -fsSL https://example.com/path/to/plugin.js | sha256sum
-```
+CoMPAS references these plugins from [`public/public/js/plugins.js`](../public/public/js/plugins.js);
+each entry points to `/external-plugins/<dest>`, and nginx serves the downloaded
+files from that path in the container.
 
 ### Update a plugin
 
 ```sh
-npm run plugins:update -- --name "My Plugin" [--url <new-url>] [--dest <new-dest>]
+npm run plugins:update -- \
+  --name "My Plugin" \
+  --url <new-url> \
+  [--dest <new-dest>] \
+  [--allow-insecure]
 ```
 
-At least one of `--url` / `--dest` is required. The script re-downloads the
-content and recomputes `sha256` so the stored hash cannot drift from the
-served file, and rewrites the `src:` line in `plugins.js` when `dest` changes.
+The flags `--name` and `--url` are required. The script finds the existing
+entry by name, re-downloads the content from the new URL, recomputes `sha256`
+automatically unless `--allow-insecure` is used, and rewrites the `src:` line
+in `plugins.js` when `dest` changes.
 
 ### Verify plugins
 
 ```sh
 npm run plugins:verify              # all plugins
 npm run plugins:verify -- --name "My Plugin"
+npm run plugins:verify -- --allow-insecure
 ```
 
 Downloads every plugin and compares against its stored `sha256`. Entries with
-an empty `sha256` are reported as _skipped_; mismatches and empty responses
-exit non-zero.
+an empty `sha256` are reported as _skipped_; `--allow-insecure` skips the hash
+comparison for every selected plugin. Mismatches and empty responses exit
+non-zero.
 
 ### Rebuild the image
 
