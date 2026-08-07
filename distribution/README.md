@@ -1,3 +1,7 @@
+<!-- SPDX-FileCopyrightText: 2026 BearingPoint GmbH -->
+<!-- -->
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
 # Remote Plugins
 
 The CoMPAS nginx container can download external plugins at **container build time** and
