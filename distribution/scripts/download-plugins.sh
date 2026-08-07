@@ -1,5 +1,5 @@
 #!/bin/sh
-# SPDX-FileCopyrightText: 2024 Contributors to the CoMPAS project
+# SPDX-FileCopyrightText: 2026 BearingPoint GmbH
 #
 # SPDX-License-Identifier: Apache-2.0
 
@@ -13,6 +13,26 @@
 #   output-dir   Directory where downloaded plugins are placed (default: ./external-plugins)
 
 set -e
+
+usage() {
+    cat <<'EOF'
+Usage: download-plugins.sh [config-file] [output-dir]
+
+Downloads the plugins listed in the JSON configuration file.
+
+Arguments:
+  config-file  Path to the JSON configuration file (default: remote-plugins.json)
+  output-dir   Directory where downloaded plugins are placed (default: ./external-plugins)
+
+Options:
+  -h, --help   Show this help and exit
+EOF
+}
+
+if [ "${1:-}" = "-h" ] || [ "${1:-}" = "--help" ]; then
+    usage
+    exit 0
+fi
 
 CONFIG_FILE="${1:-remote-plugins.json}"
 OUTPUT_DIR="${2:-./external-plugins}"
