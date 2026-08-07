@@ -6,8 +6,11 @@
 // CLI helper to manage the external plugin registry:
 //   * add    - append a new plugin to remote-plugins.json AND register it in
 //              public/public/js/plugins.js with src: "/external-plugins/<dest>".
+//              The plugin is downloaded so sha256 can be generated automatically
+//              unless --allow-insecure is used.
 //   * update - locate a plugin in remote-plugins.json by name and change its
-//              url and/or dest, always re-downloading and recomputing sha256.
+//              url and/or dest, always re-downloading and recomputing sha256
+//              unless --allow-insecure is used.
 //   * verify - download every listed plugin and compare content against the
 //              stored sha256 (entries without sha256 are reported as skipped).
 //
@@ -67,9 +70,9 @@ function usage() {
     'Flags for "add":',
     '  --name <name>              (required) Plugin display name',
     '  --url <url>                (required) Remote https URL to fetch from',
-    '  --sha256 <hex>             (optional) Expected sha256 of the content',
     '  --dest <path>              (optional) Relative destination (defaults to',
     '                             the last URL path segment)',
+    '  --allow-insecure           (optional) Skip automatic sha256 generation',
     '  --icon <name>              (optional, default: extension)',
     '  --kind <editor|menu|validator>  (optional, default: editor)',
     '  --active-by-default <bool> (optional, default: false)',
@@ -77,12 +80,14 @@ function usage() {
     '',
     'Flags for "update":',
     '  --name <name>              (required) Existing plugin name',
-    '  --url <url>                (optional) New https URL',
+    '  --url <url>                (required) New https URL',
     '  --dest <path>              (optional) New destination',
-    '  (at least one of --url or --dest is required)',
+    '  --allow-insecure           (optional) Skip automatic sha256 generation',
+    '  (the name must match an existing plugin entry)',
     '',
     'Flags for "verify":',
     '  --name <name>              (optional) Verify only the given plugin',
+    '  --allow-insecure           (optional) Skip sha256 comparison',
   ].join('\n');
   process.stderr.write(msg + '\n');
 }
@@ -161,11 +166,11 @@ function parseArgs(argv) {
     name: undefined,
     url: undefined,
     dest: undefined,
-    sha256: undefined,
     icon: undefined,
     kind: undefined,
     activeByDefault: undefined,
     requireDoc: undefined,
+    allowInsecure: false,
   };
 
   if (argv.length < 1) {
@@ -208,11 +213,6 @@ function parseArgs(argv) {
         args.dest = next;
         i++;
         break;
-      case '--sha256':
-        needValue();
-        args.sha256 = next;
-        i++;
-        break;
       case '--icon':
         needValue();
         args.icon = next;
@@ -232,6 +232,9 @@ function parseArgs(argv) {
         needValue();
         args.requireDoc = parseBool(next, '--require-doc');
         i++;
+        break;
+      case '--allow-insecure':
+        args.allowInsecure = true;
         break;
       case '-h':
       case '--help':
@@ -256,10 +259,6 @@ function validateAddArgs(args) {
   }
   if (!isValidHttpsUrl(args.url)) {
     fail(`Invalid URL: "${args.url}". Must be an https URL.`);
-  }
-  if (args.sha256 !== undefined && args.sha256 !== '' &&
-      !isValidSha256(args.sha256)) {
-    fail(`Invalid --sha256 "${args.sha256}". Must be 64 hex characters.`);
   }
   if (args.dest !== undefined) {
     const normalized = normalizeDest(args.dest);
@@ -289,9 +288,9 @@ function validateUpdateArgs(args) {
     usage();
     fail('"update" requires --name.');
   }
-  if (args.url === undefined && args.dest === undefined) {
+  if (args.url === undefined) {
     usage();
-    fail('"update" requires at least one of --url or --dest.');
+    fail('"update" requires --url.');
   }
   if (args.url !== undefined && !isValidHttpsUrl(args.url)) {
     fail(`Invalid URL: "${args.url}". Must be an https URL.`);
@@ -365,6 +364,16 @@ function findPluginIndex(plugins, name) {
   return plugins.findIndex(
     p => typeof p.name === 'string' && p.name.toLowerCase() === lc,
   );
+}
+
+// Return the index of the first plugin whose url matches exactly.
+function findPluginUrlIndex(plugins, url) {
+  return plugins.findIndex(p => typeof p.url === 'string' && p.url === url);
+}
+
+// Return the index of the first plugin whose dest matches exactly.
+function findPluginDestIndex(plugins, dest) {
+  return plugins.findIndex(p => typeof p.dest === 'string' && p.dest === dest);
 }
 
 // ---------------------------------------------------------------------------
@@ -469,7 +478,7 @@ function updateEntrySrcInPluginsJs(content, pluginName, newSrc) {
 // ---------------------------------------------------------------------------
 
 // Append a new plugin to remote-plugins.json and register it in plugins.js.
-// Refuses to overwrite an existing entry (case-insensitive name match) and
+// Refuses to overwrite an existing entry (case-insensitive name, url and dest match) and
 // reads/parses plugins.js up-front so a malformed file aborts before any
 // on-disk change is made.
 async function cmdAdd(args) {
@@ -480,6 +489,18 @@ async function cmdAdd(args) {
     fail(
       `A plugin named "${args.name}" (case-insensitive) already exists in ` +
       'remote-plugins.json. Refusing to overwrite.',
+    );
+  }
+  if (findPluginUrlIndex(data.plugins, args.url) !== -1) {
+    fail(
+      `A plugin with url "${args.url}" already exists in remote-plugins.json. ` +
+      'Refusing to overwrite.',
+    );
+  }
+  if (findPluginDestIndex(data.plugins, args.dest) !== -1) {
+    fail(
+      `A plugin with dest "${args.dest}" already exists in remote-plugins.json. ` +
+      'Refusing to overwrite.',
     );
   }
 
@@ -496,11 +517,22 @@ async function cmdAdd(args) {
         : DEFAULT_EDITOR_META.requireDoc,
   };
 
+  process.stdout.write(`Downloading "${args.name}" from ${args.url}...\n`);
+  let buffer;
+  try {
+    buffer = await download(args.url);
+  } catch (e) {
+    fail(`Failed to download from ${args.url}: ${e.message}`);
+  }
+  if (!buffer || buffer.length === 0) {
+    fail(`Downloaded content from ${args.url} is empty.`);
+  }
+
   const newEntry = {
     name: args.name,
     url: args.url,
     dest: args.dest,
-    sha256: args.sha256 && isValidSha256(args.sha256) ? args.sha256 : '',
+    sha256: args.allowInsecure ? '' : sha256(buffer),
   };
 
   const pluginsJs = readPluginsJs();
@@ -533,7 +565,7 @@ async function cmdUpdate(args) {
   }
   const plugin = data.plugins[idx];
   const oldDest = plugin.dest;
-  const newUrl = args.url !== undefined ? args.url : plugin.url;
+  const newUrl = args.url;
   const newDest = args.dest !== undefined ? args.dest : plugin.dest;
 
   process.stdout.write(`Downloading "${plugin.name}" from ${newUrl}...\n`);
@@ -549,7 +581,7 @@ async function cmdUpdate(args) {
 
   plugin.url = newUrl;
   plugin.dest = newDest;
-  plugin.sha256 = sha256(buffer);
+  plugin.sha256 = args.allowInsecure ? '' : sha256(buffer);
 
   if (newDest !== oldDest) {
     const pluginsJs = readPluginsJs();
@@ -615,6 +647,11 @@ async function cmdVerify(args) {
       failed++;
       failures.push(`${plugin.name}: empty response`);
       process.stdout.write('FAIL (empty response)\n');
+      continue;
+    }
+    if (args.allowInsecure) {
+      skipped++;
+      process.stdout.write('SKIP (--allow-insecure)\n');
       continue;
     }
     if (!plugin.sha256) {
