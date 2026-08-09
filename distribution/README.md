@@ -10,9 +10,15 @@ serve them directly, so the browser never needs to reach external sources.
 ## How it works
 
 Plugin entries are read from [`remote-plugins.json`](./remote-plugins.json). 
-At build time, the Docker build copies this file into a temporary Alpine container, 
-which makes use of [`scripts/download-plugins.sh`](scripts/download-plugins.sh) 
-to download every listed plugin from its source URL and places the files where nginx can serve them.
+
+At build time, the GitHub Actions Build Pipeline copies the plugins listed in 
+[`distribution/remote-plugins.json`](./remote-plugins.json) to the directory 
+`/build/external-plugins`. For each plugin, the linked file `../index.js` is copied, and 
+optionally, if it exists, a custom style CSS file `../style.css` is copied to the 
+`/build/external-plugins/<DEST_DIRECTORY>`.
+
+The directory `/external-plugins` and its underlying directories and files are then provided by the
+built Docker service at the URL `https://<DOMAIN>/external-plugins`.
 
 ## Configuration file format
 
@@ -24,7 +30,7 @@ Plugins are defined in [`remote-plugins.json`](./remote-plugins.json) at the rep
     {
       "name": "Human-readable name shown in build logs",
       "url": "https://example.com/path/to/plugin.js",
-      "dest": "relative/dest/within/external-plugins/plugin.js",
+      "dest": "relative/dest/within/external-plugins",
       "sha256": "64-character hex SHA-256 digest (leave empty to skip verification)"
     }
   ]
@@ -102,7 +108,77 @@ After any change, rebuild the Docker image so nginx serves the new file set:
 docker build -f distribution/Dockerfile -t compas-open-scd .
 ```
 
-## Security considerations
+## Technical details
+
+### Development details
+
+#### Architecture
+
+The remote plugin system uses a **multi-stage Docker build** and zero-dependency Node.js CLI tooling:
+
+**Stage 1: Plugin Downloader (Alpine Linux)**
+- Fetches all plugins listed in `remote-plugins.json` using `curl`
+- Validates SHA256 hashes using `openssl` (if provided)
+- Stores downloaded files in `/build/external-plugins`
+- Fails the build immediately if validation fails or `REQUIRE_SHA256=true` finds an empty hash
+
+**Stage 2: Nginx Server (Debian-based)**
+- Copies the entire `dist/` build output (compiled application)
+- Copies the downloaded plugins from Stage 1
+- Serves both application and plugins from a single nginx instance on port 8080
+
+#### How plugins are registered and loaded
+
+1. **Plugin Metadata**: Each plugin entry in `remote-plugins.json` specifies:
+   - `name`: Display name for build logs
+   - `url`: HTTPS URL to the plugin JavaScript file (must be absolute and use https://)
+   - `dest`: Relative destination path within the `/external-plugins/` directory
+   - `sha256`: Optional 64-character hex SHA256 digest for integrity verification
+
+2. **Plugin Registration**: After download, plugins are registered in [`public/public/js/plugins.js`](../public/public/js/plugins.js) with editor metadata:
+   - `src`: The public URL path (`/external-plugins/<dest>`)
+   - `icon`: Material Design icon name
+   - `kind`: Plugin type (`editor`, `menu`, or `validator`)
+   - `activeByDefault`: Whether the plugin is active on startup
+   - `requireDoc`: Whether a document must be open to use the plugin
+
+3. **Runtime Loading**: The application dynamically imports plugins from the `src` URLs at runtime
+
+#### Implementation details
+
+**Plugin Download Script** ([`download-plugins.sh`](scripts/download-plugins.sh)):
+- Parses JSON configuration using `jq`
+- Creates destination directories automatically
+- Downloads each plugin with `curl --fail` to abort on HTTP errors
+- Validates SHA256 if provided; skips validation if empty
+- Respects `REQUIRE_SHA256` environment variable to enforce hash verification
+
+**Plugin Management CLI** ([`manage-plugins.js`](scripts/manage-plugins.js)):
+- Pure Node.js (>= 18) with zero external dependencies; uses only built-in modules
+- Validates HTTPS URLs and SHA256 digests
+- Normalizes destination paths (prevents directory traversal, backslashes, absolute paths)
+- Three commands:
+  - **add**: Appends plugin to `remote-plugins.json`, downloads content, computes SHA256, and registers in `plugins.js`
+  - **update**: Re-downloads plugin and updates metadata; recomputes SHA256 unless `--allow-insecure`
+  - **verify**: Downloads all plugins and compares against stored hashes; reports mismatches or empty responses as errors
+
+**Optional Custom Styles**:
+If a plugin includes a `style.css` file alongside its `index.js`, the build script automatically copies it:
+- Source: `../style.css` (sibling directory to the downloaded file)
+- Destination: `<DEST_DIRECTORY>/style.css` in the nginx image
+
+#### Build-time caching and layer optimization
+
+The Dockerfile copies `distribution/remote-plugins.json` before running the download script. This strategy allows Docker layer caching to skip plugin re-downloads when only application code changes, significantly speeding up incremental builds.
+
+#### Environment and requirements
+
+- **Build Host**: Requires `curl`, `jq`, and `openssl` (provided by Alpine Docker image)
+- **Plugin Management**: Requires Node.js >= 18.x (for built-in `fetch` API)
+- **Configuration Location**: `distribution/remote-plugins.json` must be valid JSON
+- **Output Directory**: Plugins copied to `/usr/share/nginx/html/external-plugins` in final image
+
+### Security considerations
 
 - **Always** provide a `sha256` hash for plugins used in production.  
   Without a hash, a compromised or changed upstream file would be served silently.
