@@ -79,6 +79,19 @@ while [ "$i" -lt "$PLUGIN_COUNT" ]; do
         exit 1
     fi
 
+    # Optionally download a sibling style.css (../style.css relative to plugin URL).
+    STYLE_URL="${URL%/*}/../style.css"
+    STYLE_DEST="$DEST_DIR/style.css"
+    echo "  Style URL (optional): $STYLE_URL"
+    if curl --fail --silent --location \
+            --output "$STYLE_DEST" \
+            "$STYLE_URL"; then
+        echo "  Style: Downloaded to $STYLE_DEST"
+    else
+        rm -f "$STYLE_DEST"
+        echo "  Style: Not found or unavailable (optional), skipping."
+    fi
+
     if [ -n "$SHA256" ]; then
         echo "  Verifying SHA256..."
         ACTUAL=$(sha256sum "$DEST_PATH" | cut -d' ' -f1)

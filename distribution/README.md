@@ -11,11 +11,11 @@ serve them directly, so the browser never needs to reach external sources.
 
 Plugin entries are read from [`remote-plugins.json`](./remote-plugins.json). 
 
-At build time, the GitHub Actions Build Pipeline copies the plugins listed in 
+At build time, the GitHub Actions Build Pipeline downloads the plugins listed in 
 [`distribution/remote-plugins.json`](./remote-plugins.json) to the directory 
-`/build/external-plugins`. For each plugin, the linked file `../index.js` is copied, and 
-optionally, if it exists, a custom style CSS file `../style.css` is copied to the 
-`/build/external-plugins/<DEST_DIRECTORY>`.
+`/build/external-plugins`. For each plugin, the JavaScript file at `url` is downloaded to `dest`.
+Optionally, the build also attempts to download `../style.css` (relative to the plugin URL)
+to `/build/external-plugins/<DEST_DIRECTORY>/style.css`.
 
 The directory `/external-plugins` and its underlying directories and files are then provided by the
 built Docker service at the URL `https://<DOMAIN>/external-plugins`.
