@@ -12,7 +12,8 @@
 //              url and/or dest, always re-downloading and recomputing sha256
 //              unless --allow-insecure is used.
 //   * verify - download every listed plugin and compare content against the
-//              stored sha256 (entries without sha256 are reported as skipped).
+//              stored sha256 (entries without sha256 fail unless
+//              --allow-insecure is used).
 //
 // This is a plain Node >= 18 script with NO runtime dependencies. It relies
 // only on Node built-ins (fs, path, url, crypto) and the global fetch.
@@ -87,7 +88,7 @@ function usage() {
     '',
     'Flags for "verify":',
     '  --name <name>              (optional) Verify only the given plugin',
-    '  --allow-insecure           (optional) Skip sha256 comparison',
+    '  --allow-insecure           (optional) Skip sha256 comparison for all entries',
   ].join('\n');
   process.stderr.write(msg + '\n');
 }
@@ -613,9 +614,9 @@ async function cmdUpdate(args) {
 }
 
 // Download every plugin (or a single one when --name is given) and compare
-// its content against the stored sha256. Reports OK / SKIP (no sha256) /
-// FAIL (mismatch or empty response) per plugin and exits non-zero on any
-// failure.
+// its content against the stored sha256. Reports OK / SKIP (--allow-insecure) /
+// FAIL (missing sha256, mismatch, download error, or empty response) per
+// plugin and exits non-zero on any failure.
 async function cmdVerify(args) {
   const { data } = readRemotePlugins();
   let plugins = data.plugins;
@@ -655,8 +656,11 @@ async function cmdVerify(args) {
       continue;
     }
     if (!plugin.sha256) {
-      skipped++;
-      process.stdout.write('SKIP (no sha256)\n');
+      failed++;
+      failures.push(
+        `${plugin.name}: missing sha256 (use --allow-insecure to bypass hash verification)`,
+      );
+      process.stdout.write('FAIL (missing sha256; use --allow-insecure to bypass)\n');
       continue;
     }
     const actual = sha256(buffer);

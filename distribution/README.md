@@ -90,15 +90,12 @@ in `plugins.js` when `dest` changes.
 ### Verify plugins
 
 ```sh
-npm run plugins:verify              # all plugins
-npm run plugins:verify -- --name "My Plugin"
-npm run plugins:verify -- --allow-insecure
+npm run plugins:verify -- [--name <plugin-name>] [--allow-insecure]
 ```
 
-Downloads every plugin and compares against its stored `sha256`. Entries with
-an empty `sha256` are reported as _skipped_; `--allow-insecure` skips the hash
-comparison for every selected plugin. Mismatches and empty responses exit
-non-zero.
+Downloads every plugin and compares against its stored `sha256`. `--name` selects a specific plugin to verify. 
+Empty `sha256` values fail unless `--allow-insecure` is used, which skips the hash
+comparison for every selected plugin. Mismatches and empty responses exit non-zero.
 
 ### Rebuild the image
 
