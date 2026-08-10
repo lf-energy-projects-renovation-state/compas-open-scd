@@ -84,8 +84,7 @@ npm run plugins:update -- \
 
 The flags `--name` and `--url` are required. The script finds the existing
 entry by name, re-downloads the content from the new URL, recomputes `sha256`
-automatically unless `--allow-insecure` is used, and rewrites the `src:` line
-in `plugins.js` when `dest` changes.
+automatically unless `--allow-insecure` is used.
 
 ### Verify plugins
 

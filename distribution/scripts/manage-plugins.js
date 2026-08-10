@@ -10,7 +10,7 @@
 //              unless --allow-insecure is used.
 //   * update - locate a plugin in remote-plugins.json by name and change its
 //              url and/or dest, always re-downloading and recomputing sha256
-//              unless --allow-insecure is used.
+//              unless --allow-insecure is used. It does not edit plugins.js.
 //   * verify - download every listed plugin and compare content against the
 //              stored sha256 (entries without sha256 fail unless
 //              --allow-insecure is used).
@@ -439,41 +439,6 @@ function appendEntryToPluginsJs(content, entryText) {
   return trailingCommaFixed + '\n' + entryText + ',' + after;
 }
 
-// Rewrite the `src:` line of the officialPlugins entry whose `name:` matches
-// pluginName (case-insensitive). Returns { content, updated } where `updated`
-// is false when either the name or the src line cannot be found.
-function updateEntrySrcInPluginsJs(content, pluginName, newSrc) {
-  const lc = pluginName.toLowerCase();
-  const nameLineRe = /^([ \t]*)name:\s*(['"])([^'"]*)\2\s*,?\s*$/gm;
-  let match;
-  let foundStart = -1;
-  while ((match = nameLineRe.exec(content)) !== null) {
-    if (match[3].toLowerCase() === lc) {
-      foundStart = match.index;
-      break;
-    }
-  }
-  if (foundStart === -1) {
-    return { content, updated: false };
-  }
-  const objEndIdx = content.indexOf('\n  }', foundStart);
-  const searchEnd = objEndIdx === -1 ? content.length : objEndIdx;
-  const region = content.slice(foundStart, searchEnd);
-  const srcRe = /^([ \t]*)src:\s*(['"])[^'"]*\2(\s*,?\s*)$/m;
-  if (!srcRe.test(region)) {
-    return { content, updated: false };
-  }
-  const newRegion = region.replace(
-    srcRe,
-    (_all, indent, quote, tail) =>
-      `${indent}src: ${quote}${escapeJsSingleQuote(newSrc)}${quote}${tail || ','}`,
-  );
-  return {
-    content: content.slice(0, foundStart) + newRegion + content.slice(searchEnd),
-    updated: true,
-  };
-}
-
 // ---------------------------------------------------------------------------
 // Commands
 // ---------------------------------------------------------------------------
@@ -555,7 +520,7 @@ async function cmdAdd(args) {
 
 // Change the url and/or dest of an existing plugin. Always re-downloads the
 // content and recomputes its sha256 so the stored hash can never drift from
-// what the URL actually serves. Keeps plugins.js in sync when dest changes.
+// what the URL actually serves. Does not modify plugins.js.
 async function cmdUpdate(args) {
   validateUpdateArgs(args);
 
@@ -565,7 +530,6 @@ async function cmdUpdate(args) {
     fail(`No plugin named "${args.name}" found in remote-plugins.json.`);
   }
   const plugin = data.plugins[idx];
-  const oldDest = plugin.dest;
   const newUrl = args.url;
   const newDest = args.dest !== undefined ? args.dest : plugin.dest;
 
@@ -584,24 +548,6 @@ async function cmdUpdate(args) {
   plugin.dest = newDest;
   plugin.sha256 = args.allowInsecure ? '' : sha256(buffer);
 
-  if (newDest !== oldDest) {
-    const pluginsJs = readPluginsJs();
-    const newSrc = EXTERNAL_PLUGINS_PREFIX + newDest;
-    const { content, updated } = updateEntrySrcInPluginsJs(
-      pluginsJs,
-      plugin.name,
-      newSrc,
-    );
-    if (updated) {
-      writePluginsJs(content);
-      process.stdout.write(`Updated src in plugins.js to ${newSrc}\n`);
-    } else {
-      process.stderr.write(
-        `Warning: plugin "${plugin.name}" not found in ${PLUGINS_JS_PATH}; ` +
-        'skipping plugins.js update.\n',
-      );
-    }
-  }
 
   writeRemotePlugins(data, rawEndsWithNewline);
 
