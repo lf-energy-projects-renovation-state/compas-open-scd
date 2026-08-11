@@ -80,7 +80,7 @@ while [ "$i" -lt "$PLUGIN_COUNT" ]; do
     fi
 
     # Optionally download a sibling style.css (../style.css relative to plugin URL).
-    STYLE_URL="${URL%/*}/../style.css"
+    STYLE_URL="${URL%/*}/style.css"
     STYLE_DEST="$DEST_DIR/style.css"
     echo "  Style URL (optional): $STYLE_URL"
     if curl --fail --silent --location \
