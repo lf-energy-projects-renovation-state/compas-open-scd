@@ -4,37 +4,37 @@
       "name": "engineering-wizard",
       "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/engineering-wizard/index.js",
       "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/engineering-wizard/index.js",
-      "sha256": "80d5d1a768da36024bd146c751e840db94f37a5e603afa328ae650c428299d19"
+      "sha256": ""
     },
     {
       "name": "template-generator",
       "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/template-generator/index.js",
       "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/template-generator/index.js",
-      "sha256": "06c3ee4c771ee9b6b61fb7746aa5a72b17218c1ef243ac713af8c805026096e2"
+      "sha256": ""
     },
     {
       "name": "archive-explorer",
       "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/archive-explorer/index.js",
       "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/archive-explorer/index.js",
-      "sha256": "4c815589d49e11f6397f68d99af7b24ddc1c2250793202b00ca707d5381e0c58"
+      "sha256": ""
     },
     {
       "name": "history-viewer",
       "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/history-viewer/index.js",
       "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/history-viewer/index.js",
-      "sha256": "d16a609c3551a3d09f3dd3dc8dab8562696d2976d716415f3884235a9924e2ef"
+      "sha256": ""
     },
     {
       "name": "location-viewer",
       "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/location-viewer/index.js",
       "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/location-viewer/index.js",
-      "sha256": "a32d92dd7aa6912cf3ab43bf66fa6ce9652a05aa66753dc318ea3c30c0f25f29"
+      "sha256": ""
     },
     {
       "name": "location-manager",
       "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/location-manager/index.js",
       "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/location-manager/index.js",
-      "sha256": "150cebcfb7b39ef09bca83c8c31268d19162059e56dbbdef4caf159074fbc388"
+      "sha256": ""
     }
   ]
 }
