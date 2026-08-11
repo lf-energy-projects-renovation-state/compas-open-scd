@@ -69,6 +69,8 @@
     "test:integration": "web-test-runner --watch --group integration",
     "plugins:add": "node distribution/scripts/manage-plugins.js add",
     "plugins:update": "node distribution/scripts/manage-plugins.js update",
+    "plugins:delete": "node distribution/scripts/manage-plugins.js delete",
+    "plugins:list": "node distribution/scripts/manage-plugins.js list",
     "plugins:verify": "node distribution/scripts/manage-plugins.js verify"
   },
   "devDependencies": {

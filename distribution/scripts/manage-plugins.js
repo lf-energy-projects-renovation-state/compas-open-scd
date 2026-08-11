@@ -4,13 +4,14 @@
 // SPDX-License-Identifier: Apache-2.0
 //
 // CLI helper to manage the external plugin registry:
-//   * add    - append a new plugin to remote-plugins.json AND register it in
-//              public/public/js/plugins.js with src: "/external-plugins/<dest>".
-//              The plugin is downloaded so sha256 can be generated automatically
-//              unless --allow-insecure is used.
+//   * add    - append a new plugin to remote-plugins.json. The plugin is
+//              downloaded so sha256 can be generated automatically unless
+//              --allow-insecure is used.
 //   * update - locate a plugin in remote-plugins.json by name and change its
 //              url and/or dest, always re-downloading and recomputing sha256
-//              unless --allow-insecure is used. It does not edit plugins.js.
+//              unless --allow-insecure is used.
+//   * delete - remove a plugin from remote-plugins.json by its name.
+//   * list   - print all current plugin entries from remote-plugins.json.
 //   * verify - download every listed plugin and compare content against the
 //              stored sha256 (entries without sha256 fail unless
 //              --allow-insecure is used).
@@ -33,26 +34,8 @@ const REMOTE_PLUGINS_PATH = path.join(
   'distribution',
   'remote-plugins.json',
 );
-const PLUGINS_JS_PATH = path.join(
-  REPO_ROOT,
-  'public',
-  'public',
-  'js',
-  'plugins.js',
-);
+const ACCEPTED_COMMANDS = ['add', 'update', 'delete', 'list', 'verify'];
 
-const EXTERNAL_PLUGINS_PREFIX = '/external-plugins/';
-
-const ACCEPTED_COMMANDS = ['add', 'update', 'verify'];
-
-const DEFAULT_EDITOR_META = {
-  icon: 'extension',
-  kind: 'editor',
-  activeByDefault: false,
-  requireDoc: true,
-};
-
-const VALID_KINDS = ['editor', 'menu', 'validator'];
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -64,8 +47,10 @@ function usage() {
     'Usage: node manage-plugins.js <command> [flags]',
     '',
     'Commands:',
-    '  add     Add a plugin to remote-plugins.json and register it in plugins.js',
+    '  add     Add a plugin to remote-plugins.json',
     '  update  Change url and/or dest of an existing plugin (re-downloads sha256)',
+    '  delete  Remove a plugin from remote-plugins.json by plugin name',
+    '  list    List current entries from remote-plugins.json',
     '  verify  Download every plugin and compare against stored sha256',
     '',
     'Flags for "add":',
@@ -74,10 +59,6 @@ function usage() {
     '  --dest <path>              (optional) Relative destination (defaults to',
     '                             the last URL path segment)',
     '  --allow-insecure           (optional) Skip automatic sha256 generation',
-    '  --icon <name>              (optional, default: extension)',
-    '  --kind <editor|menu|validator>  (optional, default: editor)',
-    '  --active-by-default <bool> (optional, default: false)',
-    '  --require-doc <bool>       (optional, default: true)',
     '',
     'Flags for "update":',
     '  --name <name>              (required) Existing plugin name',
@@ -85,6 +66,12 @@ function usage() {
     '  --dest <path>              (optional) New destination',
     '  --allow-insecure           (optional) Skip automatic sha256 generation',
     '  (the name must match an existing plugin entry)',
+    '',
+    'Flags for "delete":',
+    '  --name <name>              (required) Existing plugin name',
+    '',
+    'Flags for "list":',
+    '  (no flags)',
     '',
     'Flags for "verify":',
     '  --name <name>              (optional) Verify only the given plugin',
@@ -99,18 +86,6 @@ function fail(msg) {
   process.exit(1);
 }
 
-// Parse a "true"/"false" CLI value into a boolean; fail on anything else.
-function parseBool(value, flag) {
-  if (typeof value !== 'string') {
-    fail(`Flag ${flag} requires a boolean value (true|false).`);
-  }
-  const v = value.toLowerCase();
-  if (v === 'true') return true;
-  if (v === 'false') return false;
-  fail(`Flag ${flag} must be true or false, got "${value}".`);
-  return false;
-}
-
 // Return true if the value is a well-formed https URL. Plain http is
 // rejected so plugin content is always fetched over an authenticated,
 // tamper-resistant channel.
@@ -120,11 +95,6 @@ function isValidHttpsUrl(value) {
   } catch {
     return false;
   }
-}
-
-// Return true if the value is a 64-character hex string (a valid sha256 digest).
-function isValidSha256(value) {
-  return typeof value === 'string' && /^[a-fA-F0-9]{64}$/.test(value);
 }
 
 // Validate and normalize a destination path. Rejects absolute paths, Windows
@@ -167,10 +137,6 @@ function parseArgs(argv) {
     name: undefined,
     url: undefined,
     dest: undefined,
-    icon: undefined,
-    kind: undefined,
-    activeByDefault: undefined,
-    requireDoc: undefined,
     allowInsecure: false,
   };
 
@@ -212,26 +178,6 @@ function parseArgs(argv) {
       case '--dest':
         needValue();
         args.dest = next;
-        i++;
-        break;
-      case '--icon':
-        needValue();
-        args.icon = next;
-        i++;
-        break;
-      case '--kind':
-        needValue();
-        args.kind = next;
-        i++;
-        break;
-      case '--active-by-default':
-        needValue();
-        args.activeByDefault = parseBool(next, '--active-by-default');
-        i++;
-        break;
-      case '--require-doc':
-        needValue();
-        args.requireDoc = parseBool(next, '--require-doc');
         i++;
         break;
       case '--allow-insecure':
@@ -277,9 +223,6 @@ function validateAddArgs(args) {
     }
     args.dest = inferred;
   }
-  if (args.kind !== undefined && !VALID_KINDS.includes(args.kind)) {
-    fail(`Invalid --kind "${args.kind}". Must be one of: ${VALID_KINDS.join(', ')}.`);
-  }
 }
 
 // Enforce the flag requirements for the "update" command and normalize its
@@ -305,6 +248,14 @@ function validateUpdateArgs(args) {
       );
     }
     args.dest = normalized;
+  }
+}
+
+// Enforce the flag requirements for the "delete" command.
+function validateDeleteArgs(args) {
+  if (!args.name) {
+    usage();
+    fail('"delete" requires --name.');
   }
 }
 
@@ -346,19 +297,6 @@ function writeRemotePlugins(data, endsWithNewline) {
   );
 }
 
-// Read the plugins.js source as a UTF-8 string.
-function readPluginsJs() {
-  if (!fs.existsSync(PLUGINS_JS_PATH)) {
-    fail(`plugins.js not found: ${PLUGINS_JS_PATH}`);
-  }
-  return fs.readFileSync(PLUGINS_JS_PATH, 'utf8');
-}
-
-// Overwrite plugins.js with the given content.
-function writePluginsJs(content) {
-  fs.writeFileSync(PLUGINS_JS_PATH, content, 'utf8');
-}
-
 // Case-insensitive lookup of a plugin's index by name in the plugin array.
 function findPluginIndex(plugins, name) {
   const lc = name.toLowerCase();
@@ -396,57 +334,11 @@ async function download(urlStr) {
 }
 
 // ---------------------------------------------------------------------------
-// plugins.js manipulation
-// ---------------------------------------------------------------------------
-
-// Build the text of a new officialPlugins entry with the standard 2-space
-// indentation used elsewhere in plugins.js.
-function buildPluginsJsEntry(pluginName, destRelPath, meta) {
-  const src = EXTERNAL_PLUGINS_PREFIX + destRelPath;
-  const lines = [
-    '  {',
-    `    name: '${escapeJsSingleQuote(pluginName)}',`,
-    `    src: '${escapeJsSingleQuote(src)}',`,
-    `    icon: '${escapeJsSingleQuote(meta.icon)}',`,
-    `    activeByDefault: ${meta.activeByDefault ? 'true' : 'false'},`,
-    `    kind: '${escapeJsSingleQuote(meta.kind)}',`,
-    `    requireDoc: ${meta.requireDoc ? 'true' : 'false'},`,
-    '  }',
-  ];
-  return lines.join('\n');
-}
-
-// Escape backslashes and single quotes for embedding inside a single-quoted
-// JavaScript string literal.
-function escapeJsSingleQuote(s) {
-  return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-}
-
-// Insert a new officialPlugins entry just before the closing `];`, adding a
-// trailing comma to the previous entry when necessary.
-function appendEntryToPluginsJs(content, entryText) {
-  const marker = /\n];\s*$/;
-  if (!marker.test(content)) {
-    fail(
-      `Could not locate end of officialPlugins array in ${PLUGINS_JS_PATH}. ` +
-      'Expected the file to end with "];".',
-    );
-  }
-  const idx = content.lastIndexOf('\n];');
-  const before = content.slice(0, idx);
-  const after = content.slice(idx);
-  const trailingCommaFixed = before.replace(/\}(\s*)$/, '},$1');
-  return trailingCommaFixed + '\n' + entryText + ',' + after;
-}
-
-// ---------------------------------------------------------------------------
 // Commands
 // ---------------------------------------------------------------------------
 
-// Append a new plugin to remote-plugins.json and register it in plugins.js.
-// Refuses to overwrite an existing entry (case-insensitive name, url and dest match) and
-// reads/parses plugins.js up-front so a malformed file aborts before any
-// on-disk change is made.
+// Append a new plugin to remote-plugins.json. Refuses to overwrite an
+// existing entry (case-insensitive name, url and dest match).
 async function cmdAdd(args) {
   validateAddArgs(args);
 
@@ -470,18 +362,6 @@ async function cmdAdd(args) {
     );
   }
 
-  const meta = {
-    icon: args.icon !== undefined ? args.icon : DEFAULT_EDITOR_META.icon,
-    kind: args.kind !== undefined ? args.kind : DEFAULT_EDITOR_META.kind,
-    activeByDefault:
-      args.activeByDefault !== undefined
-        ? args.activeByDefault
-        : DEFAULT_EDITOR_META.activeByDefault,
-    requireDoc:
-      args.requireDoc !== undefined
-        ? args.requireDoc
-        : DEFAULT_EDITOR_META.requireDoc,
-  };
 
   process.stdout.write(`Downloading "${args.name}" from ${args.url}...\n`);
   let buffer;
@@ -501,26 +381,20 @@ async function cmdAdd(args) {
     sha256: args.allowInsecure ? '' : sha256(buffer),
   };
 
-  const pluginsJs = readPluginsJs();
-  const entryText = buildPluginsJsEntry(args.name, args.dest, meta);
-  const newPluginsJs = appendEntryToPluginsJs(pluginsJs, entryText);
-
   data.plugins.push(newEntry);
   writeRemotePlugins(data, rawEndsWithNewline);
-  writePluginsJs(newPluginsJs);
 
   process.stdout.write(
     `Added plugin "${args.name}"\n` +
     `  url  : ${newEntry.url}\n` +
     `  dest : ${newEntry.dest}\n` +
-    `  sha256: ${newEntry.sha256 || '(empty)'}\n` +
-    `  src  : ${EXTERNAL_PLUGINS_PREFIX + newEntry.dest}\n`,
+    `  sha256: ${newEntry.sha256 || '(empty)'}\n`,
   );
 }
 
 // Change the url and/or dest of an existing plugin. Always re-downloads the
 // content and recomputes its sha256 so the stored hash can never drift from
-// what the URL actually serves. Does not modify plugins.js.
+// what the URL actually serves.
 async function cmdUpdate(args) {
   validateUpdateArgs(args);
 
@@ -559,13 +433,59 @@ async function cmdUpdate(args) {
   );
 }
 
+// Remove a plugin from remote-plugins.json by case-insensitive plugin name.
+function cmdDelete(args) {
+  validateDeleteArgs(args);
+
+  const { data, rawEndsWithNewline } = readRemotePlugins();
+  const idx = findPluginIndex(data.plugins, args.name);
+  if (idx === -1) {
+    fail(`No plugin named "${args.name}" found in remote-plugins.json.`);
+  }
+
+  const [removed] = data.plugins.splice(idx, 1);
+  writeRemotePlugins(data, rawEndsWithNewline);
+
+  process.stdout.write(
+    `Deleted plugin "${removed.name}"\n` +
+    `  url   : ${removed.url}\n` +
+    `  dest  : ${removed.dest}\n` +
+    `  sha256: ${removed.sha256 || '(empty)'}\n`,
+  );
+}
+
+// Print all current plugin entries from remote-plugins.json.
+function cmdList() {
+  const { data } = readRemotePlugins();
+  const { plugins } = data;
+
+  if (plugins.length === 0) {
+    process.stdout.write('No plugins configured in remote-plugins.json.\n');
+    return;
+  }
+
+  process.stdout.write(`Found ${plugins.length} plugin(s):\n\n`);
+  for (let i = 0; i < plugins.length; i++) {
+    const plugin = plugins[i];
+    process.stdout.write(
+      `[${i + 1}] ${plugin.name}\n` +
+      `  url   : ${plugin.url}\n` +
+      `  dest  : ${plugin.dest}\n` +
+      `  sha256: ${plugin.sha256 ? '(set)' : '(empty)'}\n`,
+    );
+    if (i < plugins.length - 1) {
+      process.stdout.write('\n');
+    }
+  }
+}
+
 // Download every plugin (or a single one when --name is given) and compare
 // its content against the stored sha256. Reports OK / SKIP (--allow-insecure) /
 // FAIL (missing sha256, mismatch, download error, or empty response) per
 // plugin and exits non-zero on any failure.
 async function cmdVerify(args) {
   const { data } = readRemotePlugins();
-  let plugins = data.plugins;
+  let { plugins } = data;
   if (args.name) {
     const idx = findPluginIndex(plugins, args.name);
     if (idx === -1) {
@@ -647,6 +567,12 @@ async function main() {
       break;
     case 'update':
       await cmdUpdate(args);
+      break;
+    case 'delete':
+      cmdDelete(args);
+      break;
+    case 'list':
+      cmdList();
       break;
     case 'verify':
       await cmdVerify(args);
