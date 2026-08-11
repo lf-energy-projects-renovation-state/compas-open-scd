@@ -1,58 +1,40 @@
 {
   "plugins": [
     {
-      "name": "IED Editor",
-      "url": "https://raw.githubusercontent.com/OMICRONEnergyOSS/oscd-editor-ied/deploy/oscd-editor-ied.js",
-      "dest": "oscd-editor-ied/oscd-editor-ied.js",
-      "sha256": ""
+      "name": "engineering-wizard",
+      "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/engineering-wizard/index.js",
+      "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/engineering-wizard/index.js",
+      "sha256": "80d5d1a768da36024bd146c751e840db94f37a5e603afa328ae650c428299d19"
     },
     {
-      "name": "Publisher",
-      "url": "https://raw.githubusercontent.com/com-pas/oscd-publisher/deploy/oscd-publisher.js",
-      "dest": "oscd-publisher/oscd-publisher.js",
-      "sha256": ""
+      "name": "template-generator",
+      "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/template-generator/index.js",
+      "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/template-generator/index.js",
+      "sha256": "06c3ee4c771ee9b6b61fb7746aa5a72b17218c1ef243ac713af8c805026096e2"
     },
     {
-      "name": "Communication Explorer",
-      "url": "https://raw.githubusercontent.com/sprinteins/oscd-plugins/gh-pages/communication-explorer/0.0.32/index.js",
-      "dest": "oscd-plugins/communication-explorer/0.0.32/index.js",
-      "sha256": ""
+      "name": "archive-explorer",
+      "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/archive-explorer/index.js",
+      "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/archive-explorer/index.js",
+      "sha256": "4c815589d49e11f6397f68d99af7b24ddc1c2250793202b00ca707d5381e0c58"
     },
     {
-      "name": "Template Generator",
-      "url": "https://raw.githubusercontent.com/com-pas/oscd-template-generator/deploy/oscd-template-generator.js",
-      "dest": "oscd-template-generator/oscd-template-generator.js",
-      "sha256": ""
+      "name": "history-viewer",
+      "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/history-viewer/index.js",
+      "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/history-viewer/index.js",
+      "sha256": "d16a609c3551a3d09f3dd3dc8dab8562696d2976d716415f3884235a9924e2ef"
     },
     {
-      "name": "Subscribe (Later Binding)",
-      "url": "https://raw.githubusercontent.com/danyill/oscd-subscriber-later-binding/gh-pages/oscd-subscriber-later-binding.js",
-      "dest": "oscd-subscriber-later-binding/oscd-subscriber-later-binding.js",
-      "sha256": ""
+      "name": "location-viewer",
+      "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/location-viewer/index.js",
+      "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/location-viewer/index.js",
+      "sha256": "a32d92dd7aa6912cf3ab43bf66fa6ce9652a05aa66753dc318ea3c30c0f25f29"
     },
     {
-      "name": "Template Update",
-      "url": "https://raw.githubusercontent.com/com-pas/scl-template-update/deploy/scl-template-update.js",
-      "dest": "scl-template-update/scl-template-update.js",
-      "sha256": ""
-    },
-    {
-      "name": "Bay Template",
-      "url": "https://raw.githubusercontent.com/com-pas/scl-bay-template/deploy/scl-bay-template.js",
-      "dest": "scl-bay-template/scl-bay-template.js",
-      "sha256": ""
-    },
-    {
-      "name": "Bay Template Editor",
-      "url": "https://raw.githubusercontent.com/com-pas/oscd-bay-template-editor/deploy/bay-template-editor.js",
-      "dest": "oscd-bay-template-editor/bay-template-editor.js",
-      "sha256": ""
-    },
-    {
-      "name": "Wizarding",
-      "url": "https://raw.githubusercontent.com/openenergytools/scl-wizarding/deploy/scl-wizarding.js",
-      "dest": "scl-wizarding/scl-wizarding.js",
-      "sha256": ""
+      "name": "location-manager",
+      "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/bearingpoint/compas/plugins/location-manager/index.js",
+      "dest": "compas-transnetbw-plugins/bearingpoint/compas/plugins/location-manager/index.js",
+      "sha256": "150cebcfb7b39ef09bca83c8c31268d19162059e56dbbdef4caf159074fbc388"
     }
   ]
 }
