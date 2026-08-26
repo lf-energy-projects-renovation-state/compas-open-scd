@@ -55,7 +55,6 @@
     "start": "vite",
     "preview": "vite build && vite preview",
     "build": "vite build && workbox generateSW workbox-config.cjs",
-    "prebuild": "pnpm download:plugins",
     "download:plugins": "sh distribution/scripts/download-plugins.sh distribution/remote-plugins.json distribution/external-plugins",
     "lint:eslint": "eslint --ext .ts,.html . --ignore-path .gitignore",
     "format:eslint": "eslint --ext .ts,.html . --fix --ignore-path .gitignore",
