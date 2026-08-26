@@ -143,7 +143,7 @@ The remote plugin system uses a **multi-stage Docker build** and zero-dependency
    - `sha256`: Optional 64-character hex SHA256 digest for integrity verification
 
 2. **Plugin Registration**: Plugin loading is controlled independently in
-   [`public/public/js/plugins.js`](../public/public/js/plugins.js). The
+   [`public/js/plugins.js`](../public/js/plugins.js). The
    `manage-plugins.js` helper does not edit this file.
 
 3. **Runtime Loading**: The application dynamically imports plugins from the `src` URLs at runtime
@@ -183,6 +183,8 @@ The Dockerfile copies `distribution/remote-plugins.json` before running the down
 
 - **Build Host**: Requires `curl`, `jq`, and `openssl` (provided by Alpine Docker image)
 - **Plugin Management**: Requires Node.js >= 18.x (for built-in `fetch` API)
+- **Windows Local Dev**: Execute `distribution/scripts/download-plugins.sh` or `npm run download:plugins` from Git Bash or WSL; 
+  PowerShell/`cmd.exe` doesn't support directly `.sh` files.
 - **Configuration Location**: `distribution/remote-plugins.json` must be valid JSON
 - **Output Directory**: Plugins copied to `/usr/share/nginx/html/external-plugins` in final image
 
