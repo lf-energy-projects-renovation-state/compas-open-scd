@@ -84,8 +84,8 @@ importers:
         specifier: 1.6.5
         version: 1.6.5
       csv-stringify:
-        specifier: 6.8.0
-        version: 6.8.0
+        specifier: 6.8.3
+        version: 6.8.3
       lit-element:
         specifier: 2.5.1
         version: 2.5.1
@@ -2553,8 +2553,8 @@ packages:
     resolution: {integrity: sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==}
     engines: {node: '>=8'}
 
-  csv-stringify@6.8.0:
-    resolution: {integrity: sha512-Ya0OOHb6XbgPaZKH7dcdmwXe3azUS0TwmlbVdS75HoAhnHApSkiQcfEJoC/s5WwGsrXwOjBDr3FTmCZPjkssgg==}
+  csv-stringify@6.8.3:
+    resolution: {integrity: sha512-gIeSCvq5F4VtXV3naV3VAewLhBkiZBz+PPhTOA8H3Y8h/ELa+R1ml0GZck/4/Nzo9ep2lvOluilJ6MJlbZsKMA==}
 
   dargs@7.0.0:
     resolution: {integrity: sha512-2iy1EkLdlBzQGvbweYRFxmFath8+K7+AKB0TlhHWkNuH+TmovaMH/Wp7V7R4u7f4SnX3OgLsU9t1NI9ioDnUpg==}
@@ -9344,7 +9344,7 @@ snapshots:
 
   crypto-random-string@2.0.0: {}
 
-  csv-stringify@6.8.0: {}
+  csv-stringify@6.8.3: {}
 
   dargs@7.0.0: {}
 
