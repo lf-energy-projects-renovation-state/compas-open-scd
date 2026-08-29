@@ -74,7 +74,7 @@
     "@open-wc/eslint-config": "4.3.0",
     "@open-wc/semantic-dom-diff": "0.19.9",
     "@open-wc/testing": "2.5.33",
-    "@types/marked": "2.0.5",
+    "@types/marked": "6.0.0",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
     "@web/dev-server-esbuild": "0.2.16",
