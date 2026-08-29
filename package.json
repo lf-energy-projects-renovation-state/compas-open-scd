@@ -72,7 +72,7 @@
     "@commitlint/cli": "21.1.0",
     "@commitlint/config-conventional": "21.1.0",
     "@open-wc/eslint-config": "4.3.0",
-    "@open-wc/semantic-dom-diff": "0.19.9",
+    "@open-wc/semantic-dom-diff": "0.21.0",
     "@open-wc/testing": "2.5.33",
     "@types/marked": "2.0.5",
     "@typescript-eslint/eslint-plugin": "5.62.0",
