@@ -90,8 +90,8 @@ importers:
         specifier: 2.5.1
         version: 2.5.1
       lit-html:
-        specifier: 1.4.1
-        version: 1.4.1
+        specifier: 3.3.3
+        version: 3.3.3
       lit-translate:
         specifier: 1.2.1
         version: 1.2.1
