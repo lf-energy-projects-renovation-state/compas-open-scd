@@ -38,7 +38,7 @@
     },
     {
       "name": "plugins-hub",
-      "url": "https://ase-compas.github.io/compas-bearingpoint-plugins/compas/plugins/plugins-hub/index.js",
+      "url": "https://ase-compas.github.io/compas-bearingpoint-plugins/compas/plugins/plugins-hub/0.0.6/index.js",
       "dest": "compas-bearingpoint-plugins/plugins/plugins-hub/index.js",
       "sha256": ""
     }
