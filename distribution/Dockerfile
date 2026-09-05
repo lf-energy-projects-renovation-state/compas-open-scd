@@ -6,7 +6,7 @@
 # Placing the plugin configuration copy before the download command means Docker's
 # layer cache is only invalidated for this stage when remote-plugins.json changes,
 # keeping incremental builds fast when only the application code is updated.
-FROM alpine:3.20 AS plugin-downloader
+FROM alpine:3.24 AS plugin-downloader
 
 RUN apk add --no-cache curl jq
 
