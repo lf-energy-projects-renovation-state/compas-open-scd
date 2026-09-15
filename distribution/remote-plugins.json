@@ -33,12 +33,6 @@
       "name": "location-manager",
       "url": "https://transnetbw-openscd.github.io/compas-transnetbw-plugins/compas/plugins/location-manager/index.js",
       "dest": "compas-transnetbw-plugins/plugins/location-manager/index.js"
-    },
-    {
-      "name": "plugins-hub",
-      "url": "https://ase-compas.github.io/compas-bearingpoint-plugins/compas/plugins/plugins-hub/0.0.6/index.js",
-      "dest": "compas-bearingpoint-plugins/plugins/plugins-hub/index.js",
-      "sha256": "d9f394df8bb66196e1eecb87cf75e36a33e0da1f61ef02934890a1701980d20a"
     }
   ]
 }
