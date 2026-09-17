@@ -403,14 +403,6 @@ export const officialPlugins = [
     position: 'middle',
   },
   {
-    name: 'Plugins Hub',
-    src: '/external-plugins/compas-bearingpoint-plugins/plugins/plugins-hub/index.js',
-    icon: 'details-icon',
-    activeByDefault: true,
-    kind: 'editor',
-    requireDoc: true,
-  },
-  {
     name: 'Engineering Wizard',
     src: '/external-plugins/compas-transnetbw-plugins/plugins/engineering-wizard/index.js',
     icon: 'star',
