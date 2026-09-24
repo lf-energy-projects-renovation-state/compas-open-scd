@@ -17,7 +17,7 @@
   "main": "open-scd.js",
   "module": "open-scd.js",
   "type": "module",
-  "packageManager": "pnpm@11.5.0",
+  "packageManager": "pnpm@12.3.4",
   "dependencies": {
     "@compas-oscd/core": "0.3.0",
     "@compas-oscd/open-scd": "0.36.0",
